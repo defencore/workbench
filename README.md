@@ -23,6 +23,10 @@ Production / Публічна адреса: [workbench.defencore.com](https://wo
 
 **EN:** Separate guides cover 6061/6082-T6, normalized C45, 304/316L, brass, unfilled POM-C, PA6, grey cast iron, Cu-ETP and commercially pure Grade 2 titanium. Each covers tool selection, preparation, turning, milling, drilling, finishing, chips, expected outcomes, troubleshooting and exercises. The interactive lab shows progressive material removal. Surface illustrations are authored diagrams, not photographs or measured roughness.
 
+**UA:** Токарний приклад використовує спільну геометрію сцени й перевірок: заготовка Ø42 × 80, заданий захват, необроблена ділянка та радіальний відвід перед поверненням. Окремий режим «Як не можна» навмисно відтворює зіткнення кулачка з тримачем пластини; він зупинений і має червоні позначення небезпеки. Регресійні тести перевіряють увесь інструмент відносно повного об’єму обертання патрона й кулачків у 6001 положенні. Це перевірка номінальної геометрії моделі, а не допуск реального верстата.
+
+**EN:** The lathe example shares geometry between rendering and checks: Ø42 × 80 stock, defined grip, an uncut land and radial retraction before return. A separate paused “How not to do it” mode intentionally reproduces jaw–insert-holder interference with red hazard markings. Regression tests check the complete tool against continuous chuck/jaw rotating envelopes at 6,001 motion positions. This verifies nominal model geometry, not an actual machine setup.
+
 ## Дані та офлайн / Data and offline use
 
 **UA:** Обрані матеріали, мова, прогрес, контрольні пункти, покази вимірювань і нотатки про встановлення зберігаються в `localStorage` поточного браузера. Service worker кешує оболонку та ресурси для офлайн-доступу після завантаження. Зовнішні першоджерела потребують мережі. У налаштуваннях можна очистити саме дані та кеш Workbench; закладки й прогрес після цього втрачаються. Синхронізації між пристроями немає; браузер може видаляти локальні дані.

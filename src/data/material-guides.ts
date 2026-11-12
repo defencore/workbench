@@ -267,7 +267,7 @@ export const materialGuides: MaterialGuide[] = [
       method(
         "turning",
         [
-          "Гостро заточений HSS для малого верстата або полірована позитивна твердосплавна пластина групи N; коротка державка.",
+          "Гостро заточений HSS для малого верстата або полірована позитивна твердосплавна пластина групи N; короткий тримач різця.",
           "Sharp HSS on a small lathe or a polished positive-rake N-group carbide insert in a short holder.",
         ],
         [
@@ -681,7 +681,7 @@ export const materialGuides: MaterialGuide[] = [
       method(
         "turning",
         [
-          "HSS із гострою крайкою для невеликої потужності або позитивна P-пластина з відповідним стружколамом; жорстка коротка державка.",
+          "HSS із гострою крайкою для невеликої потужності або позитивна P-пластина з відповідним стружколамом; жорсткий короткий тримач різця.",
           "Sharp HSS for limited-power work or a positive P-group insert with a suitable chipbreaker, in a short rigid holder.",
         ],
         [
@@ -1103,7 +1103,7 @@ export const materialGuides: MaterialGuide[] = [
           "Positive M-group insert with a sharp appropriately prepared edge; HSS-Co is possible for limited work under its own data.",
         ],
         [
-          "Коротка державка, крайка по осі, підтримана заготовка; перевірте налипання після пробного різу.",
+          "Короткий тримач різця, крайка по осі, підтримана заготовка; перевірте налипання після пробного різу.",
           "Short holder, on-centre edge and supported work; inspect adhesion after the first trial cut.",
         ],
         [
@@ -1933,7 +1933,7 @@ export const materialGuides: MaterialGuide[] = [
       method(
         "turning",
         [
-          "Гострий позитивний полірований HSS або твердосплавна крайка без великого притуплення; коротка державка.",
+          "Гострий позитивний полірований HSS або твердосплавна крайка без великого притуплення; короткий тримач різця.",
           "Sharp positive polished HSS or carbide without a large edge hone, in a short holder.",
         ],
         [
@@ -2347,7 +2347,7 @@ export const materialGuides: MaterialGuide[] = [
       method(
         "turning",
         [
-          "Гострий позитивний полірований HSS/карбід для ненаповненогоPA6; мінімальна довжина державки.",
+          "Гострий позитивний полірований HSS/карбід для ненаповненогоPA6; мінімальна довжина тримача різця.",
           "Sharp positive polished HSS/carbide for unfilledPA6 with minimum holder projection.",
         ],
         [
@@ -3176,7 +3176,7 @@ export const materialGuides: MaterialGuide[] = [
       method(
         "turning",
         [
-          "Гострий полірований HSS або позитивна твердосплавна геометрія, яку виробник допускає для чистої міді; мінімально потрібний виліт державки.",
+          "Гострий полірований HSS або позитивна твердосплавна геометрія, яку виробник допускає для чистої міді; мінімально потрібний виліт тримача різця.",
           "Sharp polished HSS or positive carbide geometry approved by its maker for pure copper; minimum necessary holder overhang.",
         ],
         [
@@ -3672,7 +3672,7 @@ export const materialGuides: MaterialGuide[] = [
       method(
         "turning",
         [
-          "Гостра позитивна твердосплавна крайка дляGrade2 у короткій жорсткій державці; HSS лише там, де його виробник підтвердив операцію.",
+          "Гостра позитивна твердосплавна крайка дляGrade2 у короткому жорсткому тримачі різця; HSS лише там, де його виробник підтвердив операцію.",
           "Sharp positiveGrade2 carbide in a short rigid holder; HSS only where its maker qualifies the operation.",
         ],
         [

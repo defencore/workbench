@@ -6,6 +6,7 @@ import polygonClipping from "polygon-clipping";
 import type { Pair, Polygon } from "polygon-clipping";
 import {
   ArrowRight,
+  TriangleAlert,
   CirclePause,
   CirclePlay,
   Focus,
@@ -17,7 +18,18 @@ import type { Lang, MaterialGuide, PartGeometry } from "../data/types";
 import { createParametricPartGeometry } from "./ModelViewer";
 import "./MachiningLab.css";
 
-type Operation = "turning" | "milling" | "drilling";
+import {
+  labKinematics,
+  latheSetups,
+  latheClearance,
+  latheFixtureEnvelopes,
+  COLLISION_EXAMPLE_PROGRESS,
+  COLLISION_EXAMPLE_ANGLE,
+} from "../machining-lab-scene";
+import type {
+  LabOperation as Operation,
+  LatheExample,
+} from "../machining-lab-scene";
 interface MachiningLabProps {
   lang: Lang;
   material: MaterialGuide;
@@ -30,6 +42,7 @@ interface LabActions {
   camera: () => void;
   finish: (value: boolean) => void;
   ghost: (value: boolean) => void;
+  sweep: (value: boolean) => void;
   navigate: (key: string) => void;
 }
 const operations: Operation[] = ["turning", "milling", "drilling"];
@@ -42,69 +55,12 @@ const clamp = (value: number, min = 0, max = 1) =>
   Math.min(max, Math.max(min, value));
 const TIP_HEIGHT = 4 / Math.tan((59 * Math.PI) / 180);
 
-/** All scene coordinates are millimetres; progress is geometric, not a cutting schedule. */
-export function labKinematics(operation: Operation, progress: number) {
-  const p = clamp(progress);
-  if (operation === "turning") {
-    const pass = Math.min(2, Math.floor(p * 3));
-    const phase = p === 1 ? 1 : p * 3 - pass;
-    const before = 21 - pass,
-      after = before - 1;
-    const cut = clamp((phase - 0.08) / 0.74);
-    const sourceX =
-      phase < 0.9 ? 60.5 - 40.5 * cut : 20 + 40.5 * ((phase - 0.9) / 0.1);
-    const radius =
-      phase < 0.08
-        ? before + 2 - (before + 2 - after) * (phase / 0.08)
-        : phase < 0.82
-          ? after
-          : phase < 0.9
-            ? after + 3 * ((phase - 0.82) / 0.08)
-            : before + 2;
-    return {
-      x: sourceX - 30,
-      y: 0,
-      z: radius,
-      pass,
-      phase,
-      cutX: Math.min(60, 60.5 - 40.5 * cut),
-      engaged: phase >= 0.08 && phase <= 0.82 && sourceX <= 60,
-    };
-  }
-  if (operation === "milling") {
-    const x = -42 + 84 * p;
-    return {
-      x,
-      y: 5,
-      z: 0,
-      pass: 0,
-      phase: p,
-      cutX: x,
-      engaged: x > -36 && x < 36,
-    };
-  }
-  const depth = clamp((p - 0.08) / 0.82) * 17;
-  const y =
-    p < 0.08
-      ? 10 - 4 * (p / 0.08)
-      : p <= 0.9
-        ? 6 - depth
-        : -11 + 23 * ((p - 0.9) / 0.1);
-  return {
-    x: 0,
-    y,
-    z: 0,
-    pass: 0,
-    phase: p,
-    cutX: depth,
-    engaged: p > 0.08 && p < 0.9 && y + TIP_HEIGHT > -6,
-  };
-}
-
 function applySurfaceGroups(
   geometry: THREE.BufferGeometry,
   operation: Operation,
+  example: LatheExample,
 ) {
+  const setup = latheSetups[example];
   const p = geometry.getAttribute("position");
   geometry.clearGroups();
   let start = 0,
@@ -122,7 +78,9 @@ function applySurfaceGroups(
       1e-5;
     const machined =
       operation === "turning"
-        ? x > -10.001 && (maxRadius < 20.999 || (axialFace && x < 29.999))
+        ? x > setup.cutStart - setup.stockLength / 2 - 0.001 &&
+          (maxRadius < setup.stockDiameter / 2 - 0.001 ||
+            (axialFace && x < setup.stockLength / 2 - 0.001))
         : y > 4.999 && y < 6.999 && Math.abs(z) <= 6.001;
     const next = machined ? 1 : 0;
     if (next !== material) {
@@ -140,18 +98,28 @@ export function createLabWorkpieceGeometry(
   operation: Operation,
   progress: number,
   section = true,
+  example: LatheExample = "clearance",
 ) {
   if (operation === "drilling")
     return createDrillingLabGeometry(progress, section);
-  const state = labKinematics(operation, progress);
+  const state = labKinematics(operation, progress, example);
   let part: PartGeometry;
   if (operation === "turning") {
-    const sections = [{ length: 20, diameter: 42 }];
-    const cutX = clamp(state.cutX, 20, 60);
-    if (cutX > 20 + 1e-6)
-      sections.push({ length: cutX - 20, diameter: 42 - 2 * state.pass });
-    if (cutX < 60 - 1e-6)
-      sections.push({ length: 60 - cutX, diameter: 40 - 2 * state.pass });
+    const setup = latheSetups[example];
+    const sections = [
+      { length: setup.cutStart, diameter: setup.stockDiameter },
+    ];
+    const cutX = clamp(state.cutX, setup.cutStart, setup.stockLength);
+    if (cutX > setup.cutStart + 1e-6)
+      sections.push({
+        length: cutX - setup.cutStart,
+        diameter: setup.stockDiameter - 2 * state.pass,
+      });
+    if (cutX < setup.stockLength - 1e-6)
+      sections.push({
+        length: setup.stockLength - cutX,
+        diameter: setup.stockDiameter - 2 - 2 * state.pass,
+      });
     part = { kind: "turned", sections };
   } else {
     const start = -42,
@@ -176,7 +144,7 @@ export function createLabWorkpieceGeometry(
   const geometry = createParametricPartGeometry(part);
   const scale = geometry.userData.millimetresPerUnit as number;
   geometry.scale(scale, scale, scale);
-  return applySurfaceGroups(geometry, operation);
+  return applySurfaceGroups(geometry, operation, example);
 }
 
 /** A 118° drill leaves a true conical bottom, including partial breakout. */
@@ -336,6 +304,25 @@ export function createDrillingLabGeometry(progress: number, section: boolean) {
   return geometry;
 }
 
+function annularCylinder(
+  innerRadius: number,
+  outerRadius: number,
+  length: number,
+) {
+  if (innerRadius === 0)
+    return new THREE.CylinderGeometry(outerRadius, outerRadius, length, 96);
+  return new THREE.LatheGeometry(
+    [
+      new THREE.Vector2(innerRadius, -length / 2),
+      new THREE.Vector2(outerRadius, -length / 2),
+      new THREE.Vector2(outerRadius, length / 2),
+      new THREE.Vector2(innerRadius, length / 2),
+      new THREE.Vector2(innerRadius, -length / 2),
+    ],
+    96,
+  );
+}
+
 function flutedTool(
   radius: number,
   height: number,
@@ -486,6 +473,9 @@ export default function MachiningLab({
   material,
   initialOperation = "turning",
 }: MachiningLabProps) {
+  const [example, setExample] = useState<LatheExample>("clearance");
+  const [sweep, setSweep] = useState(true);
+  const sweepRef = useRef(true);
   const [operation, setOperation] = useState<Operation>(initialOperation);
   const [progress, setProgress] = useState(0);
   const [playing, setPlaying] = useState(false);
@@ -496,12 +486,16 @@ export default function MachiningLab({
   const [ready, setReady] = useState(false);
   const [reducedMotion, setReducedMotion] = useState(false);
   const mount = useRef<HTMLDivElement>(null);
+  const holderLabel = useRef<HTMLSpanElement>(null);
   const actions = useRef<LabActions | null>(null);
   const progressRef = useRef(0),
     playingRef = useRef(false),
     finishRef = useRef(true),
     ghostRef = useRef(true);
   const id = useId();
+  const danger = operation === "turning" && example === "collision";
+  const setup = latheSetups[example];
+  const clearance = latheClearance(progress / 100, example);
   const method = material.methods.find((item) => item.operation === operation);
   const uk = lang === "uk";
   const tr = (ua: string, en: string) => (uk ? ua : en);
@@ -651,7 +645,7 @@ export default function MachiningLab({
       mat = metal,
       parent: THREE.Object3D = fixture,
     ) => mesh(new THREE.BoxGeometry(x, y, z), mat, parent, px, py, pz);
-    const floorY = operation === "turning" ? -38 : -26;
+    const floorY = operation === "turning" ? -50 : -26;
     const ground = mesh(
       new THREE.PlaneGeometry(500, 500),
       new THREE.MeshStandardMaterial({ color: "#e4ebef", roughness: 1 }),
@@ -669,33 +663,65 @@ export default function MachiningLab({
     scene.add(grid);
     const chuck = new THREE.Group();
     fixture.add(chuck);
+    let witnessJaw: THREE.Mesh | undefined;
     if (operation === "turning") {
       const body = mesh(
-        new THREE.CylinderGeometry(31, 31, 19, 96),
+        annularCylinder(
+          setup.body.boreRadius,
+          setup.body.radius,
+          setup.body.length,
+        ),
         metal,
         chuck,
-        -24.5,
-        0,
-        0,
+        setup.body.x,
       );
       body.rotation.z = Math.PI / 2;
       const face = mesh(
-        new THREE.CylinderGeometry(30, 30, 2, 96),
+        annularCylinder(
+          setup.face.boreRadius,
+          setup.face.radius,
+          setup.face.length,
+        ),
         toolSteel,
         chuck,
-        -14,
-        0,
-        0,
+        setup.face.x,
       );
       face.rotation.z = Math.PI / 2;
+      const backplate = mesh(
+        annularCylinder(
+          setup.backplate.boreRadius,
+          setup.backplate.radius,
+          setup.backplate.length,
+        ),
+        dark,
+        chuck,
+        setup.backplate.x,
+      );
+      backplate.rotation.z = Math.PI / 2;
       for (let i = 0; i < 3; i++) {
         const jaw = new THREE.Group();
         jaw.rotation.x = (i * Math.PI * 2) / 3;
         chuck.add(jaw);
-        box(10, 10, 10, -12, 25, 0, dark, jaw);
-        box(3, 5, 8, -6.5, 22.5, 0, toolSteel, jaw);
+        const base = setup.jaws.body,
+          toe = setup.jaws.toe;
+        const jawBody = box(...base.size, ...base.position, dark, jaw);
+        box(...toe.size, ...toe.position, toolSteel, jaw);
+        if (i === 0) witnessJaw = jawBody;
       }
-      box(28, 8, 52, -26, -34, 0, dark);
+      // The fixed headstock stays behind the complete rotating assembly.
+      const rear = setup.body.x - setup.body.length / 2;
+      const frameX = rear - 14;
+      box(24, 68, 11, frameX, -14, -21.5, dark);
+      box(24, 68, 11, frameX, -14, 21.5, dark);
+      box(24, 6, 32, frameX, 17, 0, dark);
+      box(24, 34, 32, frameX, -31, 0, dark);
+      const shaft = mesh(
+        new THREE.CylinderGeometry(12, 12, 10, 48),
+        toolSteel,
+        chuck,
+        rear - 1,
+      );
+      shaft.rotation.z = Math.PI / 2;
     } else {
       box(78, 5, 56, 0, -22.5, 0, dark);
       const supportHeight = operation === "milling" ? 13 : 14;
@@ -738,7 +764,12 @@ export default function MachiningLab({
     scene.add(stock);
     const originalGeometry =
       operation === "turning"
-        ? new THREE.CylinderGeometry(21, 21, 60, 64).rotateZ(Math.PI / 2)
+        ? new THREE.CylinderGeometry(
+            setup.stockDiameter / 2,
+            setup.stockDiameter / 2,
+            setup.stockLength,
+            64,
+          ).rotateZ(Math.PI / 2)
         : new THREE.BoxGeometry(60, operation === "milling" ? 14 : 12, 40);
     const ghostLines = new THREE.LineSegments(
       new THREE.EdgesGeometry(originalGeometry, 25),
@@ -756,36 +787,42 @@ export default function MachiningLab({
     scene.add(tool);
     const spindle = new THREE.Group();
     tool.add(spindle);
+    let witnessHolder: THREE.Mesh | undefined;
     if (operation === "turning") {
-      box(11, 8, 29, -3, -4, 22, dark, tool);
+      const holder = setup.holder;
+      witnessHolder = box(
+        ...holder.size,
+        ...holder.position,
+        danger
+          ? new THREE.MeshStandardMaterial({
+              color: "#a92d25",
+              metalness: 0.25,
+              roughness: 0.5,
+            })
+          : dark,
+        tool,
+      );
       const shape = new THREE.Shape();
-      shape.moveTo(0, 0);
-      shape.lineTo(-8, 8);
-      shape.lineTo(3, 10);
+      setup.insert.points.forEach(([x, z], i) =>
+        i ? shape.lineTo(x, z) : shape.moveTo(x, z),
+      );
       shape.closePath();
       const insert = mesh(
         new THREE.ExtrudeGeometry(shape, {
-          depth: 2.6,
-          bevelEnabled: true,
-          bevelSize: 0.15,
-          bevelThickness: 0.12,
-          bevelSegments: 1,
+          depth: setup.insert.thickness,
+          bevelEnabled: false,
           steps: 1,
         }),
         carbide,
         tool,
-        0,
-        1.3,
-        0,
+        ...setup.insert.position,
       );
       insert.rotation.x = Math.PI / 2;
       const screw = mesh(
         new THREE.CylinderGeometry(1.1, 1.1, 0.4, 16),
         dark,
         tool,
-        -2,
-        1.6,
-        6,
+        ...setup.screw.position,
       );
       screw.castShadow = false;
     } else {
@@ -832,6 +869,54 @@ export default function MachiningLab({
         cap.castShadow = false;
       }
     }
+    const rotationEnvelope = new THREE.Group();
+    scene.add(rotationEnvelope);
+    if (operation === "turning") {
+      for (const envelope of latheFixtureEnvelopes(example)) {
+        const geometry = annularCylinder(
+          envelope.minR,
+          envelope.maxR,
+          envelope.maxX - envelope.minX,
+        );
+        geometry.rotateZ(Math.PI / 2);
+        const color = danger ? "#d32b25" : "#ac7b31";
+        const surface = new THREE.Mesh(
+          geometry,
+          new THREE.MeshBasicMaterial({
+            color,
+            transparent: true,
+            opacity: danger ? 0.16 : 0.06,
+            depthWrite: false,
+            side: THREE.DoubleSide,
+          }),
+        );
+        surface.position.x = (envelope.minX + envelope.maxX) / 2;
+        const edges = new THREE.LineSegments(
+          new THREE.EdgesGeometry(geometry, 25),
+          new THREE.LineBasicMaterial({
+            color,
+            transparent: true,
+            opacity: danger ? 0.7 : 0.45,
+          }),
+        );
+        edges.position.copy(surface.position);
+        rotationEnvelope.add(surface, edges);
+      }
+    }
+    rotationEnvelope.visible =
+      operation === "turning" && (danger || sweepRef.current);
+    const collisionMarker = new THREE.Mesh(
+      new THREE.BoxGeometry(1, 1, 1),
+      new THREE.MeshBasicMaterial({
+        color: "#ff3027",
+        transparent: true,
+        opacity: 0.8,
+        depthTest: false,
+      }),
+    );
+    collisionMarker.visible = false;
+    collisionMarker.renderOrder = 10;
+    scene.add(collisionMarker);
     const chips = new THREE.Group();
     scene.add(chips);
     const chipCount = appearance.chip === "dust" ? 30 : 11;
@@ -864,7 +949,32 @@ export default function MachiningLab({
       lastState = 0,
       disposed = false;
     const render = () => {
-      if (!disposed) renderer.render(scene, camera);
+      if (disposed) return;
+      renderer.render(scene, camera);
+      if (operation === "turning" && witnessHolder && holderLabel.current) {
+        const point = witnessHolder
+          .getWorldPosition(new THREE.Vector3())
+          .project(camera);
+        const x = (point.x + 1) / 2,
+          y = (1 - point.y) / 2;
+        holderLabel.current.style.visibility =
+          point.z > -1 &&
+          point.z < 1 &&
+          x > 0.03 &&
+          x < 0.97 &&
+          y > 0.03 &&
+          y < 0.9
+            ? "visible"
+            : "hidden";
+        const anchorX = x * node.clientWidth;
+        const labelX = clamp(anchorX, 85, node.clientWidth - 85);
+        holderLabel.current.style.left = `${labelX}px`;
+        holderLabel.current.style.setProperty(
+          "--holder-anchor-x",
+          `${anchorX - labelX}px`,
+        );
+        holderLabel.current.style.top = `${y * 100}%`;
+      }
     };
     const finishSurface = (value: boolean) => {
       cutMaterial.roughness = clamp(
@@ -877,12 +987,29 @@ export default function MachiningLab({
     };
     finishSurface(finishRef.current);
     const update = (value: number) => {
-      const state = labKinematics(operation, value);
+      const state = labKinematics(operation, value, example);
       stock.geometry.dispose();
-      stock.geometry = createLabWorkpieceGeometry(operation, value, section);
+      stock.geometry = createLabWorkpieceGeometry(
+        operation,
+        value,
+        section,
+        example,
+      );
       addSurfaceUV(stock.geometry, operation);
       tool.position.set(state.x, state.y, state.z);
-      chips.visible = value > 0 && state.engaged;
+      if (danger && witnessHolder && witnessJaw) {
+        chuck.rotation.x = COLLISION_EXAMPLE_ANGLE;
+        scene.updateMatrixWorld(true);
+        const overlap = new THREE.Box3()
+          .setFromObject(witnessHolder)
+          .intersect(new THREE.Box3().setFromObject(witnessJaw));
+        collisionMarker.visible = !overlap.isEmpty();
+        if (collisionMarker.visible) {
+          overlap.getCenter(collisionMarker.position);
+          overlap.getSize(collisionMarker.scale);
+        }
+      }
+      chips.visible = !danger && value > 0 && state.engaged;
       chips.position.set(state.x, state.y, state.z);
       if (operation === "turning") chips.position.z -= 1;
       if (operation === "drilling") chips.position.y = 8;
@@ -904,32 +1031,35 @@ export default function MachiningLab({
         state.y + (operation === "drilling" ? 8 : 12),
         state.z + (operation === "drilling" ? 13 : 12),
       );
-      feed.visible = value < 1;
+      feed.visible = !danger && value < 1;
       render();
     };
     const resetCamera = (front = false) => {
-      controls.target.set(
-        operation === "turning" ? -1 : 0,
-        operation === "turning" ? 0 : 8,
-        0,
-      );
-      if (front)
-        camera.position.set(
-          0,
-          operation === "drilling" ? 12 : operation === "milling" ? 78 : 25,
-          145,
+      if (operation === "turning") {
+        controls.target.set(
+          danger ? -9 : -12,
+          danger ? 0 : -4,
+          danger ? 0 : 10,
         );
-      else
-        camera.position.set(
-          operation === "turning" ? 83 : 88,
-          operation === "turning" ? 63 : 88,
-          operation === "turning" ? 125 : 115,
-        );
+        if (front)
+          camera.position.set(danger ? 0 : -12, 30, danger ? 155 : 240);
+        else
+          camera.position.set(
+            danger ? 72 : 95,
+            danger ? 63 : 80,
+            danger ? 115 : 210,
+          );
+      } else {
+        controls.target.set(0, 8, 0);
+        if (front)
+          camera.position.set(0, operation === "drilling" ? 12 : 78, 145);
+        else camera.position.set(88, 88, 115);
+      }
       controls.update();
       render();
     };
     const animate = (time: number) => {
-      if (disposed || !playingRef.current) return;
+      if (disposed || !playingRef.current || danger) return;
       const elapsed = previous ? Math.min(time - previous, 100) : 0;
       previous = time;
       progressRef.current = Math.min(
@@ -940,7 +1070,8 @@ export default function MachiningLab({
       if (time - lastBuild >= 42 || progressRef.current === 1) {
         lastBuild = time;
         spindle.rotation.y = time * 0.003;
-        chuck.rotation.x = -time * 0.002;
+        chuck.rotation.x = time * 0.002;
+        if (operation === "turning") stock.rotation.x = chuck.rotation.x;
         update(progressRef.current);
         if (time - lastState > 120 || progressRef.current === 1) {
           lastState = time;
@@ -972,6 +1103,10 @@ export default function MachiningLab({
       },
       finish(value) {
         finishSurface(value);
+        render();
+      },
+      sweep(value) {
+        rotationEnvelope.visible = danger || value;
         render();
       },
       ghost(value) {
@@ -1007,6 +1142,8 @@ export default function MachiningLab({
       renderer.setSize(width, height);
       camera.aspect = width / height;
       camera.fov = camera.aspect < 1 ? 45 : 35;
+      camera.zoom =
+        operation === "turning" && !danger && camera.aspect < 1 ? 0.78 : 1;
       camera.updateProjectionMatrix();
       render();
     };
@@ -1057,6 +1194,8 @@ export default function MachiningLab({
     material.appearance.roughness,
     material.appearance.chip,
     section,
+    example,
+    danger,
   ]);
 
   useEffect(
@@ -1074,15 +1213,25 @@ export default function MachiningLab({
     pause();
     progressRef.current = 0;
     setProgress(0);
+    setExample("clearance");
     setOperation(value);
   };
+  const chooseExample = (value: LatheExample) => {
+    pause();
+    const position = value === "collision" ? COLLISION_EXAMPLE_PROGRESS : 0;
+    progressRef.current = position;
+    setProgress(position * 100);
+    setExample(value);
+  };
   const seek = (value: number) => {
+    if (danger) return;
     pause();
     setProgress(value);
     progressRef.current = value / 100;
     actions.current?.progress(value / 100);
   };
   const togglePlay = () => {
+    if (danger) return;
     if (reducedMotion) {
       seek(progress >= 100 ? 0 : Math.min(100, progress + 10));
       return;
@@ -1099,12 +1248,15 @@ export default function MachiningLab({
   };
   const dimensions =
     operation === "turning"
-      ? tr("Ø42 × 60 → Ø36 на довжині 40 мм", "Ø42 × 60 → Ø36 over 40 mm")
+      ? `Ø42 × ${setup.stockLength} → Ø36 ${tr("на довжині 40 мм", "over 40 mm")}`
       : operation === "milling"
         ? tr("60 × 40 × 14 · паз 12 × 2 мм", "60 × 40 × 14 · slot 12 × 2 mm")
         : tr("60 × 40 × 12 · отвір Ø8 · 118°", "60 × 40 × 12 · Ø8 hole · 118°");
   return (
-    <section className="machining-lab" aria-labelledby={`${id}-title`}>
+    <section
+      className={`machining-lab${danger ? " machining-lab--danger" : ""}`}
+      aria-labelledby={`${id}-title`}
+    >
       <div className="machining-lab__heading">
         <div>
           <span className="machining-lab__eyebrow">
@@ -1146,6 +1298,60 @@ export default function MachiningLab({
           </button>
         ))}
       </div>
+      {operation === "turning" && (
+        <div className="machining-lab__setup-comparison">
+          <div
+            role="group"
+            aria-label={tr(
+              "Порівняння токарних установів",
+              "Compare lathe setups",
+            )}
+          >
+            <button
+              type="button"
+              aria-pressed={!danger}
+              onClick={() => chooseExample("clearance")}
+            >
+              {tr("Установ із зазором", "Setup with clearance")}
+            </button>
+            <button
+              type="button"
+              className="machining-lab__danger-choice"
+              aria-pressed={danger}
+              onClick={() => chooseExample("collision")}
+            >
+              <TriangleAlert size={17} />
+              {tr("Як не можна", "How not to do it")}
+            </button>
+          </div>
+          {danger ? (
+            <div className="machining-lab__danger-alert" role="alert">
+              <TriangleAlert size={23} />
+              <div>
+                <strong>
+                  {tr(
+                    "НЕБЕЗПЕЧНО: кулачок зачепить тримач пластини",
+                    "DANGER: a chuck jaw strikes the toolholder",
+                  )}
+                </strong>
+                <p>
+                  {tr(
+                    "Ніс різця ще попереду кулачків, але тримач пластини вже в їхньому об’ємі обертання. Можливі руйнування інструмента або патрона й викид заготовки. Не повторювати.",
+                    "The tool nose is still ahead of the jaws, but the holder is already inside their rotating envelope. Impact can break the tool or chuck and eject the workpiece. Do not reproduce this setup.",
+                  )}
+                </p>
+              </div>
+            </div>
+          ) : (
+            <p>
+              {tr(
+                "У цьому прикладі перевіряється весь інструмент і повний оберт кулачків. Позначений зазор стосується лише геометрії цієї моделі.",
+                "This example checks the complete tool against a full jaw rotation. The indicated clearance applies only to this model’s geometry.",
+              )}
+            </p>
+          )}
+        </div>
+      )}
       <div className="machining-lab__body">
         <div className="machining-lab__visual">
           <div
@@ -1172,6 +1378,18 @@ export default function MachiningLab({
               }
             }}
           >
+            {operation === "turning" && !error && (
+              <span
+                ref={holderLabel}
+                className="machining-lab__holder-label"
+                style={{ visibility: "hidden" }}
+              >
+                {tr("Тримач пластини", "Insert holder")}
+                <small>
+                  {tr("сталевий корпус різця", "steel body of the tool")}
+                </small>
+              </span>
+            )}
             {error && (
               <div className="machining-lab__fallback">
                 <Shapes size={36} />
@@ -1197,7 +1415,14 @@ export default function MachiningLab({
             {!error && (
               <>
                 <div className="machining-lab__scene-label">
-                  <span>{tr("ГЕОМЕТРИЧНИЙ ПРИКЛАД", "GEOMETRIC EXAMPLE")}</span>
+                  <span>
+                    {danger
+                      ? tr(
+                          "НЕБЕЗПЕЧНИЙ ПРИКЛАД · НЕ ПОВТОРЮВАТИ",
+                          "DANGEROUS EXAMPLE · DO NOT REPRODUCE",
+                        )
+                      : tr("ГЕОМЕТРИЧНИЙ ПРИКЛАД", "GEOMETRIC EXAMPLE")}
+                  </span>
                   <strong>{dimensions}</strong>
                 </div>
                 <div className="machining-lab__camera">
@@ -1235,164 +1460,273 @@ export default function MachiningLab({
               </>
             )}
           </div>
-          <div className="machining-lab__transport">
-            <button
-              type="button"
-              className="machining-lab__play"
-              onClick={togglePlay}
-              disabled={error || !ready}
-              aria-label={
-                reducedMotion
-                  ? tr("Наступний крок візуалізації", "Next visualization step")
-                  : playing
-                    ? tr("Призупинити візуалізацію", "Pause visualization")
-                    : tr("Відтворити візуалізацію", "Play visualization")
-              }
-            >
-              {playing ? <CirclePause size={24} /> : <CirclePlay size={24} />}
+          {danger && (
+            <div className="machining-lab__collision-frozen">
+              <TriangleAlert size={21} />
               <span>
-                {reducedMotion
-                  ? tr("Далі", "Next step")
-                  : playing
-                    ? tr("Пауза", "Pause")
-                    : tr("Відтворити", "Play")}
+                {tr(
+                  "Зупинено в положенні зіткнення. Червоним показано перетин тримача пластини з кулачком і об’єм обертання.",
+                  "Paused at interference. Red marks the holder–jaw intersection and the rotating envelope.",
+                )}
               </span>
-            </button>
-            <div className="machining-lab__scrubber">
-              <label htmlFor={`${id}-progress`}>
-                <span>{stageText(operation, progress, lang)}</span>
-                <output>{Math.round(progress)}%</output>
-              </label>
-              <input
-                id={`${id}-progress`}
-                type="range"
-                min="0"
-                max="100"
-                step="0.1"
-                value={progress}
-                onChange={(event) => seek(Number(event.target.value))}
-                disabled={error}
-                aria-label={tr("Перебіг операції", "Operation progress")}
-                aria-valuetext={`${Math.round(progress)}% · ${stageText(operation, progress, lang)}`}
-              />
-              <div>
-                <button type="button" onClick={() => seek(0)}>
-                  {tr("Заготовка", "Original stock")}
-                </button>
-                <button type="button" onClick={() => seek(100)}>
-                  {tr("Результат", "Finished result")}
-                </button>
-              </div>
             </div>
-            <button
-              type="button"
-              className="machining-lab__reset"
-              onClick={() => seek(0)}
-              title={tr("Почати спочатку", "Reset progress")}
-              aria-label={tr("Почати спочатку", "Reset progress")}
-            >
-              <RotateCcw size={19} />
-            </button>
-          </div>
-          <div className="machining-lab__options">
-            <label>
-              <input
-                type="checkbox"
-                checked={ghost}
-                onChange={(event) => {
-                  setGhost(event.target.checked);
-                  ghostRef.current = event.target.checked;
-                  actions.current?.ghost(event.target.checked);
-                }}
-              />
-              {tr("Контур вихідної заготовки", "Original stock outline")}
-            </label>
-            {operation === "drilling" && (
+          )}
+          {!danger && (
+            <div className="machining-lab__transport">
+              <button
+                type="button"
+                className="machining-lab__play"
+                onClick={togglePlay}
+                disabled={error || !ready}
+                aria-label={
+                  reducedMotion
+                    ? tr(
+                        "Наступний крок візуалізації",
+                        "Next visualization step",
+                      )
+                    : playing
+                      ? tr("Призупинити візуалізацію", "Pause visualization")
+                      : tr("Відтворити візуалізацію", "Play visualization")
+                }
+              >
+                {playing ? <CirclePause size={24} /> : <CirclePlay size={24} />}
+                <span>
+                  {reducedMotion
+                    ? tr("Далі", "Next step")
+                    : playing
+                      ? tr("Пауза", "Pause")
+                      : tr("Відтворити", "Play")}
+                </span>
+              </button>
+              <div className="machining-lab__scrubber">
+                <label htmlFor={`${id}-progress`}>
+                  <span>{stageText(operation, progress, lang)}</span>
+                  <output>{Math.round(progress)}%</output>
+                </label>
+                <input
+                  id={`${id}-progress`}
+                  type="range"
+                  min="0"
+                  max="100"
+                  step="0.1"
+                  value={progress}
+                  onChange={(event) => seek(Number(event.target.value))}
+                  disabled={error}
+                  aria-label={tr("Перебіг операції", "Operation progress")}
+                  aria-valuetext={`${Math.round(progress)}% · ${stageText(operation, progress, lang)}`}
+                />
+                <div>
+                  <button type="button" onClick={() => seek(0)}>
+                    {tr("Заготовка", "Original stock")}
+                  </button>
+                  <button type="button" onClick={() => seek(100)}>
+                    {tr("Результат", "Finished result")}
+                  </button>
+                </div>
+              </div>
+              <button
+                type="button"
+                className="machining-lab__reset"
+                onClick={() => seek(0)}
+                title={tr("Почати спочатку", "Reset progress")}
+                aria-label={tr("Почати спочатку", "Reset progress")}
+              >
+                <RotateCcw size={19} />
+              </button>
+            </div>
+          )}
+          {!danger && (
+            <div className="machining-lab__options">
+              {operation === "turning" && (
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={sweep}
+                    onChange={(event) => {
+                      setSweep(event.target.checked);
+                      sweepRef.current = event.target.checked;
+                      actions.current?.sweep(event.target.checked);
+                    }}
+                  />
+                  {tr(
+                    "Об’єм обертання патрона й кулачків",
+                    "Chuck and jaw rotating envelope",
+                  )}
+                </label>
+              )}
               <label>
                 <input
                   type="checkbox"
-                  checked={section}
+                  checked={ghost}
                   onChange={(event) => {
-                    pause();
-                    setSection(event.target.checked);
+                    setGhost(event.target.checked);
+                    ghostRef.current = event.target.checked;
+                    actions.current?.ghost(event.target.checked);
                   }}
                 />
-                {tr("Поздовжній розріз", "Longitudinal section")}
+                {tr("Контур вихідної заготовки", "Original stock outline")}
               </label>
-            )}
-            <label>
-              <input
-                type="checkbox"
-                checked={finish}
-                onChange={(event) => {
-                  setFinish(event.target.checked);
-                  finishRef.current = event.target.checked;
-                  actions.current?.finish(event.target.checked);
-                }}
-              />
-              {tr("Показати чистішу поверхню", "Show a finer surface")}
-            </label>
-            {reducedMotion && (
-              <span className="machining-lab__motion-note">
-                {tr(
-                  "Зменшення руху: покроковий режим",
-                  "Reduced motion: step mode",
-                )}
-              </span>
-            )}
-          </div>
+              {operation === "drilling" && (
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={section}
+                    onChange={(event) => {
+                      pause();
+                      setSection(event.target.checked);
+                    }}
+                  />
+                  {tr("Поздовжній розріз", "Longitudinal section")}
+                </label>
+              )}
+              <label>
+                <input
+                  type="checkbox"
+                  checked={finish}
+                  onChange={(event) => {
+                    setFinish(event.target.checked);
+                    finishRef.current = event.target.checked;
+                    actions.current?.finish(event.target.checked);
+                  }}
+                />
+                {tr("Показати чистішу поверхню", "Show a finer surface")}
+              </label>
+              {reducedMotion && (
+                <span className="machining-lab__motion-note">
+                  {tr(
+                    "Зменшення руху: покроковий режим",
+                    "Reduced motion: step mode",
+                  )}
+                </span>
+              )}
+            </div>
+          )}
         </div>
         <aside className="machining-lab__explanation">
-          <div className="machining-lab__result-title">
-            <span>{tr("ЩО ОТРИМАЄМО", "WHAT TO EXPECT")}</span>
-            <h4>{operationNames[operation][lang]}</h4>
-          </div>
-          <p className="machining-lab__result">
-            {method?.expected[lang] ??
-              tr(
-                "Порівнюйте форму, оброблені поверхні та геометрію інструмента.",
-                "Compare the shape, machined surfaces, and tool geometry.",
-              )}
-          </p>
-          <dl>
-            <div>
-              <dt>
-                {tr("Інструмент для матеріалу", "Tool for this material")}
-              </dt>
-              <dd>{method?.tool[lang]}</dd>
-            </div>
-            <div>
-              <dt>{tr("На що дивитися", "What to observe")}</dt>
-              <dd>
-                {operation === "turning"
-                  ? tr(
-                      "Три послідовні проходи змінюють радіус на 1 мм кожний. Плече залишається на відстані 20 мм від лівого торця.",
-                      "Three successive passes reduce the radius by 1 mm each. The shoulder stays 20 mm from the left face.",
-                    )
-                  : operation === "milling"
-                    ? tr(
-                        "Фреза Ø12 заходить ззовні, лишає дно на глибині 2 мм і повністю виходить за край.",
-                        "The Ø12 cutter enters from outside, leaves a floor 2 mm deep, and exits beyond the edge.",
-                      )
-                    : tr(
-                        "Спочатку утворюється конус 118°. Вістря виходить раніше, ніж отвір стає наскрізним на повний Ø8.",
-                        "A 118° cone forms first. The point exits before the hole breaks through at the full Ø8.",
+          {danger ? (
+            <>
+              <div className="machining-lab__result-title">
+                <span>{tr("ЧОМУ ЦЕ НЕБЕЗПЕЧНО", "WHY THIS IS DANGEROUS")}</span>
+                <h4>
+                  {tr(
+                    "Враховуйте увесь тримач пластини",
+                    "Check the whole holder",
+                  )}
+                </h4>
+              </div>
+              <p>
+                {tr(
+                  "Тримач пластини — сталевий корпус, у якому закріплена різальна пластина. Перевіряти лише відстань від вершини різця до торця патрона недостатньо. Кулачки виступають уперед і під час обертання проходять через тримач пластини.",
+                  "The insert holder is the steel body holding the cutting insert. Checking only the tool-tip distance from the chuck face is insufficient. The jaws project forward and pass through the holder as they rotate.",
+                )}
+              </p>
+              <dl>
+                <div>
+                  <dt>{tr("Червоний об’єм", "Red envelope")}</dt>
+                  <dd>
+                    {tr(
+                      "Область, яку займають патрон і кулачки за повний оберт. Світла червона вставка показує фактичний перетин із тримачем пластини в цьому ракурсі.",
+                      "The region occupied by the chuck and jaws over a full revolution. The bright red block shows actual holder–jaw overlap in this position.",
+                    )}
+                  </dd>
+                </div>
+                <div>
+                  <dt>
+                    {tr(
+                      "Що виправити до запуску",
+                      "What to correct before starting",
+                    )}
+                  </dt>
+                  <dd>
+                    {tr(
+                      "Переробити установ і траєкторію так, щоб тримач пластини, пластина, кріплення та різцетримач залишалися поза об’ємом обертання. Окремо перевірити захват, виліт, підвід, різання, відвід і повернення.",
+                      "Redesign the setup and path so the holder, insert, fasteners and toolpost stay outside the rotating envelope. Separately verify grip, overhang, approach, cutting, retraction and return.",
+                    )}
+                  </dd>
+                </div>
+              </dl>
+              <a
+                href="https://www.kitagawa.com.cn/mtools/inc/data/PDF/manu_HW_en.pdf"
+                target="_blank"
+                rel="noreferrer"
+              >
+                {tr(
+                  "Kitagawa HW: перевірка перешкод, §5-4(2), стор. 29",
+                  "Kitagawa HW: interference checks, §5-4(2), p. 29",
+                )}
+              </a>
+            </>
+          ) : (
+            <>
+              <div className="machining-lab__result-title">
+                <span>{tr("ЩО ОТРИМАЄМО", "WHAT TO EXPECT")}</span>
+                <h4>{operationNames[operation][lang]}</h4>
+              </div>
+              <p className="machining-lab__result">
+                {method?.expected[lang] ??
+                  tr(
+                    "Порівнюйте форму, оброблені поверхні та геометрію інструмента.",
+                    "Compare the shape, machined surfaces, and tool geometry.",
+                  )}
+              </p>
+              <dl>
+                {operation === "turning" && (
+                  <div className="machining-lab__clearance">
+                    <dt>
+                      {tr("Розміри цього установу", "Dimensions of this setup")}
+                    </dt>
+                    <dd>
+                      {tr(
+                        "Захват 25 мм; від торця кулачків до уступу — 15 мм. Мінімальний осьовий зазор до всього інструмента за цим маршрутом — 15 мм; повернення на радіусі 25 мм (на 4 мм вище вихідної поверхні).",
+                        "Grip is 25 mm; jaw front to shoulder is 15 mm. The minimum axial gap to the complete tool on this path is 15 mm; return radius is 25 mm, 4 mm above the original surface.",
                       )}
-              </dd>
-            </div>
-            <div>
-              <dt>
-                {tr("Стружка цього матеріалу", "Chips from this material")}
-              </dt>
-              <dd>{method?.chips[lang]}</dd>
-            </div>
-          </dl>
-          <p className="machining-lab__qualitative">
-            {tr(
-              "Блиск і сліди різання показано умовно. Перемикач поверхні не змінює розмірів і не задає шорсткість Ra.",
-              "Sheen and cutting marks are illustrative. The surface switch changes neither dimensions nor an Ra specification.",
-            )}
-          </p>
+                      <strong>
+                        {tr("Поточний осьовий зазор: ", "Current axial gap: ")}
+                        {clearance.minimumAxialGap.toFixed(1)} {tr("мм", "mm")}
+                      </strong>
+                    </dd>
+                  </div>
+                )}
+                <div>
+                  <dt>
+                    {tr("Інструмент для матеріалу", "Tool for this material")}
+                  </dt>
+                  <dd>{method?.tool[lang]}</dd>
+                </div>
+                <div>
+                  <dt>{tr("На що дивитися", "What to observe")}</dt>
+                  <dd>
+                    {operation === "turning"
+                      ? tr(
+                          "Три проходи зменшують радіус на 1 мм кожний. Пластина спрямована в бік уже обробленої ділянки; її різальна площина виставлена на вісь шпинделя. Після проходу інструмент спочатку відходить радіально й лише потім повертається.",
+                          "Three passes reduce the radius by 1 mm each. The insert body points toward the machined side; its cutting plane is on spindle centre. After each pass the tool retracts radially before returning.",
+                        )
+                      : operation === "milling"
+                        ? tr(
+                            "Фреза Ø12 заходить ззовні, лишає дно на глибині 2 мм і повністю виходить за край.",
+                            "The Ø12 cutter enters from outside, leaves a floor 2 mm deep, and exits beyond the edge.",
+                          )
+                        : tr(
+                            "Спочатку утворюється конус 118°. Вістря виходить раніше, ніж отвір стає наскрізним на повний Ø8.",
+                            "A 118° cone forms first. The point exits before the hole breaks through at the full Ø8.",
+                          )}
+                  </dd>
+                </div>
+                <div>
+                  <dt>
+                    {tr("Стружка цього матеріалу", "Chips from this material")}
+                  </dt>
+                  <dd>{method?.chips[lang]}</dd>
+                </div>
+              </dl>
+              <p className="machining-lab__qualitative">
+                {tr(
+                  "Блиск і сліди різання показано умовно. Перемикач поверхні не змінює розмірів і не задає шорсткість Ra.",
+                  "Sheen and cutting marks are illustrative. The surface switch changes neither dimensions nor an Ra specification.",
+                )}
+              </p>
+            </>
+          )}
         </aside>
       </div>
       <div className="machining-lab__legend">
@@ -1424,10 +1758,15 @@ export default function MachiningLab({
         </span>
       </div>
       <p className="machining-lab__caption">
-        {tr(
-          "Навчальна 3D-візуалізація, не CAM-перевірка: геометрія в мм, рух, стружка та вигляд поверхні умовні. Зміна матеріалу змінює вигляд і пояснення; режими різання, сили, нагрівання, зіткнення та надійність затиску тут не розраховуються.",
-          "Educational 3D visualization, not CAM verification: geometry is in mm; motion, chips, and surface appearance are illustrative. Changing material changes appearance and guidance; cutting parameters, forces, heat, collisions, and workholding capacity are not calculated here.",
-        )}
+        {operation === "turning"
+          ? tr(
+              "Для робочого прикладу перевірено номінальну геометрію інструмента відносно об’єму обертання патрона й кулачків. Допустимий захват, виліт, оберти та зусилля затиску визначають за документацією конкретного обладнання; наведені розміри не є універсальними безпечними межами.",
+              "The working example checks nominal tool geometry against the chuck and jaw rotating envelope. Determine permitted grip, overhang, speed and clamping force from the actual equipment documentation; these dimensions are not universal safe limits.",
+            )
+          : tr(
+              "Навчальна 3D-візуалізація, не CAM-перевірка: геометрія в мм, рух, стружка та вигляд поверхні умовні. Зміна матеріалу змінює вигляд і пояснення; режими різання, сили, нагрівання, зіткнення та надійність затиску тут не розраховуються.",
+              "Educational 3D visualization, not CAM verification: geometry is in mm; motion, chips, and surface appearance are illustrative. Changing material changes appearance and guidance; cutting parameters, forces, heat, collisions, and workholding capacity are not calculated here.",
+            )}
       </p>
     </section>
   );

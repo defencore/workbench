@@ -639,3 +639,180 @@
     transition: none !important;
   }
 }
+.machining-lab__setup-comparison {
+  padding: 18px 22px;
+  border-bottom: 1px solid #d5dfe7;
+  background: #f7fafc;
+}
+.machining-lab__setup-comparison > div[role="group"] {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.machining-lab__setup-comparison button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 14px;
+  border: 1px solid #bacbd9;
+  border-radius: 5px;
+  background: white;
+  color: #234d68;
+  font: inherit;
+  font-size: 14px;
+  cursor: pointer;
+}
+.machining-lab__setup-comparison button[aria-pressed="true"] {
+  background: #e7f2ec;
+  border-color: #71a68a;
+  color: #204f35;
+  font-weight: 700;
+}
+.machining-lab__setup-comparison button.machining-lab__danger-choice {
+  color: #9a2822;
+  border-color: #d6aaa6;
+}
+.machining-lab__setup-comparison
+  button.machining-lab__danger-choice[aria-pressed="true"] {
+  background: #a92e26;
+  color: white;
+  border-color: #a92e26;
+}
+.machining-lab__setup-comparison > p {
+  margin: 12px 0 0;
+  font-size: 13px !important;
+  line-height: 1.65;
+}
+.machining-lab__danger-alert {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border: 2px solid #af342b;
+  padding: 15px;
+  border-radius: 6px;
+  background: #fff1ee;
+  color: #7e241d;
+  margin-top: 16px;
+}
+.machining-lab__danger-alert > svg {
+  flex-shrink: 0;
+}
+.machining-lab__danger-alert strong {
+  font-size: 17px;
+}
+.machining-lab__danger-alert p {
+  margin: 8px 0 0;
+}
+.machining-lab--danger .machining-lab__viewport {
+  outline: 2px solid #bc4037;
+  outline-offset: -2px;
+}
+.machining-lab--danger .machining-lab__scene-label {
+  max-width: calc(100% - 40px);
+  color: #a22520;
+  padding: 7px 9px;
+  background: #fff9f4e8;
+  border-radius: 4px;
+}
+.machining-lab__collision-frozen {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  background: #fff0ec;
+  padding: 18px 20px;
+  color: #8b2c24;
+  font-size: 14px;
+  line-height: 1.65;
+  border-top: 2px solid #b8372e;
+}
+.machining-lab__collision-frozen svg {
+  flex-shrink: 0;
+}
+.machining-lab--danger .machining-lab__explanation {
+  background: #fff7f4;
+}
+.machining-lab--danger .machining-lab__explanation a {
+  font-size: 13px;
+  line-height: 1.65;
+  color: #86352c;
+  display: block;
+  margin-top: 20px;
+}
+.machining-lab__clearance {
+  background: #f0f7f2;
+  padding: 13px !important;
+  border: 1px solid #c4d9ca !important;
+  border-radius: 5px;
+}
+.machining-lab__clearance strong {
+  display: block;
+  margin-top: 9px;
+  color: #28563a;
+  font-size: 13px;
+}
+@media (max-width: 600px) {
+  .machining-lab__setup-comparison {
+    padding: 14px;
+  }
+  .machining-lab__setup-comparison button {
+    font-size: 13px;
+    padding: 10px 11px;
+  }
+  .machining-lab__danger-alert {
+    padding: 12px;
+  }
+  .machining-lab__danger-alert strong {
+    font-size: 15px;
+  }
+  .machining-lab__collision-frozen {
+    padding: 14px;
+    font-size: 13px;
+  }
+  .machining-lab--danger .machining-lab__scene-label {
+    max-width: calc(100% - 28px);
+    left: 14px;
+    top: 14px;
+  }
+  .machining-lab--danger .machining-lab__scene-label > span {
+    font-size: 11px;
+    letter-spacing: 0.03em;
+  }
+}
+.machining-lab__holder-label {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+  transform: translate(-50%, 20px);
+  padding: 6px 9px;
+  border: 1px solid #536d7f;
+  border-radius: 4px;
+  background: #ffffffee;
+  color: #243f52;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.4;
+  white-space: nowrap;
+  box-shadow: 0 2px 6px #20344418;
+}
+.machining-lab__holder-label:before {
+  content: "";
+  position: absolute;
+  left: calc(50% + var(--holder-anchor-x, 0px));
+  bottom: 100%;
+  height: 20px;
+  border-left: 1px solid #36546c;
+}
+.machining-lab__holder-label small {
+  display: block;
+  font-size: 11px;
+  font-weight: 400;
+}
+.machining-lab--danger .machining-lab__holder-label {
+  border-color: #a72b23;
+  color: #86251f;
+  background: #fff4f0f5;
+}
+.machining-lab--danger .machining-lab__holder-label:before {
+  border-color: #a72b23;
+}
