@@ -1,0 +1,540 @@
+.lathe-construction-drawing {
+  container-type: inline-size;
+  container-name: lathe-drawing;
+  margin: 0;
+  border: 1px solid #ccd6df;
+  border-radius: 7px;
+  background: #fff;
+  color: #233444;
+  overflow: hidden;
+  min-width: 0;
+}
+.lathe-construction-drawing .lc-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 15px 19px;
+  border-bottom: 1px solid #dce3e9;
+}
+.lathe-construction-drawing .lc-heading strong {
+  font-size: 16px;
+  line-height: 1.5;
+}
+.lathe-construction-drawing .lc-heading > span {
+  font-size: 12px;
+  color: #52677a;
+  white-space: nowrap;
+}
+.lathe-construction-drawing .lc-viewport {
+  overflow: auto;
+  overscroll-behavior-x: contain;
+  min-width: 0;
+}
+.lathe-construction-drawing .lc-viewport:focus-visible {
+  outline: 2px solid #276392;
+  outline-offset: -3px;
+}
+.lathe-construction-drawing svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  min-width: 940px;
+  background: #fbfcfd;
+  font-family: inherit;
+}
+.lathe-construction-drawing.lc-view-toolpost svg {
+  min-width: 730px;
+}
+.lathe-construction-drawing .lc-pan-hint {
+  display: none;
+  padding: 9px 15px;
+  background: #eef4f8;
+  font-size: 12px;
+  color: #415e75;
+  line-height: 1.6;
+}
+.lathe-construction-drawing .lc-art {
+  stroke: #40535e;
+  stroke-width: 1.8;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.lathe-construction-drawing .lc-floor-shadow {
+  fill: #dce4e9;
+  stroke: none;
+  opacity: 0.5;
+}
+.lathe-construction-drawing .lc-painted {
+  fill: #8cb3ba;
+}
+.lathe-construction-drawing .lc-painted-top {
+  fill: #b6d1d5;
+}
+.lathe-construction-drawing .lc-painted-side {
+  fill: #6f959f;
+}
+.lathe-construction-drawing .lc-panel {
+  fill: #a6c4ca;
+  stroke: #5b7d89;
+}
+.lathe-construction-drawing .lc-panel-seam {
+  fill: none;
+  stroke: #658390;
+  stroke-width: 1.2;
+}
+.lathe-construction-drawing .lc-opening {
+  fill: #e6edef;
+  stroke: #63818b;
+  stroke-dasharray: 7 4;
+}
+.lathe-construction-drawing .lc-way {
+  fill: #dfe6eb;
+}
+.lathe-construction-drawing .lc-way-edge {
+  fill: #a3b5c0;
+}
+.lathe-construction-drawing .lc-guide-line {
+  fill: none;
+  stroke: #8199a8;
+  stroke-width: 1.2;
+}
+.lathe-construction-drawing .lc-pan-inner {
+  fill: #b8c7ce;
+}
+.lathe-construction-drawing .lc-pan-rim {
+  fill: #86a6b1;
+}
+.lathe-construction-drawing .lc-pan-lip {
+  fill: none;
+  stroke: #dbe5e9;
+  stroke-width: 3;
+}
+.lathe-construction-drawing .lc-rack {
+  fill: #d0b887;
+  stroke: #7f714f;
+}
+.lathe-construction-drawing .lc-rack-tooth {
+  fill: none;
+  stroke: #6b614c;
+  stroke-width: 1.2;
+}
+.lathe-construction-drawing .lc-shaft,
+.lathe-construction-drawing .lc-quill,
+.lathe-construction-drawing .lc-centre,
+.lathe-construction-drawing .lc-spindle {
+  fill: var(--lc-metal);
+}
+.lathe-construction-drawing .lc-thread {
+  fill: none;
+  stroke: #60798b;
+  stroke-width: 1.7;
+}
+.lathe-construction-drawing .lc-shaft-highlight {
+  stroke: #f4f7f8;
+  stroke-width: 1.7;
+}
+.lathe-construction-drawing .lc-bearing {
+  fill: #89a6b4;
+}
+.lathe-construction-drawing .lc-chuck-rear {
+  fill: #9cadb8;
+}
+.lathe-construction-drawing .lc-chuck-body {
+  fill: #aebdc7;
+}
+.lathe-construction-drawing .lc-chuck-face {
+  fill: var(--lc-metal);
+}
+.lathe-construction-drawing .lc-chuck-bore {
+  fill: #536b7d;
+  stroke: #40535e;
+}
+.lathe-construction-drawing .lc-jaw {
+  fill: #e0e5e9;
+  stroke: #536775;
+  stroke-width: 1.5;
+}
+.lathe-construction-drawing .lc-jaw-groove {
+  fill: none;
+  stroke: #81939f;
+  stroke-width: 1.2;
+}
+.lathe-construction-drawing .lc-centreline {
+  fill: none;
+  stroke: #a3b1bc;
+  stroke-width: 1;
+  stroke-dasharray: 12 5 2 5;
+}
+.lathe-construction-drawing .lc-apron {
+  fill: #7ca3ae;
+}
+.lathe-construction-drawing .lc-apron-side {
+  fill: #618996;
+}
+.lathe-construction-drawing .lc-slide {
+  fill: #c6d1d8;
+}
+.lathe-construction-drawing .lc-slide-front {
+  fill: #aebdc7;
+}
+.lathe-construction-drawing .lc-toolpost {
+  fill: #7c919f;
+}
+.lathe-construction-drawing .lc-toolpost-top {
+  fill: #c3ced6;
+}
+.lathe-construction-drawing .lc-toolpost-lock,
+.lathe-construction-drawing .lc-control-lever {
+  fill: none;
+  stroke: #475f70;
+  stroke-width: 6;
+}
+.lathe-construction-drawing .lc-handle-end {
+  fill: #344e61;
+  stroke: #344e61;
+}
+.lathe-construction-drawing .lc-tailstock-body {
+  fill: #9ec0c8;
+}
+.lathe-construction-drawing .lc-spindle-end {
+  fill: #7e94a3;
+}
+.lathe-construction-drawing .lc-button-station {
+  fill: #e6ecef;
+  stroke: #5b6f7d;
+}
+.lathe-construction-drawing .lc-neutral-button {
+  fill: #aab8c2;
+  stroke: #52697b;
+  stroke-width: 2;
+}
+.lathe-construction-drawing .lc-handwheel {
+  fill: none;
+  stroke: #435e73;
+  stroke-width: 4;
+}
+.lathe-construction-drawing .lc-handwheel > circle,
+.lathe-construction-drawing .lc-handwheel > rect {
+  fill: #617e91;
+  stroke-width: 1.5;
+}
+.lathe-construction-drawing .lc-open-cover {
+  fill: #e9eef1;
+  stroke: #7f919c;
+  stroke-dasharray: 6 4;
+}
+.lathe-construction-drawing .lc-gear > polygon {
+  fill: #bdcbd3;
+  stroke: #5d7485;
+}
+.lathe-construction-drawing .lc-gear > circle {
+  fill: #e4ebef;
+  stroke: #6b8191;
+}
+.lathe-construction-drawing .lc-belt {
+  fill: none;
+  stroke: #5d6870;
+  stroke-width: 9;
+  stroke-linejoin: round;
+}
+.lathe-construction-drawing .lc-belt-inner {
+  fill: none;
+  stroke: #89969f;
+  stroke-width: 2;
+}
+.lathe-construction-drawing .lc-pulley {
+  fill: #d3dce2;
+  stroke: #60798a;
+  stroke-width: 3;
+}
+.lathe-construction-drawing .lc-pulley-inner {
+  fill: none;
+  stroke: #889daa;
+  stroke-width: 3;
+}
+.lathe-construction-drawing .lc-bolt {
+  fill: #5a7181;
+  stroke: #40535e;
+  stroke-width: 1;
+}
+.lathe-construction-drawing .lc-motor {
+  fill: #7d96a7;
+}
+.lathe-construction-drawing .lc-motor-end {
+  fill: #b5c4ce;
+}
+.lathe-construction-drawing .lc-motor-fins {
+  fill: none;
+  stroke: #516c80;
+  stroke-width: 2;
+}
+.lathe-construction-drawing .lc-steel-line {
+  stroke: #a3b3be;
+  stroke-width: 9;
+}
+.lathe-construction-drawing .lc-motor-feet {
+  fill: #526c7f;
+  stroke: #40535e;
+}
+.lathe-construction-drawing .lc-part {
+  cursor: pointer;
+}
+.lathe-construction-drawing .lc-selection {
+  fill: #d9ebfa;
+  fill-opacity: 0.2;
+  stroke: #23659c;
+  stroke-width: 3;
+  stroke-dasharray: 8 4;
+  pointer-events: none;
+}
+.lathe-construction-drawing .lc-callout-button {
+  cursor: pointer;
+  outline: none;
+}
+.lathe-construction-drawing .lc-hit-target {
+  fill: transparent;
+  stroke: none;
+  pointer-events: all;
+}
+.lathe-construction-drawing .lc-leader {
+  fill: none;
+  stroke: #7b8c98;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+.lathe-construction-drawing .lc-target {
+  fill: #607a8c;
+  stroke: #fff;
+  stroke-width: 1.2;
+  pointer-events: none;
+}
+.lathe-construction-drawing .lc-badge {
+  fill: #fff;
+  stroke: #6b8396;
+  stroke-width: 1.8;
+}
+.lathe-construction-drawing .lc-callout text {
+  fill: #29445b;
+  stroke: none;
+  font-size: 20px;
+  font-weight: 700;
+  pointer-events: none;
+  font-variant-numeric: tabular-nums;
+}
+.lathe-construction-drawing .lc-callout:hover .lc-badge,
+.lathe-construction-drawing .lc-callout:focus-within .lc-badge,
+.lathe-construction-drawing .lc-callout.is-active .lc-badge {
+  fill: #255e8b;
+  stroke: #255e8b;
+  stroke-width: 3;
+}
+.lathe-construction-drawing .lc-callout:hover text,
+.lathe-construction-drawing .lc-callout:focus-within text,
+.lathe-construction-drawing .lc-callout.is-active text {
+  fill: white;
+}
+.lathe-construction-drawing .lc-callout:focus-within .lc-badge {
+  stroke: #112f49;
+  stroke-width: 5;
+}
+.lathe-construction-drawing .lc-callout.is-active .lc-leader {
+  stroke: #23659c;
+  stroke-width: 2.5;
+}
+.lathe-construction-drawing .lc-callout.is-active .lc-target {
+  fill: #23659c;
+  stroke-width: 2;
+}
+.lathe-construction-drawing figcaption {
+  padding: 15px 19px;
+  border-top: 1px solid #dce3e9;
+}
+.lathe-construction-drawing .lc-current {
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  min-height: 31px;
+  color: #24465f;
+}
+.lathe-construction-drawing .lc-current > b {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  height: 30px;
+  border: 1px solid #aac4d8;
+  border-radius: 4px;
+  background: #edf5fb;
+  font-size: 15px;
+}
+.lathe-construction-drawing .lc-current > strong {
+  font-size: 16px;
+  line-height: 1.6;
+}
+.lathe-construction-drawing figcaption p {
+  margin: 10px 0 0;
+  font-size: 13px;
+  line-height: 1.7;
+  color: #5d6f7d;
+}
+.lathe-construction-drawing .lc-steel-top {
+  fill: #e3e9ed;
+}
+.lathe-construction-drawing .lc-steel-front {
+  fill: #b9c6cf;
+}
+.lathe-construction-drawing .lc-steel-side {
+  fill: #91a5b4;
+}
+.lathe-construction-drawing .lc-tool-slot {
+  fill: #486276;
+  stroke: #405767;
+}
+.lathe-construction-drawing .lc-toolpost-web {
+  fill: #849baa;
+}
+.lathe-construction-drawing .lc-machined-edge {
+  fill: none;
+  stroke: #f5f8fa;
+  stroke-width: 2;
+}
+.lathe-construction-drawing .lc-bolt-shank {
+  fill: #7f96a7;
+  stroke: #536d81;
+}
+.lathe-construction-drawing .lc-bolt-head-side {
+  fill: #9fb2bf;
+}
+.lathe-construction-drawing .lc-bolt-head-top {
+  fill: #e9eef1;
+}
+.lathe-construction-drawing .lc-bolt-detail {
+  fill: none;
+  stroke: #5d7689;
+  stroke-width: 1;
+}
+.lathe-construction-drawing .lc-fixator-base {
+  fill: #c4d0d9;
+}
+.lathe-construction-drawing .lc-fixator-ring {
+  fill: #b0c0cd;
+}
+.lathe-construction-drawing .lc-fixator-top {
+  fill: #ebeff2;
+}
+.lathe-construction-drawing .lc-fixator-line {
+  fill: none;
+  stroke: #96aab9;
+}
+.lathe-construction-drawing .lc-fixator-screw {
+  fill: #bdcbd5;
+}
+.lathe-construction-drawing .lc-screw-slot {
+  fill: none;
+  stroke: #4e687c;
+  stroke-width: 2;
+}
+.lathe-construction-drawing .lc-fixator-pin {
+  fill: #b9c8d3;
+}
+.lathe-construction-drawing .lc-pin-edge {
+  fill: none;
+  stroke: #768fa1;
+}
+.lathe-construction-drawing .lc-lever-shaft {
+  fill: none;
+  stroke: #8298a9;
+  stroke-width: 13;
+}
+.lathe-construction-drawing .lc-lever-grip {
+  fill: #6a8294;
+  stroke: #405a6f;
+}
+.lathe-construction-drawing .lc-grip-highlight {
+  stroke: #9cb0bf;
+  stroke-width: 2;
+}
+.lathe-construction-drawing .lc-grip-end {
+  fill: #526d83;
+}
+@media (max-width: 1050px) {
+  .lathe-construction-drawing .lc-pan-hint {
+    display: block;
+  }
+  .lathe-construction-drawing .lc-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .lathe-construction-drawing .lc-heading > span {
+    white-space: normal;
+  }
+  .lathe-construction-drawing.lc-view-toolpost svg {
+    min-width: 730px;
+  }
+}
+@container lathe-drawing (max-width: 940px) {
+  .lathe-construction-drawing.lc-view-machine .lc-pan-hint {
+    display: block;
+  }
+  .lathe-construction-drawing .lc-heading {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .lathe-construction-drawing .lc-heading > span {
+    white-space: normal;
+  }
+}
+@container lathe-drawing (max-width: 730px) {
+  .lathe-construction-drawing.lc-view-toolpost .lc-pan-hint {
+    display: block;
+  }
+}
+@media (max-width: 600px) {
+  .lathe-construction-drawing .lc-heading,
+  .lathe-construction-drawing figcaption {
+    padding: 13px 15px;
+  }
+  .lathe-construction-drawing .lc-heading strong {
+    font-size: 15px;
+  }
+  .lathe-construction-drawing .lc-current > strong {
+    font-size: 15px;
+  }
+  .lathe-construction-drawing figcaption p {
+    font-size: 12px;
+  }
+}
+@media print {
+  .lathe-construction-drawing {
+    break-inside: avoid;
+    border-color: #aebac4;
+  }
+  .lathe-construction-drawing .lc-viewport {
+    overflow: visible;
+  }
+  .lathe-construction-drawing svg,
+  .lathe-construction-drawing.lc-view-toolpost svg {
+    min-width: 0;
+    width: 100%;
+  }
+  .lathe-construction-drawing .lc-heading > span,
+  .lathe-construction-drawing .lc-pan-hint {
+    display: none;
+  }
+  .lathe-construction-drawing .lc-selection {
+    fill: none;
+    stroke: #1f405b;
+    stroke-width: 2;
+  }
+  .lathe-construction-drawing .lc-callout.is-active .lc-badge {
+    fill: #fff;
+    stroke: #29445b;
+  }
+  .lathe-construction-drawing .lc-callout.is-active text {
+    fill: #29445b;
+  }
+}

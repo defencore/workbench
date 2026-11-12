@@ -1,4 +1,5 @@
 import { projectSources } from "./projects/index.ts";
+import { latheAnatomySources } from "./lathe-anatomy.ts";
 import { materialSources } from "./material-guides.ts";
 export { projects } from "./projects/index.ts";
 import type { Lesson, Source, Step, Text } from "./types";
@@ -185,6 +186,7 @@ export const sources: Source[] = [
   },
   ...projectSources,
   ...materialSources,
+  ...latheAnatomySources,
 ];
 
 export const lessons: Lesson[] = [
@@ -959,8 +961,8 @@ export const lessons: Lesson[] = [
     id: "lathe-setup",
     category: "lathe",
     title: t(
-      "Будова й підготовка токарного верстата",
-      "Lathe anatomy and preparation",
+      "Підготовка токарного верстата до роботи",
+      "Preparing a lathe for use",
     ),
     summary: t(
       "Шпиндель, супорт, задня бабка та безпечна підготовка навчального встановлення.",
@@ -990,8 +992,8 @@ export const lessons: Lesson[] = [
       s(
         "Ознайомтеся з органами керування",
         "Learn the controls",
-        "За паспортом і з наставником знайдіть напрямки подач, гальмо, передачі й аварійну зупинку. Поки верстат безпечно зупинений, простежте можливі зіткнення супорта, патрона та задньої бабки.",
-        "Use the manual and supervisor to identify feed directions, brake, gears and emergency stop. With the machine safely stopped, identify possible collisions between carriage, chuck and tailstock.",
+        "За паспортом саме вашої моделі знайдіть рукоятки частоти обертання шпинделя, напрямку й величини подачі, вмикання ходового гвинта/вала, механічної подачі та маточної гайки. Розрізняйте маховики поздовжнього переміщення супорта, поперечних і верхніх полозків та пінолі. Кнопки пуску, зупинки, аварійна зупинка й гальмо мають окремі функції; їхня наявність залежить від моделі. Спочатку опрацюйте довідник будови й органів керування.",
+        "Use the actual model manual to identify spindle-speed, feed-direction/rate, leadscrew/feed-rod, power-feed and half-nut selectors. Distinguish carriage, cross-slide, compound-slide and quill hand controls. Start, stop, emergency stop and brake serve separate functions; their presence depends on the model. Study the anatomy and controls reference first.",
       ),
       s(
         "Перевірте стан і мастило",
@@ -1030,7 +1032,12 @@ export const lessons: Lesson[] = [
         "Make all adjustments in the prescribed safe state.",
       ),
     ],
-    sources: ["ccohs-lathe", "haas-lathe"],
+    sources: [
+      "ccohs-lathe",
+      "haas-lathe",
+      "lathe-anatomy-tv6m-passport",
+      "lathe-anatomy-grizzly",
+    ],
     quiz: q(
       "Яку межу обертів слід застосувати?",
       "Which speed limit must be used?",

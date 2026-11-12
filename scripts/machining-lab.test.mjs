@@ -6,6 +6,7 @@ import {
   labKinematics,
   latheClearance,
   latheFixtureEnvelopes,
+  latheToolpostBounds,
   latheSetups,
 } from "../src/machining-lab-scene.ts";
 
@@ -175,6 +176,120 @@ test("the rear mounting plate connects the shaft and chuck while clearing the fi
     assert.ok(setup.backplate.radius > setup.body.boreRadius);
     assert.equal(setup.backplate.boreRadius, 0);
     assert.ok(-setup.stockLength / 2 > plateMax);
+  }
+});
+
+test("the four-way toolpost seats the shank between its plates and has supported, separate clamping bolts", () => {
+  const setup = latheSetups.clearance;
+  const find = (name) => setup.toolpost.find((part) => part.name === name);
+  const lower = bounds(find("toolpost-lower-plate"));
+  const upper = bounds(find("toolpost-upper-plate"));
+  const shank = bounds(setup.holder);
+  close(lower.max[1], shank.min[1]);
+  close(upper.min[1], shank.max[1]);
+  assert.ok(
+    Math.min(lower.max[2], shank.max[2]) -
+      Math.max(lower.min[2], shank.min[2]) >=
+      16,
+  );
+  const pillar = find("toolpost-rear-pillar");
+  close(pillar.position[1] - pillar.length / 2, lower.max[1]);
+  close(pillar.position[1] + pillar.length / 2, upper.min[1]);
+  assert.ok(pillar.position[2] - pillar.radius > shank.max[2]);
+  const lock = find("toolpost-lock-body");
+  close(lock.position[1] - lock.length / 2, upper.max[1]);
+  const handle = find("toolpost-lock-handle");
+  const clampHeadTop = Math.max(
+    ...setup.toolpost
+      .filter((part) => part.name.startsWith("toolpost-clamp-head-"))
+      .map((part) => part.position[1] + part.size[1] / 2),
+  );
+  assert.ok(
+    handle.position[1] - handle.radius > clampHeadTop,
+    "the locking handle clears the square bolt heads",
+  );
+  assert.ok(
+    handle.position[1] - handle.radius > lock.position[1] - lock.length / 2,
+  );
+  assert.ok(
+    handle.position[1] + handle.radius < lock.position[1] + lock.length / 2,
+  );
+  let loadedBolts = 0;
+  for (const shaft of setup.toolpost.filter((part) =>
+    part.name.startsWith("toolpost-clamp-shaft-"),
+  )) {
+    const index = shaft.name.split("-").at(-1);
+    const head = bounds(find(`toolpost-clamp-head-${index}`));
+    close(shaft.position[1] + shaft.length / 2, head.min[1]);
+    assert.ok(head.min[0] > upper.min[0] && head.max[0] < upper.max[0]);
+    assert.ok(head.min[2] > upper.min[2] && head.max[2] < upper.max[2]);
+    if (
+      shaft.position[0] > shank.min[0] &&
+      shaft.position[0] < shank.max[0] &&
+      shaft.position[2] > shank.min[2] &&
+      shaft.position[2] < shank.max[2]
+    ) {
+      close(shaft.position[1] - shaft.length / 2, shank.max[1]);
+      loadedBolts++;
+    }
+  }
+  assert.ok(
+    loadedBolts >= 2,
+    "the tool shank is held by separate square-head bolts",
+  );
+  assert.ok(
+    setup.screw.position[2] < lower.min[2],
+    "the insert screw is a different fastener ahead of the toolpost",
+  );
+  assert.equal(
+    latheSetups.collision.toolpost.length,
+    0,
+    "the paused negative fragment retains its original isolated tool",
+  );
+});
+
+test("every added moving toolpost mesh enters the same 360-degree clearance inventory", () => {
+  const setup = latheSetups.clearance;
+  const inventory = latheToolpostBounds();
+  assert.equal(inventory.length, setup.toolpost.length);
+  assert.equal(
+    new Set(inventory.map((part) => part.name)).size,
+    setup.toolpost.length,
+  );
+  assert.deepEqual(latheToolpostBounds("collision"), []);
+  for (const progress of [0, 0.12, 0.273333333333, 0.5, 0.61, 0.94, 1]) {
+    const state = labKinematics("turning", progress);
+    for (const part of latheToolpostBounds("clearance", [
+      state.x,
+      state.y,
+      state.z,
+    ])) {
+      assert.ok(
+        part.bounds.min[0] >= -1e-9,
+        `${part.name} remains on the machined side`,
+      );
+      assert.ok(
+        part.bounds.min[2] > setup.stockDiameter / 2,
+        `${part.name} clears the raw stock radius`,
+      );
+    }
+    assert.deepEqual(latheClearance(progress).collisions, []);
+  }
+  // Move a new assembly part into the jaw sweep to prove it cannot bypass checking.
+  const part = setup.toolpost.find(
+    (part) => part.name === "toolpost-upper-plate",
+  );
+  const original = part.position;
+  const state = labKinematics("turning", 0);
+  try {
+    part.position = [-27 - state.x, 0, 30 - state.z];
+    assert.ok(
+      latheClearance(0).collisions.some((name) =>
+        name.startsWith(`${part.name}:`),
+      ),
+    );
+  } finally {
+    part.position = original;
   }
 });
 

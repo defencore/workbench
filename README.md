@@ -27,6 +27,16 @@ Production / Публічна адреса: [workbench.defencore.com](https://wo
 
 **EN:** The lathe example shares geometry between rendering and checks: Ø42 × 80 stock, defined grip, an uncut land and radial retraction before return. A separate paused “How not to do it” mode intentionally reproduces jaw–insert-holder interference with red hazard markings. Regression tests check the complete tool against continuous chuck/jaw rotating envelopes at 6,001 motion positions. This verifies nominal model geometry, not an actual machine setup.
 
+## Будова й органи керування / Lathe anatomy and controls
+
+**UA:** Розділ `#/lathe-anatomy` містить інтерактивну схему 18 вузлів ТВ‑6М, окрему схему п’яти елементів чотирипозиційного різцетримача та паспортний перелік: 16 нумерованих позицій керування й п’ять інших позначень. Нумерації схем відокремлені. Назви й призначення звірено з архівною копією заводського паспорта, українськими навчальними виданнями та документацією Grizzly. Різцетримач, корпус різця й різальна пластина пояснені окремо. Макет керування іншої моделі не переноситься на ТВ‑6М.
+
+**EN:** `#/lathe-anatomy` provides an interactive 18-assembly TV‑6M drawing, a separate five-part four-way toolpost drawing and the manual list of 16 numbered control entries plus five other callouts. The figures use separate numbering. Names and functions are checked against an archived factory passport, Ukrainian educational texts and Grizzly documentation. Toolpost, tool body and cutting insert are distinguished explicitly; controls from another lathe model are not assigned to TV‑6M.
+
+**UA:** Виправлений приклад різання містить окремий різцетримач із затискними болтами. Усі додані рухомі елементи включені до перевірки зазору. Загальна 3D-модель використовує ту саму числову геометрію різця й різцетримача; це схематичний огляд вузлів, а не паспортна модель конкретного верстата.
+
+**EN:** The corrected cutting example includes a separate toolpost and clamping screws. Every added moving component enters the clearance checks. The overall 3D model shares the numeric tool and toolpost geometry; it is a schematic assembly overview rather than a machine-specific control model.
+
 ## Дані та офлайн / Data and offline use
 
 **UA:** Обрані матеріали, мова, прогрес, контрольні пункти, покази вимірювань і нотатки про встановлення зберігаються в `localStorage` поточного браузера. Service worker кешує оболонку та ресурси для офлайн-доступу після завантаження. Зовнішні першоджерела потребують мережі. У налаштуваннях можна очистити саме дані та кеш Workbench; закладки й прогрес після цього втрачаються. Синхронізації між пристроями немає; браузер може видаляти локальні дані.
@@ -61,25 +71,28 @@ The validator checks both languages, references, source URLs, prerequisite cycle
 
 ## Архітектура / Architecture
 
-| Location                             | Purpose / Призначення                                                                                  |
-| ------------------------------------ | ------------------------------------------------------------------------------------------------------ |
-| `src/App.tsx`                        | React interface and fragment routing / Інтерфейс React і hash-навігація                                |
-| `src/data/content.ts`                | Bilingual lessons, projects and references / Двомовні уроки, проєкти й джерела                         |
-| `src/data/preparation.ts`            | Preparation, maintenance and tool-selection lessons / Підготовка, обслуговування та вибір інструментів |
-| `src/components/LessonDiagram.tsx`   | Annotated instructional schematics / Навчальні схеми з підписами                                       |
-| `src/components/ProjectDrawing.tsx`  | Project geometry and dimensions / Види й розміри навчальних деталей                                    |
-| `src/components/ToolSelector.tsx`    | Interactive tooling shortlist / Інтерактивний підбір інструмента                                       |
-| `src/data/projects/`                 | Dimensional manufacturing routes and fixtures / Розмірні технологічні маршрути й оснащення             |
-| `src/data/material-guides.ts`        | Grade-specific material guidance and exercises / Матеріали й практичні вправи                          |
-| `src/components/MachiningLab.tsx`    | Progressive 3D material removal / Покрокова 3D-обробка                                                 |
-| `src/components/SurfaceExamples.tsx` | Surface and chip illustrations / Ілюстрації поверхні та стружки                                        |
-| `public/models/`                     | Versioned nominal STEP solids and verification manifest / Номінальні STEP-моделі                       |
-| `src/data/types.ts`                  | Curriculum schema / Структура навчальних матеріалів                                                    |
-| `src/data/ui.ts`                     | Interface translations and categories / Переклади інтерфейсу й розділи                                 |
-| `src/components/ModelViewer.tsx`     | Procedural Three.js viewer / Інтерактивні моделі Three.js                                              |
-| `src/storage.ts`                     | Local preferences and data reset / Локальні налаштування й очищення                                    |
-| `scripts/validate-content.mjs`       | Curriculum integrity checks / Перевірка цілісності матеріалів                                          |
-| `.github/workflows/deploy.yml`       | Build and GitHub Pages publication / Збірка й публікація                                               |
+| Location                                      | Purpose / Призначення                                                                                  |
+| --------------------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| `src/App.tsx`                                 | React interface and fragment routing / Інтерфейс React і hash-навігація                                |
+| `src/data/content.ts`                         | Bilingual lessons, projects and references / Двомовні уроки, проєкти й джерела                         |
+| `src/data/preparation.ts`                     | Preparation, maintenance and tool-selection lessons / Підготовка, обслуговування та вибір інструментів |
+| `src/components/LessonDiagram.tsx`            | Annotated instructional schematics / Навчальні схеми з підписами                                       |
+| `src/components/ProjectDrawing.tsx`           | Project geometry and dimensions / Види й розміри навчальних деталей                                    |
+| `src/components/ToolSelector.tsx`             | Interactive tooling shortlist / Інтерактивний підбір інструмента                                       |
+| `src/data/projects/`                          | Dimensional manufacturing routes and fixtures / Розмірні технологічні маршрути й оснащення             |
+| `src/data/lathe-anatomy.ts`                   | Sourced TV‑6M assemblies and control names / Назви вузлів і керування за джерелами                     |
+| `src/components/LatheAnatomy.tsx`             | Interactive anatomy reference / Інтерактивний довідник будови                                          |
+| `src/components/LatheConstructionDrawing.tsx` | Original numbered technical schematics / Авторські нумеровані схеми                                    |
+| `src/data/material-guides.ts`                 | Grade-specific material guidance and exercises / Матеріали й практичні вправи                          |
+| `src/components/MachiningLab.tsx`             | Progressive 3D material removal / Покрокова 3D-обробка                                                 |
+| `src/components/SurfaceExamples.tsx`          | Surface and chip illustrations / Ілюстрації поверхні та стружки                                        |
+| `public/models/`                              | Versioned nominal STEP solids and verification manifest / Номінальні STEP-моделі                       |
+| `src/data/types.ts`                           | Curriculum schema / Структура навчальних матеріалів                                                    |
+| `src/data/ui.ts`                              | Interface translations and categories / Переклади інтерфейсу й розділи                                 |
+| `src/components/ModelViewer.tsx`              | Procedural Three.js viewer / Інтерактивні моделі Three.js                                              |
+| `src/storage.ts`                              | Local preferences and data reset / Локальні налаштування й очищення                                    |
+| `scripts/validate-content.mjs`                | Curriculum integrity checks / Перевірка цілісності матеріалів                                          |
+| `.github/workflows/deploy.yml`                | Build and GitHub Pages publication / Збірка й публікація                                               |
 
 **UA:** Статичний сайт без сервера, бази даних чи облікових записів. Посилання через `#` працюють на GitHub Pages без правил перенаправлення. Усі коментарі в коді — англійською. Додаючи матеріал, заповнюйте обидві мови, перевіряйте першоджерела та запускайте валідатор.
 

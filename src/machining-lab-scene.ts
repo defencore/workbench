@@ -13,6 +13,99 @@ interface ChuckPart {
   radius: number;
   boreRadius: number;
 }
+export type ToolpostPart =
+  | { name: string; shape: "box"; size: Triple; position: Triple }
+  | {
+      name: string;
+      shape: "cylinder";
+      radius: number;
+      length: number;
+      axis: "x" | "y" | "z";
+      position: Triple;
+    }
+  | { name: string; shape: "sphere"; radius: number; position: Triple };
+
+/** A schematic four-way toolpost. Its upper and lower plates capture the shank;
+ * separate square-head bolts press onto it. The rear locking post stays clear
+ * of the shank, and its handle points away from the chuck.
+ */
+const fourWayToolpost: ToolpostPart[] = [
+  {
+    name: "toolpost-lower-plate",
+    shape: "box",
+    size: [24, 7.4, 30],
+    position: [12, -14.3, 39],
+  },
+  {
+    name: "toolpost-upper-plate",
+    shape: "box",
+    size: [24, 7.6, 30],
+    position: [12, 1.2, 39],
+  },
+  {
+    name: "toolpost-rear-pillar",
+    shape: "cylinder",
+    radius: 4,
+    length: 8,
+    axis: "y",
+    position: [12, -6.6, 47],
+  },
+  {
+    name: "toolpost-locking-stud",
+    shape: "cylinder",
+    radius: 1.7,
+    length: 39,
+    axis: "y",
+    position: [12, 1.5, 47],
+  },
+  {
+    name: "toolpost-lock-body",
+    shape: "cylinder",
+    radius: 4,
+    length: 12,
+    axis: "y",
+    position: [12, 11, 47],
+  },
+  {
+    name: "toolpost-lock-handle",
+    shape: "cylinder",
+    radius: 1.3,
+    length: 26,
+    axis: "x",
+    position: [25, 15, 47],
+  },
+  {
+    name: "toolpost-handle-knob",
+    shape: "sphere",
+    radius: 2,
+    position: [38, 15, 47],
+  },
+  ...[
+    [4, 30],
+    [10, 30],
+    [20, 32],
+    [20, 46],
+    [6, 50],
+    [18, 50],
+    [4, 44],
+    [4, 36],
+  ].flatMap(([x, z], i): ToolpostPart[] => [
+    {
+      name: `toolpost-clamp-shaft-${i + 1}`,
+      shape: "cylinder",
+      radius: 1,
+      length: 10.6,
+      axis: "y",
+      position: [x, 2.7, z],
+    },
+    {
+      name: `toolpost-clamp-head-${i + 1}`,
+      shape: "box",
+      size: [3, 2.5, 3],
+      position: [x, 9.25, z],
+    },
+  ]),
+];
 export interface LatheSetup {
   stockLength: number;
   stockDiameter: number;
@@ -26,6 +119,7 @@ export interface LatheSetup {
   holder: BoxPart;
   insert: { points: [number, number][]; thickness: number; position: Triple };
   screw: { position: Triple };
+  toolpost: ToolpostPart[];
   jawFrontX: number;
   gripLength: number;
 }
@@ -56,6 +150,7 @@ export const latheSetups: Record<LatheExample, LatheSetup> = {
       position: [0, 0, 0],
     },
     screw: { position: [4, 0.2, 6] },
+    toolpost: fourWayToolpost,
     jawFrontX: -15,
     gripLength: 25,
   },
@@ -84,6 +179,7 @@ export const latheSetups: Record<LatheExample, LatheSetup> = {
       position: [0, 1.3, 0],
     },
     screw: { position: [-2, 1.6, 6] },
+    toolpost: [],
     jawFrontX: -5,
     gripLength: 25,
   },
@@ -200,6 +296,26 @@ const boxBounds = (part: BoxPart, translation: Triple = [0, 0, 0]): Bounds => ({
   ) as Triple,
 });
 
+/** Conservative bounds cover every mesh of the moving toolpost assembly. */
+export function latheToolpostBounds(
+  example: LatheExample = "clearance",
+  translation: Triple = [0, 0, 0],
+) {
+  return latheSetups[example].toolpost.map((part) => {
+    let size: Triple;
+    if (part.shape === "box") size = part.size;
+    else {
+      size = [part.radius * 2, part.radius * 2, part.radius * 2];
+      if (part.shape === "cylinder")
+        size[{ x: 0, y: 1, z: 2 }[part.axis]] = part.length;
+    }
+    return {
+      name: part.name,
+      bounds: boxBounds({ size, position: part.position }, translation),
+    };
+  });
+}
+
 /** A full rotation sweeps each rectangular jaw into an exact annular envelope. */
 export function latheFixtureEnvelopes(
   example: LatheExample = "clearance",
@@ -253,7 +369,8 @@ function clipX(
 
 /** Check the complete tool, not just its nose, against continuous 360° sweeps.
  * Holder and insert tests are geometric intersections. The screw uses its
- * conservative bounding box. This verifies these nominal meshes only.
+ * conservative bounding boxes, as does every moving toolpost component.
+ * This verifies these nominal meshes only.
  */
 export function latheClearance(
   progress: number,
@@ -274,12 +391,15 @@ export function latheClearance(
   const insertMinY =
     setup.insert.position[1] - setup.insert.thickness + state.y;
   const insertMaxY = setup.insert.position[1] + state.y;
+  const toolpostBounds = latheToolpostBounds(example, translation);
+  const movingBoxes = [
+    { name: "holder", bounds: holder },
+    { name: "screw", bounds: screw },
+    ...toolpostBounds,
+  ];
   const collisions: string[] = [];
   for (const fixture of latheFixtureEnvelopes(example)) {
-    for (const [name, box] of [
-      ["holder", holder],
-      ["screw", screw],
-    ] as const) {
+    for (const { name, bounds: box } of movingBoxes) {
       if (box.min[0] >= fixture.maxX || box.max[0] <= fixture.minX) continue;
       const radial = radialBounds(
         box.min[1],
@@ -315,8 +435,7 @@ export function latheClearance(
     ...latheFixtureEnvelopes(example).map((part) => part.maxX),
   );
   const minimumToolX = Math.min(
-    holder.min[0],
-    screw.min[0],
+    ...movingBoxes.map((part) => part.bounds.min[0]),
     ...insert.map((point) => point[0]),
   );
   return { minimumAxialGap: minimumToolX - front, collisions };

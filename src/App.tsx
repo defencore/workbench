@@ -43,6 +43,8 @@ import {
   MaterialDetail,
   materialBookmark,
 } from "./components/MaterialWorkbench";
+import LatheAnatomy from "./components/LatheAnatomy";
+import { latheParts, latheControls, toolpostParts } from "./data/lathe-anatomy";
 import { materialGuides } from "./data/material-guides";
 import LessonDiagram from "./components/LessonDiagram";
 import { lessons, projects, sources } from "./data/content";
@@ -218,11 +220,15 @@ function App() {
           ? "paths"
           : route.page === "material"
             ? "materials"
-            : route.page;
+            : route.page === "lathe-anatomy"
+              ? "library"
+              : route.page;
   const routeCategory =
     route.page === "lesson"
       ? lessons.find((l) => l.id === route.id)?.category
-      : route.category;
+      : route.page === "lathe-anatomy"
+        ? "lathe"
+        : route.category;
   const activeCat = categories.some((c) => c.id === routeCategory)
     ? routeCategory
     : undefined;
@@ -281,7 +287,7 @@ function App() {
     const material = materialGuides.find(
       (m) => route.page === "material" && m.id === route.id,
     );
-    document.title = `${lesson?.title[lang] || project?.title[lang] || material?.name[lang] || tr(active, lang)} · Workbench`;
+    document.title = `${route.page === "lathe-anatomy" ? txt("Токарний верстат: будова й керування", "Lathe: construction & controls", lang) : lesson?.title[lang] || project?.title[lang] || material?.name[lang] || tr(active, lang)} · Workbench`;
   }, [lang, route, active]);
   useEffect(() => {
     const sync = (event: StorageEvent) => {
@@ -392,7 +398,7 @@ function App() {
                     <a href={`#/library?category=${c.id}`}>
                       <Icon size={16} />
                       <span>{c.name[lang]}</span>
-                      <small>{items.length}</small>
+                      <small>{items.length + (c.id === "lathe" ? 1 : 0)}</small>
                     </a>
                     <button
                       aria-label={`${open ? txt("Згорнути", "Collapse", lang) : txt("Розгорнути", "Expand", lang)}: ${c.name[lang]}`}
@@ -408,6 +414,25 @@ function App() {
                   </div>
                   {open && (
                     <div className="tree-lessons">
+                      {c.id === "lathe" && (
+                        <a
+                          href="#/lathe-anatomy"
+                          className={
+                            route.page === "lathe-anatomy" ? "current" : ""
+                          }
+                          aria-current={
+                            route.page === "lathe-anatomy" ? "page" : undefined
+                          }
+                        >
+                          <span>
+                            {txt(
+                              "Будова й органи керування",
+                              "Construction & controls",
+                              lang,
+                            )}
+                          </span>
+                        </a>
+                      )}
                       {items.map((l) => (
                         <a
                           key={l.id}
@@ -539,6 +564,8 @@ function App() {
             <MaterialsCatalog {...common} />
           ) : route.page === "material" ? (
             <MaterialDetail {...common} id={route.id} />
+          ) : route.page === "lathe-anatomy" ? (
+            <LatheAnatomy {...common} />
           ) : route.page === "paths" ? (
             <Paths {...common} />
           ) : route.page === "path" ? (
@@ -753,6 +780,31 @@ function Library(common: Common & { initialCategory: string }) {
           </div>
           <a href="#/materials">
             {txt("Вибрати матеріал", "Choose material", lang)}
+            <ArrowRight size={17} />
+          </a>
+        </div>
+      )}
+      {cat === "lathe" && (
+        <div className="start-note">
+          <BookOpen size={23} />
+          <div>
+            <strong>
+              {txt(
+                "Будова верстата й правильні назви",
+                "Lathe construction & correct names",
+                lang,
+              )}
+            </strong>
+            <p>
+              {txt(
+                "18 вузлів, паспортний перелік органів керування ТВ‑6М і окрема схема різцетримача.",
+                "18 assemblies, the TV‑6M manual control list and a separate toolpost drawing.",
+                lang,
+              )}
+            </p>
+          </div>
+          <a href="#/lathe-anatomy">
+            {txt("Відкрити схеми", "Open the diagrams", lang)}
             <ArrowRight size={17} />
           </a>
         </div>
@@ -1055,6 +1107,31 @@ function LessonPage(common: Common & { id?: string }) {
             </section>
           )}
           <Hazards hazards={lesson.hazards} lang={lang} />
+          {lesson.id === "lathe-setup" && (
+            <div className="start-note">
+              <BookOpen size={23} />
+              <div>
+                <strong>
+                  {txt(
+                    "Спочатку розберіться з вузлами та керуванням",
+                    "Identify the assemblies and controls first",
+                    lang,
+                  )}
+                </strong>
+                <p>
+                  {txt(
+                    "Різцетримач, корпус різця, полозки, фартух, маховики та рукоятки — з назвами й призначенням за документацією.",
+                    "Toolpost, tool body, slides, apron, handwheels and handles, named and explained from documentation.",
+                    lang,
+                  )}
+                </p>
+              </div>
+              <a href="#/lathe-anatomy">
+                {txt("Будова верстата", "Lathe anatomy", lang)}
+                <ArrowRight size={17} />
+              </a>
+            </div>
+          )}
           <LessonDiagram lessonId={lesson.id} lang={lang} />
           <section className="steps-list">
             <div className="steps-heading">
@@ -1632,6 +1709,31 @@ function Workshop({ lang }: { lang: Lang }) {
           </button>
         ))}
       </div>
+      {kind === "lathe" && (
+        <div className="start-note">
+          <BookOpen size={23} />
+          <div>
+            <strong>
+              {txt(
+                "Схеми будови й органів керування ТВ‑6М",
+                "TV‑6M anatomy & control reference",
+                lang,
+              )}
+            </strong>
+            <p>
+              {txt(
+                "Нижче — спрощений огляд вузлів. Точні назви та паспортна нумерація доступні в окремому довіднику.",
+                "The model below is a simplified assembly overview. Verified names and manual numbering are in the dedicated reference.",
+                lang,
+              )}
+            </p>
+          </div>
+          <a href="#/lathe-anatomy">
+            {txt("Відкрити довідник", "Open reference", lang)}
+            <ArrowRight size={17} />
+          </a>
+        </div>
+      )}
       <div className="workshop-stage">
         <Model kind={kind} lang={lang} />
       </div>
@@ -1689,7 +1791,8 @@ function Saved(common: Common) {
     savedProjects = projects.filter((p) => prefs.saved.includes(p.id)),
     savedMaterials = materialGuides.filter((m) =>
       prefs.saved.includes(materialBookmark(m)),
-    );
+    ),
+    savedAnatomy = prefs.saved.includes("reference-lathe-anatomy");
   return (
     <>
       <PageHeading
@@ -1699,7 +1802,8 @@ function Saved(common: Common) {
       />
       {savedLessons.length === 0 &&
       savedProjects.length === 0 &&
-      savedMaterials.length === 0 ? (
+      savedMaterials.length === 0 &&
+      !savedAnatomy ? (
         <Empty
           lang={lang}
           title={tr("savedEmpty", lang)}
@@ -1707,6 +1811,32 @@ function Saved(common: Common) {
         />
       ) : (
         <>
+          {savedAnatomy && (
+            <section className="dashboard-section">
+              <SectionHeading
+                title={txt("Довідники будови", "Construction references", lang)}
+              />
+              <article className="guide-row">
+                <a className="guide-info" href="#/lathe-anatomy">
+                  <h3>
+                    {txt(
+                      "Токарний верстат: вузли й органи керування",
+                      "Lathe: assemblies & controls",
+                      lang,
+                    )}
+                  </h3>
+                  <p>
+                    {txt(
+                      "Будова ТВ‑6М і чотирипозиційного різцетримача; назви маховиків, рукояток та механізмів.",
+                      "TV‑6M assemblies, four-way toolpost, handwheels, handles and mechanisms.",
+                      lang,
+                    )}
+                  </p>
+                </a>
+                <SaveButton id="reference-lathe-anatomy" {...common} />
+              </article>
+            </section>
+          )}
           {savedLessons.length > 0 && (
             <section className="dashboard-section">
               <SectionHeading
@@ -1944,6 +2074,21 @@ function SearchDialog({
         )
         .slice(0, 4)
     : [];
+  const matchingAnatomy =
+    Boolean(q.trim()) &&
+    normalize(
+      [
+        "токарний верстат будова органи керування ТВ6М ТВ-6М ТВ‑6М різцетримач корпус різця маточна гайка lathe anatomy controls toolpost",
+        ...[...latheParts, ...latheControls, ...toolpostParts].flatMap(
+          (entry) => [
+            entry.name.uk,
+            entry.name.en,
+            entry.description.uk,
+            entry.description.en,
+          ],
+        ),
+      ].join(" "),
+    ).includes(normalize(q));
   return (
     <Modal
       label={tr("searchShort", lang)}
@@ -2000,6 +2145,30 @@ function SearchDialog({
             <ArrowUpRight size={18} />
           </a>
         ))}
+        {matchingAnatomy && (
+          <a href="#/lathe-anatomy" onClick={onClose}>
+            <span className="search-result-icon blue">
+              <Settings2 size={18} />
+            </span>
+            <span>
+              <strong>
+                {txt(
+                  "Токарний верстат: вузли й органи керування",
+                  "Lathe: assemblies & controls",
+                  lang,
+                )}
+              </strong>
+              <small>
+                {txt(
+                  "Схеми й паспортні назви ТВ‑6М",
+                  "TV‑6M diagrams & manual names",
+                  lang,
+                )}
+              </small>
+            </span>
+            <ArrowUpRight size={18} />
+          </a>
+        )}
         {matchingMaterials.map((m) => (
           <a href={`#/material/${m.id}`} key={m.id} onClick={onClose}>
             <span className="search-result-icon blue">
@@ -2016,7 +2185,8 @@ function SearchDialog({
         ))}
         {!matches.length &&
           !matchingProjects.length &&
-          !matchingMaterials.length && (
+          !matchingMaterials.length &&
+          !matchingAnatomy && (
             <p className="search-no-results">{tr("noResults", lang)}</p>
           )}
       </div>

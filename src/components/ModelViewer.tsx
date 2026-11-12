@@ -6,6 +6,7 @@ import polygonClipping from "polygon-clipping";
 import type { MultiPolygon, Polygon, Pair } from "polygon-clipping";
 import type { Lang, ModelKind, PartGeometry, Text } from "../data/types";
 import "./ModelViewer.css";
+import { latheSetups } from "../machining-lab-scene";
 
 interface ModelViewerProps {
   kind?: ModelKind;
@@ -24,8 +25,8 @@ interface ViewerActions {
 type Part = THREE.Mesh<THREE.BufferGeometry, THREE.MeshStandardMaterial>;
 const labels: Record<ModelKind, { uk: string[]; en: string[] }> = {
   lathe: {
-    uk: ["Передня бабка", "Патрон і заготовка", "Супорт", "Задня бабка"],
-    en: ["Headstock", "Chuck & workpiece", "Carriage", "Tailstock"],
+    uk: ["Передня бабка", "Трикулачковий патрон", "Супорт", "Задня бабка"],
+    en: ["Headstock", "Three-jaw chuck", "Carriage", "Tailstock"],
   },
   shaft: {
     uk: ["Базовий торець", "Посадковий діаметр", "Уступ", "Шпонковий паз"],
@@ -648,30 +649,118 @@ export default function ModelViewer({
       box(7.2, 0.18, 0.3, "silver", [0, 0.14, 0.47]);
       box(1.5, 1.5, 1.6, "sage", [-2.8, 0.9, 0]);
       box(1.62, 0.13, 1.72, "deep", [-2.8, 1.7, 0]);
-      box(0.5, 0.65, 0.08, "deep", [-2.9, 1.05, 0.84]);
-      cylinder(0.095, 0.09, "lime", [-3, 1.2, 0.92], "z");
-      cylinder(0.07, 0.09, "dark", [-2.8, 0.9, 0.92], "z");
+      box(1.5, 0.65, 0.3, "sage", [-2.8, 0.1, 0.96]);
       cylinder(0.37, 0.28, "dark", [-1.98, 1.25, 0]);
-      cylinder(0.51, 0.37, "silver", [-1.72, 1.25, 0]);
-      cylinder(0.23, 0.39, "dark", [-1.7, 1.25, 0]);
+      const chuckSection = [
+        new THREE.Vector2(0.21, -0.185),
+        new THREE.Vector2(0.51, -0.185),
+        new THREE.Vector2(0.51, 0.185),
+        new THREE.Vector2(0.21, 0.185),
+        new THREE.Vector2(0.21, -0.185),
+      ];
+      add(
+        new THREE.LatheGeometry(chuckSection, 64),
+        "silver",
+        [-1.72, 1.25, 0],
+        [0, 0, Math.PI / 2],
+      );
       for (let i = 0; i < 3; i++) {
         const angle = (i * Math.PI * 2) / 3;
-        const jaw = box(0.22, 0.15, 0.3, "silver", [
-          -1.47,
-          1.25 + Math.cos(angle) * 0.32,
-          Math.sin(angle) * 0.32,
+        const jaw = box(0.3, 0.15, 0.16, "silver", [
+          -1.45,
+          1.25 + Math.cos(angle) * 0.265,
+          Math.sin(angle) * 0.265,
         ]);
-        jaw.rotation.x = -angle;
+        jaw.rotation.x = angle;
       }
-      cylinder(0.19, 2.62, "silver", [-0.04, 1.25, 0]);
-      cylinder(0.24, 0.65, "silver", [-0.77, 1.25, 0]);
       box(1.4, 0.26, 1.45, "sage", [0.13, 0.4, 0.17]);
       box(0.85, 0.2, 0.85, "silver", [0.13, 0.62, 0.46]);
-      box(0.44, 0.54, 0.43, "deep", [0.13, 0.97, 0.46]);
-      box(0.14, 0.12, 0.58, "silver", [0.13, 1.25, 0.55]);
-      box(0.15, 0.09, 0.12, "lime", [0.13, 1.25, 0.25]);
-      cylinder(0.06, 6.45, "silver", [0, -0.04, 0.83]);
-      wheel([0.1, 0.35, 1.04], 0.28);
+      box(0.65, 0.12, 0.55, "silver", [0.25, 0.78, 0.58]);
+      box(0.5, 0.23, 0.5, "deep", [0.25, 0.955, 0.58]);
+      const setup = latheSetups.clearance;
+      const scaled = (
+        position: [number, number, number],
+      ): [number, number, number] => [
+        0.13 + position[0] * 0.01,
+        1.25 + position[1] * 0.01,
+        0.19 + position[2] * 0.01,
+      ];
+      box(
+        ...(setup.holder.size.map((v) => v * 0.01) as [number, number, number]),
+        "dark",
+        scaled(setup.holder.position),
+      );
+      const insertProfile = new THREE.Shape();
+      setup.insert.points.forEach(([x, z], i) =>
+        i
+          ? insertProfile.lineTo(x * 0.01, z * 0.01)
+          : insertProfile.moveTo(x * 0.01, z * 0.01),
+      );
+      insertProfile.closePath();
+      add(
+        new THREE.ExtrudeGeometry(insertProfile, {
+          depth: setup.insert.thickness * 0.01,
+          bevelEnabled: false,
+        }),
+        "lime",
+        scaled(setup.insert.position),
+        [Math.PI / 2, 0, 0],
+      );
+      cylinder(0.011, 0.004, "dark", scaled(setup.screw.position), "y");
+      for (const component of setup.toolpost) {
+        const position = scaled(component.position);
+        if (component.shape === "box")
+          box(
+            ...(component.size.map((v) => v * 0.01) as [
+              number,
+              number,
+              number,
+            ]),
+            "deep",
+            position,
+          );
+        else if (component.shape === "cylinder")
+          cylinder(
+            component.radius * 0.01,
+            component.length * 0.01,
+            "silver",
+            position,
+            component.axis,
+          );
+        else
+          add(
+            new THREE.SphereGeometry(component.radius * 0.01, 16, 12),
+            "dark",
+            position,
+          );
+      }
+      box(1.2, 0.62, 0.3, "sage", [0.13, 0.0, 1.0]);
+      cylinder(0.045, 6.45, "silver", [0, 0.02, 1.02]);
+      class LeadThread extends THREE.Curve<THREE.Vector3> {
+        constructor() {
+          super();
+        }
+        getPoint(t: number, target = new THREE.Vector3()) {
+          const angle = t * Math.PI * 128;
+          return target.set(
+            -3.225 + t * 6.45,
+            0.02 + Math.cos(angle) * 0.047,
+            1.02 + Math.sin(angle) * 0.047,
+          );
+        }
+      }
+      add(
+        new THREE.TubeGeometry(new LeadThread(), 768, 0.009, 4, false),
+        "dark",
+        [0, 0, 0],
+      );
+      cylinder(0.04, 6.45, "silver", [0, -0.2, 1.02]);
+      box(6.3, 0.06, 0.08, "deep", [0, 0.23, 0.91]);
+      for (let tooth = 0; tooth < 64; tooth++)
+        box(0.045, 0.035, 0.07, "silver", [-3.1 + tooth * 0.098, 0.265, 0.91]);
+      wheel([0.1, 0.1, 1.25], 0.26);
+      wheel([0.13, 0.62, 1.04], 0.13);
+      wheel([0.4, 0.81, 0.95], 0.1);
       box(0.9, 0.37, 1.35, "sage", [2.55, 0.39, 0]);
       box(0.84, 0.7, 0.76, "sage", [2.55, 0.92, 0]);
       cylinder(0.21, 0.8, "silver", [2, 1.25, 0]);
@@ -1240,6 +1329,18 @@ export default function ModelViewer({
           {uk
             ? "Числові діаметри, уступи, отвори, кишені та пази відтворено за геометрією проєкту. Різьба й малі фаски умовні; допуски та приймання визначає таблиця вимог."
             : "Numeric diameters, shoulders, holes, pockets and slots follow the project geometry. Threads and small chamfers are symbolic; tolerances and acceptance follow the requirements table."}
+        </p>
+      )}
+      {!part && kind === "lathe" && (
+        <p className="model-geometry-note">
+          {uk
+            ? "Схематична 3D-модель основних вузлів. Розташування органів керування конкретного верстата визначають за його паспортом."
+            : "Schematic 3D overview of the main assemblies. Identify the actual machine’s control layout from its manual."}{" "}
+          <a href="#/lathe-anatomy">
+            {uk
+              ? "Будова ТВ‑6М, органи керування й різцетримач"
+              : "TV‑6M anatomy, controls and toolpost"}
+          </a>
         </p>
       )}
       {!part && kind === "pocket" && (

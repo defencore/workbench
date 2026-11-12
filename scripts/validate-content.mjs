@@ -2,6 +2,12 @@ import process from "node:process";
 import { validateCad } from "./validate-cad.mjs";
 import { validateMaterials } from "./validate-materials.mjs";
 import { validateProjects } from "./validate-projects.mjs";
+import {
+  latheParts,
+  latheControls,
+  toolpostParts,
+  sourceNotes,
+} from "../src/data/lathe-anatomy.ts";
 
 const errors = [];
 const categoryIds = [
@@ -126,6 +132,44 @@ const sources = list(content.sources, "sources");
 const lessonIds = uniqueIds(lessons, "lessons");
 const projectIds = uniqueIds(projects, "projects");
 const sourceIds = uniqueIds(sources, "sources");
+for (const [name, entries, count] of [
+  ["latheParts", latheParts, 18],
+  ["latheControls", latheControls, 21],
+  ["toolpostParts", toolpostParts, 5],
+]) {
+  uniqueIds(entries, name);
+  report(entries.length === count, `${name}: expected ${count} callouts`);
+  report(
+    entries
+      .map((entry) => entry.number)
+      .sort((a, b) => a - b)
+      .every((number, index) => number === index + 1),
+    `${name}: numbering must be complete and unique`,
+  );
+  for (const entry of entries) {
+    text(entry.name, `${name}.${entry.id}.name`);
+    text(entry.description, `${name}.${entry.id}.description`);
+    report(
+      ["assembly", "control", "guard", "lighting", "electrical"].includes(
+        entry.kind,
+      ),
+      `${name}.${entry.id}: unknown kind`,
+    );
+  }
+}
+report(
+  latheControls.filter((entry) => entry.kind === "control").length === 16,
+  "TV-6M control map: expected sixteen controls plus five other callouts",
+);
+report(
+  [7, 8, 10, 20, 21].every(
+    (number) =>
+      latheControls.find((entry) => entry.number === number)?.kind !==
+      "control",
+  ),
+  "TV-6M guards, lamp and transformer must not be presented as controls",
+);
+texts(sourceNotes, "latheSourceNotes");
 for (const id of projectIds)
   report(
     !lessonIds.has(id),

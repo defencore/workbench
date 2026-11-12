@@ -816,3 +816,84 @@
 .machining-lab--danger .machining-lab__holder-label:before {
   border-color: #a72b23;
 }
+.machining-lab__part-inspector {
+  padding: 17px 20px;
+  border-top: 1px solid #dce6ed;
+  background: #f7fafc;
+}
+.machining-lab__part-inspector > strong {
+  display: block;
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+.machining-lab__part-inspector > div {
+  display: flex;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+.machining-lab__part-inspector button {
+  border: 1px solid #c2d0dc;
+  border-radius: 5px;
+  background: #fff;
+  color: #2a4e65;
+  padding: 9px 11px;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.45;
+  cursor: pointer;
+  text-align: left;
+}
+.machining-lab__part-inspector button[aria-pressed="true"] {
+  background: #e5eff5;
+  border-color: #6a91aa;
+  color: #20435a;
+  font-weight: 700;
+}
+.machining-lab__part-inspector p {
+  font-size: 14px;
+  line-height: 1.65;
+  margin: 12px 0;
+}
+.machining-lab__part-inspector > a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #2c668c;
+  max-width: 100%;
+}
+.machining-lab__holder-label {
+  max-width: 220px;
+  white-space: normal;
+  min-width: 130px;
+}
+.machining-lab--danger .machining-lab__part-inspector {
+  background: #fff5f1;
+}
+.machining-lab--danger
+  .machining-lab__part-inspector
+  button[aria-pressed="true"] {
+  background: #f7e2dc;
+  border-color: #ba7c70;
+  color: #7d2d24;
+}
+@media (max-width: 600px) {
+  .machining-lab__part-inspector {
+    padding: 15px;
+  }
+  .machining-lab__part-inspector button {
+    font-size: 12px;
+    padding: 8px 10px;
+  }
+  .machining-lab__part-inspector > strong {
+    font-size: 13px;
+  }
+  .machining-lab__holder-label {
+    max-width: 200px;
+  }
+  .machining-lab__part-inspector > a {
+    align-items: flex-start;
+  }
+}

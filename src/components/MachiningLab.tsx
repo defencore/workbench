@@ -43,8 +43,33 @@ interface LabActions {
   finish: (value: boolean) => void;
   ghost: (value: boolean) => void;
   sweep: (value: boolean) => void;
+  inspect: (part: LatheElement) => void;
   navigate: (key: string) => void;
 }
+type LatheElement = "body" | "insert" | "toolpost";
+const latheElements = {
+  body: {
+    uk: "Корпус різця (державка)",
+    en: "Tool body (shank)",
+    caption: {
+      uk: "металева частина різця",
+      en: "metal body of the turning tool",
+    },
+  },
+  insert: {
+    uk: "Різальна пластина",
+    en: "Cutting insert",
+    caption: {
+      uk: "кріпиться до корпусу різця",
+      en: "fastened to the tool body",
+    },
+  },
+  toolpost: {
+    uk: "Чотирипозиційний різцетримач",
+    en: "Four-way toolpost",
+    caption: { uk: "затискає корпус різця", en: "clamps the tool body" },
+  },
+};
 const operations: Operation[] = ["turning", "milling", "drilling"];
 const operationNames = {
   turning: { uk: "Точіння", en: "Turning" },
@@ -474,6 +499,8 @@ export default function MachiningLab({
   initialOperation = "turning",
 }: MachiningLabProps) {
   const [example, setExample] = useState<LatheExample>("clearance");
+  const [inspectedPart, setInspectedPart] = useState<LatheElement>("body");
+  const inspectedPartRef = useRef<LatheElement>("body");
   const [sweep, setSweep] = useState(true);
   const sweepRef = useRef(true);
   const [operation, setOperation] = useState<Operation>(initialOperation);
@@ -546,7 +573,7 @@ export default function MachiningLab({
     controls.enableDamping = false;
     controls.enablePan = false;
     controls.minDistance = 75;
-    controls.maxDistance = 230;
+    controls.maxDistance = 380;
     controls.maxPolarAngle = Math.PI * 0.91;
     const pmrem = new THREE.PMREMGenerator(renderer),
       environment = new RoomEnvironment();
@@ -788,6 +815,8 @@ export default function MachiningLab({
     const spindle = new THREE.Group();
     tool.add(spindle);
     let witnessHolder: THREE.Mesh | undefined;
+    let witnessInsert: THREE.Mesh | undefined;
+    let witnessToolpost: THREE.Mesh | undefined;
     if (operation === "turning") {
       const holder = setup.holder;
       witnessHolder = box(
@@ -818,6 +847,7 @@ export default function MachiningLab({
         ...setup.insert.position,
       );
       insert.rotation.x = Math.PI / 2;
+      witnessInsert = insert;
       const screw = mesh(
         new THREE.CylinderGeometry(1.1, 1.1, 0.4, 16),
         dark,
@@ -825,6 +855,45 @@ export default function MachiningLab({
         ...setup.screw.position,
       );
       screw.castShadow = false;
+      if (setup.toolpost.length) {
+        const postMaterial = new THREE.MeshStandardMaterial({
+          color: "#527b86",
+          metalness: 0.65,
+          roughness: 0.4,
+        });
+        for (const part of setup.toolpost) {
+          const material =
+            part.name.includes("clamp-") || part.name.includes("locking-stud")
+              ? toolSteel
+              : postMaterial;
+          let item: THREE.Mesh;
+          if (part.shape === "box")
+            item = box(...part.size, ...part.position, material, tool);
+          else if (part.shape === "sphere")
+            item = mesh(
+              new THREE.SphereGeometry(part.radius, 20, 12),
+              material,
+              tool,
+              ...part.position,
+            );
+          else {
+            item = mesh(
+              new THREE.CylinderGeometry(
+                part.radius,
+                part.radius,
+                part.length,
+                32,
+              ),
+              material,
+              tool,
+              ...part.position,
+            );
+            if (part.axis === "x") item.rotation.z = Math.PI / 2;
+            if (part.axis === "z") item.rotation.x = Math.PI / 2;
+          }
+          if (part.name === "toolpost-upper-plate") witnessToolpost = item;
+        }
+      }
     } else {
       const drill = operation === "drilling",
         r = drill ? 4 : 6;
@@ -952,7 +1021,13 @@ export default function MachiningLab({
       if (disposed) return;
       renderer.render(scene, camera);
       if (operation === "turning" && witnessHolder && holderLabel.current) {
-        const point = witnessHolder
+        const target =
+          inspectedPartRef.current === "insert"
+            ? witnessInsert
+            : inspectedPartRef.current === "toolpost" && witnessToolpost
+              ? witnessToolpost
+              : witnessHolder;
+        const point = target!
           .getWorldPosition(new THREE.Vector3())
           .project(camera);
         const x = (point.x + 1) / 2,
@@ -967,7 +1042,15 @@ export default function MachiningLab({
             ? "visible"
             : "hidden";
         const anchorX = x * node.clientWidth;
-        const labelX = clamp(anchorX, 85, node.clientWidth - 85);
+        const labelMargin = Math.min(
+          node.clientWidth / 2,
+          holderLabel.current.offsetWidth / 2 + 8,
+        );
+        const labelX = clamp(
+          anchorX,
+          labelMargin,
+          node.clientWidth - labelMargin,
+        );
         holderLabel.current.style.left = `${labelX}px`;
         holderLabel.current.style.setProperty(
           "--holder-anchor-x",
@@ -1036,18 +1119,13 @@ export default function MachiningLab({
     };
     const resetCamera = (front = false) => {
       if (operation === "turning") {
-        controls.target.set(
-          danger ? -9 : -12,
-          danger ? 0 : -4,
-          danger ? 0 : 10,
-        );
-        if (front)
-          camera.position.set(danger ? 0 : -12, 30, danger ? 155 : 240);
+        controls.target.set(danger ? -9 : -3, danger ? 0 : -4, danger ? 0 : 15);
+        if (front) camera.position.set(danger ? 0 : -3, 30, danger ? 155 : 320);
         else
           camera.position.set(
-            danger ? 72 : 95,
-            danger ? 63 : 80,
-            danger ? 115 : 210,
+            danger ? 72 : 135,
+            danger ? 63 : 100,
+            danger ? 115 : 275,
           );
       } else {
         controls.target.set(0, 8, 0);
@@ -1103,6 +1181,10 @@ export default function MachiningLab({
       },
       finish(value) {
         finishSurface(value);
+        render();
+      },
+      inspect(part) {
+        inspectedPartRef.current = part;
         render();
       },
       sweep(value) {
@@ -1198,6 +1280,11 @@ export default function MachiningLab({
     danger,
   ]);
 
+  useEffect(() => {
+    inspectedPartRef.current = inspectedPart;
+    actions.current?.inspect(inspectedPart);
+  }, [inspectedPart]);
+
   useEffect(
     () => () => {
       playingRef.current = false;
@@ -1214,6 +1301,8 @@ export default function MachiningLab({
     progressRef.current = 0;
     setProgress(0);
     setExample("clearance");
+    setInspectedPart("body");
+    inspectedPartRef.current = "body";
     setOperation(value);
   };
   const chooseExample = (value: LatheExample) => {
@@ -1221,6 +1310,8 @@ export default function MachiningLab({
     const position = value === "collision" ? COLLISION_EXAMPLE_PROGRESS : 0;
     progressRef.current = position;
     setProgress(position * 100);
+    setInspectedPart("body");
+    inspectedPartRef.current = "body";
     setExample(value);
   };
   const seek = (value: number) => {
@@ -1330,14 +1421,14 @@ export default function MachiningLab({
               <div>
                 <strong>
                   {tr(
-                    "НЕБЕЗПЕЧНО: кулачок зачепить тримач пластини",
-                    "DANGER: a chuck jaw strikes the toolholder",
+                    "НЕБЕЗПЕЧНО: кулачок зачепить корпус різця",
+                    "DANGER: a chuck jaw strikes the tool body",
                   )}
                 </strong>
                 <p>
                   {tr(
-                    "Ніс різця ще попереду кулачків, але тримач пластини вже в їхньому об’ємі обертання. Можливі руйнування інструмента або патрона й викид заготовки. Не повторювати.",
-                    "The tool nose is still ahead of the jaws, but the holder is already inside their rotating envelope. Impact can break the tool or chuck and eject the workpiece. Do not reproduce this setup.",
+                    "Ніс різця ще попереду кулачків, але корпус різця вже в їхньому об’ємі обертання. Можливі руйнування інструмента або патрона й викид заготовки. Не повторювати.",
+                    "The tool nose is still ahead of the jaws, but the tool body is already inside their rotating envelope. Impact can break the tool or chuck and eject the workpiece. Do not reproduce this setup.",
                   )}
                 </p>
               </div>
@@ -1345,8 +1436,8 @@ export default function MachiningLab({
           ) : (
             <p>
               {tr(
-                "У цьому прикладі перевіряється весь інструмент і повний оберт кулачків. Позначений зазор стосується лише геометрії цієї моделі.",
-                "This example checks the complete tool against a full jaw rotation. The indicated clearance applies only to this model’s geometry.",
+                "У цьому прикладі перевіряється різець разом із різцетримачем і повний оберт кулачків. Позначений зазор стосується лише геометрії цієї моделі.",
+                "This example checks the cutting tool and its toolpost against a full jaw rotation. The indicated clearance applies only to this model’s geometry.",
               )}
             </p>
           )}
@@ -1384,10 +1475,8 @@ export default function MachiningLab({
                 className="machining-lab__holder-label"
                 style={{ visibility: "hidden" }}
               >
-                {tr("Тримач пластини", "Insert holder")}
-                <small>
-                  {tr("сталевий корпус різця", "steel body of the tool")}
-                </small>
+                {latheElements[inspectedPart][lang]}
+                <small>{latheElements[inspectedPart].caption[lang]}</small>
               </span>
             )}
             {error && (
@@ -1465,8 +1554,8 @@ export default function MachiningLab({
               <TriangleAlert size={21} />
               <span>
                 {tr(
-                  "Зупинено в положенні зіткнення. Червоним показано перетин тримача пластини з кулачком і об’єм обертання.",
-                  "Paused at interference. Red marks the holder–jaw intersection and the rotating envelope.",
+                  "Зупинено в положенні зіткнення. Червоним показано перетин корпусу різця з кулачком і об’єм обертання.",
+                  "Paused at interference. Red marks the tool-body/jaw intersection and the rotating envelope.",
                 )}
               </span>
             </div>
@@ -1533,6 +1622,52 @@ export default function MachiningLab({
               >
                 <RotateCcw size={19} />
               </button>
+            </div>
+          )}
+          {operation === "turning" && (
+            <div className="machining-lab__part-inspector">
+              <strong>
+                {tr("Назви деталей на моделі", "Identify parts on the model")}
+              </strong>
+              <div
+                role="group"
+                aria-label={tr("Показати підпис деталі", "Show a part label")}
+              >
+                {(
+                  [
+                    "body",
+                    "insert",
+                    ...(!danger ? ["toolpost"] : []),
+                  ] as LatheElement[]
+                ).map((part) => (
+                  <button
+                    type="button"
+                    key={part}
+                    aria-pressed={inspectedPart === part}
+                    onClick={() => setInspectedPart(part)}
+                  >
+                    {latheElements[part][lang]}
+                  </button>
+                ))}
+              </div>
+              <p>
+                {danger
+                  ? tr(
+                      "Це фрагмент із різцем. Різцетримач і його затискні болти показано в прикладі з зазором.",
+                      "This fragment shows the cutting tool. The toolpost and its clamping bolts are shown in the clearance example.",
+                    )
+                  : tr(
+                      "Різцетримач затискає корпус різця болтами з квадратними головками. Різальна пластина має окремий гвинт кріплення до корпусу різця. Це різні деталі.",
+                      "The toolpost clamps the tool body using square-head clamping bolts. The cutting insert has its own separate screw fastening it to the tool body. These are different parts.",
+                    )}
+              </p>
+              <a href="#/lathe-anatomy">
+                {tr(
+                  "Будова токарного верстата й органи керування",
+                  "Lathe structure and controls",
+                )}
+                <ArrowRight size={14} />
+              </a>
             </div>
           )}
           {!danger && (
@@ -1609,15 +1744,15 @@ export default function MachiningLab({
                 <span>{tr("ЧОМУ ЦЕ НЕБЕЗПЕЧНО", "WHY THIS IS DANGEROUS")}</span>
                 <h4>
                   {tr(
-                    "Враховуйте увесь тримач пластини",
-                    "Check the whole holder",
+                    "Враховуйте увесь корпус різця",
+                    "Check the whole tool body",
                   )}
                 </h4>
               </div>
               <p>
                 {tr(
-                  "Тримач пластини — сталевий корпус, у якому закріплена різальна пластина. Перевіряти лише відстань від вершини різця до торця патрона недостатньо. Кулачки виступають уперед і під час обертання проходять через тримач пластини.",
-                  "The insert holder is the steel body holding the cutting insert. Checking only the tool-tip distance from the chuck face is insufficient. The jaws project forward and pass through the holder as they rotate.",
+                  "Корпус різця (державка) утримує різальну пластину. Різцетримач — окремий вузол для затиску цілого різця; у цьому зупиненому фрагменті він не показаний. Перевіряти лише відстань від вершини різця до торця патрона недостатньо. Кулачки виступають уперед і під час обертання проходять через корпус різця.",
+                  "The tool body (shank) holds the cutting insert. The toolpost is a separate assembly that clamps the complete tool; it is not shown in this paused fragment. Checking only the tool-tip distance from the chuck face is insufficient. The jaws project forward and pass through the tool body as they rotate.",
                 )}
               </p>
               <dl>
@@ -1625,8 +1760,8 @@ export default function MachiningLab({
                   <dt>{tr("Червоний об’єм", "Red envelope")}</dt>
                   <dd>
                     {tr(
-                      "Область, яку займають патрон і кулачки за повний оберт. Світла червона вставка показує фактичний перетин із тримачем пластини в цьому ракурсі.",
-                      "The region occupied by the chuck and jaws over a full revolution. The bright red block shows actual holder–jaw overlap in this position.",
+                      "Область, яку займають патрон і кулачки за повний оберт. Світла червона вставка показує фактичний перетин із корпусом різця в цьому ракурсі.",
+                      "The region occupied by the chuck and jaws over a full revolution. The bright red block shows actual tool-body/jaw overlap in this position.",
                     )}
                   </dd>
                 </div>
@@ -1639,8 +1774,8 @@ export default function MachiningLab({
                   </dt>
                   <dd>
                     {tr(
-                      "Переробити установ і траєкторію так, щоб тримач пластини, пластина, кріплення та різцетримач залишалися поза об’ємом обертання. Окремо перевірити захват, виліт, підвід, різання, відвід і повернення.",
-                      "Redesign the setup and path so the holder, insert, fasteners and toolpost stay outside the rotating envelope. Separately verify grip, overhang, approach, cutting, retraction and return.",
+                      "Переробити установ і траєкторію так, щоб корпус різця, пластина, кріплення та різцетримач залишалися поза об’ємом обертання. Окремо перевірити захват, виліт, підвід, різання, відвід і повернення.",
+                      "Redesign the setup and path so the tool body, insert, fasteners and toolpost stay outside the rotating envelope. Separately verify grip, overhang, approach, cutting, retraction and return.",
                     )}
                   </dd>
                 </div>
@@ -1760,8 +1895,8 @@ export default function MachiningLab({
       <p className="machining-lab__caption">
         {operation === "turning"
           ? tr(
-              "Для робочого прикладу перевірено номінальну геометрію інструмента відносно об’єму обертання патрона й кулачків. Допустимий захват, виліт, оберти та зусилля затиску визначають за документацією конкретного обладнання; наведені розміри не є універсальними безпечними межами.",
-              "The working example checks nominal tool geometry against the chuck and jaw rotating envelope. Determine permitted grip, overhang, speed and clamping force from the actual equipment documentation; these dimensions are not universal safe limits.",
+              "Для робочого прикладу перевірено номінальну геометрію різця й різцетримача відносно об’єму обертання патрона й кулачків. Допустимий захват, виліт, оберти та зусилля затиску визначають за документацією конкретного обладнання; наведені розміри не є універсальними безпечними межами.",
+              "The working example checks nominal tool and toolpost geometry against the chuck and jaw rotating envelope. Determine permitted grip, overhang, speed and clamping force from the actual equipment documentation; these dimensions are not universal safe limits.",
             )
           : tr(
               "Навчальна 3D-візуалізація, не CAM-перевірка: геометрія в мм, рух, стружка та вигляд поверхні умовні. Зміна матеріалу змінює вигляд і пояснення; режими різання, сили, нагрівання, зіткнення та надійність затиску тут не розраховуються.",

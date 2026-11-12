@@ -1,0 +1,381 @@
+.lathe-anatomy {
+  max-width: 1160px;
+  margin: auto;
+  color: var(--ink);
+}
+.lathe-anatomy__heading {
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  margin: 24px 0;
+}
+.lathe-anatomy__heading h1 {
+  font-size: 34px;
+  line-height: 1.25;
+  margin: 10px 0 16px;
+  letter-spacing: -0.03em;
+}
+.lathe-anatomy p {
+  font-size: 16px;
+  line-height: 1.75;
+  margin: 0;
+}
+.lathe-anatomy__heading p {
+  color: #5d6a77;
+  max-width: 850px;
+}
+.lathe-anatomy__heading > .save-button {
+  flex-shrink: 0;
+}
+.lathe-anatomy__terms {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid #d7e1e9;
+  border-radius: 7px;
+  background: #f5f8fb;
+  margin: 28px 0;
+}
+.lathe-anatomy__terms > div {
+  padding: 20px;
+  border-right: 1px solid #d7e1e9;
+}
+.lathe-anatomy__terms > div:last-child {
+  border: 0;
+}
+.lathe-anatomy__terms strong {
+  display: block;
+  color: #244c68;
+  font-size: 16px;
+  margin-bottom: 9px;
+}
+.lathe-anatomy__terms p {
+  font-size: 14px;
+  line-height: 1.7;
+}
+.lathe-anatomy__tabs {
+  display: flex;
+  gap: 6px;
+  overflow: auto;
+  border-bottom: 1px solid var(--line);
+  margin: 30px 0 26px;
+}
+.lathe-anatomy__tabs button {
+  font: inherit;
+  font-size: 15px;
+  padding: 13px 18px;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: white;
+  color: #586b7b;
+  white-space: nowrap;
+  cursor: pointer;
+}
+.lathe-anatomy__tabs button[aria-selected="true"] {
+  border-color: #245a87;
+  background: #edf4fa;
+  color: #1d4d72;
+  font-weight: 700;
+}
+.lathe-anatomy h2 {
+  font-size: 23px;
+  line-height: 1.35;
+  margin: 0 0 14px;
+}
+.lathe-anatomy__intro {
+  color: #5b6977;
+  margin-bottom: 22px !important;
+}
+.lathe-anatomy__selected {
+  display: flex;
+  gap: 18px;
+  border: 1px solid #b4cadc;
+  background: #edf5fb;
+  border-radius: 7px;
+  padding: 20px 23px;
+  margin: 22px 0;
+}
+.lathe-anatomy__selected h3 {
+  margin: 0 0 8px;
+  font-size: 20px;
+}
+.lathe-anatomy__number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  background: #e5eef5;
+  border: 1px solid #c1d1df;
+  color: #234f70;
+  border-radius: 5px;
+  font: 600 16px monospace;
+}
+.lathe-anatomy__index {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+.lathe-anatomy__index button {
+  display: flex;
+  align-items: center;
+  text-align: left;
+  gap: 10px;
+  padding: 11px 12px;
+  border: 1px solid #dce4eb;
+  border-radius: 5px;
+  background: white;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #334c60;
+  cursor: pointer;
+}
+.lathe-anatomy__index button > b {
+  font-family: monospace;
+  font-size: 13px;
+  color: #56748d;
+  min-width: 23px;
+}
+.lathe-anatomy__index button[aria-pressed="true"] {
+  background: #eaf3fa;
+  border-color: #7f9fb9;
+  color: #174c75;
+}
+.lathe-anatomy__numbering {
+  display: flex;
+  gap: 14px;
+  background: #f1f6fa;
+  border: 1px solid #d2e0eb;
+  border-radius: 6px;
+  padding: 18px 20px;
+  margin: 0 0 22px;
+}
+.lathe-anatomy__numbering > svg {
+  flex-shrink: 0;
+  color: #3c6789;
+}
+.lathe-anatomy__numbering strong {
+  display: block;
+  font-size: 16px;
+  margin-bottom: 7px;
+}
+.lathe-anatomy__numbering p {
+  font-size: 14px;
+}
+.lathe-anatomy__filters {
+  display: flex;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+.lathe-anatomy__filters > .inline-search {
+  flex: 1;
+  min-width: 0;
+}
+.lathe-anatomy__filters select {
+  font: inherit;
+  font-size: 14px;
+  background: white;
+  border: 1px solid #cdd9e3;
+  border-radius: 5px;
+  padding: 11px;
+  color: #304d64;
+  max-width: 230px;
+}
+.lathe-anatomy__control-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+.lathe-anatomy__control-list > section {
+  display: flex;
+  gap: 14px;
+  padding: 21px;
+  border: 1px solid #dce4ea;
+  border-radius: 7px;
+  background: white;
+  align-self: start;
+}
+.lathe-anatomy__control-list h2 {
+  font-size: 18px;
+  margin: 0 0 6px;
+}
+.lathe-anatomy__control-list section > div > span {
+  font-size: 12px;
+  color: #617b90;
+}
+.lathe-anatomy__control-list p {
+  font-size: 15px;
+  margin-top: 10px;
+}
+.lathe-anatomy__other {
+  border: 1px solid #d4e0e8;
+  border-radius: 6px;
+  margin-top: 25px;
+  background: #f9fbfc;
+}
+.lathe-anatomy__other summary {
+  font-size: 16px;
+  line-height: 1.6;
+  padding: 16px 20px;
+  font-weight: 600;
+  cursor: pointer;
+}
+.lathe-anatomy__other > div {
+  display: flex;
+  gap: 18px;
+  padding: 16px 20px;
+  border-top: 1px solid #dce5ec;
+}
+.lathe-anatomy__other b {
+  font: 600 14px monospace;
+  color: #51728c;
+  min-width: 24px;
+  padding-top: 4px;
+}
+.lathe-anatomy__other strong {
+  display: block;
+  margin-bottom: 5px;
+}
+.lathe-anatomy__other p {
+  font-size: 14px;
+}
+.lathe-anatomy__manual-note {
+  padding: 20px;
+  border-left: 3px solid #ab8650;
+  background: #fff9ed;
+  margin-top: 25px;
+}
+.lathe-anatomy__manual-note > strong {
+  font-size: 16px;
+  line-height: 1.6;
+}
+.lathe-anatomy__manual-note p {
+  font-size: 14px;
+  margin-top: 9px;
+}
+.lathe-anatomy__sources {
+  border-top: 1px solid var(--line);
+  margin-top: 38px;
+  padding-top: 26px;
+}
+.lathe-anatomy__sources > p {
+  font-size: 14px;
+  color: #5b6a77;
+  margin-bottom: 15px;
+}
+.lathe-anatomy__sources a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 15px 0;
+  border-bottom: 1px solid var(--line);
+  color: #285c83;
+  text-decoration: none;
+}
+.lathe-anatomy__sources small {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  color: #607282;
+  margin-bottom: 5px;
+}
+.lathe-anatomy__sources strong {
+  font-size: 15px;
+  line-height: 1.6;
+}
+.lathe-anatomy > .text-link {
+  margin-top: 25px;
+}
+.lathe-anatomy [role="tabpanel"]:focus {
+  outline: 0;
+}
+.lathe-anatomy button:focus-visible {
+  outline: 2px solid #4d8cb9;
+  outline-offset: 3px;
+}
+@media (max-width: 1100px) {
+  .lathe-anatomy__index {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .lathe-anatomy__terms {
+    grid-template-columns: 1fr;
+  }
+  .lathe-anatomy__terms > div {
+    border-right: 0;
+    border-bottom: 1px solid #d7e1e9;
+  }
+  .lathe-anatomy__control-list {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .lathe-anatomy__heading h1 {
+    font-size: 28px;
+  }
+  .lathe-anatomy__heading {
+    gap: 12px;
+  }
+  .lathe-anatomy__tabs button {
+    font-size: 13px;
+    padding: 11px 12px;
+  }
+  .lathe-anatomy__index {
+    grid-template-columns: 1fr;
+  }
+  .lathe-anatomy__selected {
+    padding: 16px;
+    gap: 12px;
+  }
+  .lathe-anatomy__selected h3 {
+    font-size: 18px;
+  }
+  .lathe-anatomy p {
+    font-size: 15px;
+  }
+  .lathe-anatomy__terms p {
+    font-size: 14px;
+  }
+  .lathe-anatomy__filters {
+    flex-direction: column;
+  }
+  .lathe-anatomy__filters select {
+    max-width: none;
+  }
+  .lathe-anatomy__control-list > section {
+    padding: 16px;
+    gap: 12px;
+  }
+  .lathe-anatomy__numbering {
+    padding: 15px;
+    gap: 10px;
+  }
+  .lathe-anatomy__number {
+    min-width: 30px;
+    height: 30px;
+    font-size: 14px;
+  }
+  .lathe-anatomy__manual-note {
+    padding: 16px;
+  }
+}
+@media print {
+  .lathe-anatomy__tabs,
+  .lathe-anatomy__filters,
+  .lathe-anatomy .save-button {
+    display: none;
+  }
+  .lathe-anatomy__terms {
+    grid-template-columns: repeat(3, 1fr);
+  }
+  .lathe-anatomy__control-list {
+    grid-template-columns: 1fr 1fr;
+  }
+  .lathe-anatomy__control-list > section {
+    break-inside: avoid;
+  }
+  .lathe-anatomy p {
+    font-size: 10pt;
+  }
+}
