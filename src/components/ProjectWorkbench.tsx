@@ -43,11 +43,19 @@ import {
 import ProjectDrawing, { GeometryDrawing } from "./ProjectDrawing";
 import SetupDiagram from "./SetupDiagram";
 import SaveButton from "./SaveButton";
-import cadManifest from "../../public/models/index.json";
 import "./ProjectWorkbench.css";
 const ModelViewer = lazy(() => import("./ModelViewer"));
 type Toggle = (field: "saved" | "completed" | "checks", id: string) => void;
 type Common = { lang: Lang; prefs: Preferences; toggle: Toggle };
+type CadManifest = {
+  limitations: Record<Lang, string>;
+  models: {
+    projectId: string;
+    fixtureId: string | null;
+    role: string;
+    url: string;
+  }[];
+};
 const text = (lang: Lang, uk: string, en: string) => (lang === "uk" ? uk : en);
 const ids = (project: Project, id: string) => `manufacture-${project.id}-${id}`;
 function jump(id: string) {
@@ -474,12 +482,14 @@ function DrawingPanel({
   lang,
   filename,
   step,
+  cadNote,
 }: {
   children: ReactNode;
   title: string;
   lang: Lang;
   filename: string;
   step?: string;
+  cadNote?: string;
 }) {
   const host = useRef<HTMLDivElement>(null),
     dialog = useRef<HTMLDialogElement>(null);
@@ -520,11 +530,7 @@ function DrawingPanel({
         )}
       </div>
       {children}
-      {step && (
-        <p className="manufacturing-cad-note">
-          {cadManifest.limitations[lang]}
-        </p>
-      )}
+      {step && <p className="manufacturing-cad-note">{cadNote}</p>}
       {expanded && (
         <dialog
           className="manufacturing-drawing-dialog"
@@ -608,10 +614,12 @@ function Fixture({
   fixture,
   project,
   lang,
+  cad,
 }: {
   fixture: ProjectFixture;
   project: Project;
   lang: Lang;
+  cad: CadManifest | null;
 }) {
   return (
     <section className="manufacturing-fixture" id={ids(project, fixture.id)}>
@@ -644,10 +652,11 @@ function Fixture({
           lang={lang}
           filename={`${project.id}-${project.revision}-${fixture.id}`}
           step={
-            cadManifest.models.find(
+            cad?.models.find(
               (m) => m.projectId === project.id && m.fixtureId === fixture.id,
             )?.url
           }
+          cadNote={cad?.limitations[lang]}
         >
           <GeometryDrawing
             geometry={fixture.geometry}
@@ -1111,6 +1120,24 @@ export function ProjectDetail({
   onMeasurement: (key: string, value: string) => void;
   children?: ReactNode;
 }) {
+  const [cadManifest, setCadManifest] = useState<CadManifest | null>(null);
+  useEffect(() => {
+    let active = true;
+    fetch("/models/index.json")
+      .then((response) => {
+        if (!response.ok) throw new Error("CAD manifest unavailable");
+        return response.json() as Promise<CadManifest>;
+      })
+      .then((manifest) => {
+        if (active) setCadManifest(manifest);
+      })
+      .catch(() => {
+        if (active) setCadManifest(null);
+      });
+    return () => {
+      active = false;
+    };
+  }, []);
   const [openSetups, setOpenSetups] = useState<string[]>(
     project.setups.length ? [project.setups[0].id] : [],
   );
@@ -1230,10 +1257,11 @@ export function ProjectDetail({
               lang={lang}
               filename={`${project.id}-${project.revision}-drawing`}
               step={
-                cadManifest.models.find(
+                cadManifest?.models.find(
                   (m) => m.projectId === project.id && m.role === "part",
                 )?.url
               }
+              cadNote={cadManifest?.limitations[lang]}
             >
               <ProjectDrawing project={project} lang={lang} />
             </DrawingPanel>
@@ -1335,6 +1363,7 @@ export function ProjectDetail({
                 fixture={fixture}
                 project={project}
                 lang={lang}
+                cad={cadManifest}
               />
             ))}
           </section>
