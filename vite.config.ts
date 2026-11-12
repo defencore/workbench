@@ -7,6 +7,9 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks(id) {
+          if (id.includes("/src/data/material-guides.ts"))
+            return "material-data";
+          if (id.includes("/src/data/projects/")) return "manufacturing-data";
           if (id.includes("/node_modules/three/")) return "three";
           if (/\/node_modules\/(react|react-dom|scheduler)\//.test(id))
             return "react";

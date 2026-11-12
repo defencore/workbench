@@ -1,1 +1,289 @@
-.project-drawing{margin:0;min-width:0;background:#fff;color:#252e38;border:1px solid #d1d8df;border-radius:3px;overflow:hidden}.project-drawing-heading{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 16px;border-bottom:1px solid #dce1e6;color:#4a5664;font-size:12px;font-weight:600}.project-drawing>svg{display:block;width:100%;height:auto;max-height:480px;background:#fff;font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace}.project-drawing-geometry{fill:none;stroke:#263340;stroke-width:1.9;stroke-linejoin:round;stroke-linecap:square}.project-drawing-geometry text{stroke:none;fill:#33404d;font-size:17px;font-weight:500;letter-spacing:0}.project-drawing-geometry .project-drawing-dimension{stroke:#205f9b;stroke-width:1;fill:none}.project-drawing-geometry .project-drawing-dimension text,.project-drawing-geometry .project-drawing-blue-label{fill:#205f9b;stroke:none;font-size:19px}.project-drawing-geometry .project-drawing-center{fill:none;stroke:#8b97a2;stroke-width:.9;stroke-dasharray:13 4 2 4}.project-drawing-geometry .project-drawing-hidden{fill:none;stroke:#8b97a2;stroke-width:1;stroke-dasharray:6 5}.project-drawing-geometry .project-drawing-provisional{fill:none;stroke:#546473;stroke-dasharray:8 5}.project-drawing-geometry .project-drawing-pocket{fill:#f4f6f8}.project-drawing-geometry .project-drawing-view-label{font-size:12px;fill:#687583;letter-spacing:.5px}.project-drawing-geometry .project-drawing-note{font-family:inherit;font-size:15px;fill:#536170}.project-drawing>figcaption{border-top:1px solid #e0e5ea;padding:12px 16px;color:#596673;font-size:12px;line-height:1.6;background:#fafbfc}.project-drawing>figcaption>span{display:block;margin-top:4px}.project-drawing-compact{border:0;border-radius:0;height:100%;display:flex;flex-direction:column}.project-drawing-compact>svg{flex:1;min-height:0;max-height:300px}.project-drawing-compact .project-drawing-geometry{stroke-width:1.7}.project-drawing-compact .project-drawing-geometry text{font-size:18px}.project-drawing-compact .project-drawing-geometry .project-drawing-note{font-size:16px}.project-drawing-compact>figcaption{background:#fff;border-top:0;padding:2px 12px 10px;font-size:10px;line-height:1.4;color:#687583}@media(max-width:600px){.project-drawing:not(.project-drawing-compact)>svg{min-width:560px}.project-drawing:not(.project-drawing-compact){overflow-x:auto}.project-drawing-heading{font-size:11px}.project-drawing:not(.project-drawing-compact)>figcaption{min-width:0;position:sticky;left:0}.project-drawing-compact>svg{max-height:none}}
+.project-drawing {
+  margin: 0;
+  min-width: 0;
+  background: #fff;
+  color: #252e38;
+  border: 1px solid #d1d8df;
+  border-radius: 4px;
+  overflow: hidden;
+}
+.project-drawing-heading {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 15px 19px;
+  border-bottom: 1px solid #dce1e6;
+  color: #526174;
+  font-size: 12px;
+  line-height: 1.7;
+}
+.project-drawing-heading strong {
+  font-size: 13px;
+  font-weight: 600;
+  color: #34475c;
+}
+.project-drawing-heading > span {
+  white-space: nowrap;
+}
+.project-drawing-viewport {
+  overflow: auto;
+  overscroll-behavior-x: contain;
+  min-width: 0;
+}
+.project-drawing-viewport:focus-visible {
+  outline: 2px solid #2457d6;
+  outline-offset: -3px;
+}
+.project-drawing-viewport > svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: #fff;
+  font-family:
+    ui-monospace, SFMono-Regular, Consolas, "Liberation Mono", monospace;
+}
+.project-drawing-geometry {
+  fill: none;
+  stroke: #263340;
+  stroke-width: 1.6;
+  stroke-linejoin: round;
+  stroke-linecap: square;
+}
+.project-drawing-geometry text {
+  stroke: none;
+  fill: #33404d;
+  font-size: 17px;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.project-drawing-geometry .project-drawing-dimension {
+  stroke: #205f9b;
+  stroke-width: 1;
+  fill: none;
+}
+.project-drawing-geometry .project-drawing-dimension text,
+.project-drawing-geometry .project-drawing-blue-label {
+  fill: #205f9b;
+  stroke: none;
+  font-size: 18px;
+}
+.project-drawing-center {
+  fill: none;
+  stroke: #8b97a2;
+  stroke-width: 0.9;
+  stroke-dasharray: 13 4 2 4;
+}
+.project-drawing-hidden {
+  fill: none;
+  stroke: #8b97a2;
+  stroke-width: 1;
+  stroke-dasharray: 6 5;
+}
+.project-drawing-pocket {
+  fill: #edf2f8;
+  stroke: #344e6b;
+  stroke-width: 1.5;
+}
+.project-drawing-geometry .project-drawing-view-label {
+  font-size: 13px;
+  fill: #687583;
+  letter-spacing: 0.3px;
+}
+.project-drawing-geometry .project-drawing-note {
+  font-size: 16px;
+  fill: #536170;
+}
+.project-drawing-geometry .project-drawing-hole-index {
+  font-size: 15px;
+  fill: #2457a1;
+}
+.project-drawing-geometry .project-drawing-pocket-label {
+  font-size: 13px;
+  fill: #5c7493;
+}
+.project-drawing-cutting-plane {
+  stroke: #7891af;
+  stroke-width: 1;
+  stroke-dasharray: 14 5 3 5;
+}
+.project-drawing-datum {
+  stroke: #27394c;
+  stroke-width: 1.3;
+}
+.project-drawing-datum > path {
+  fill: #27394c;
+}
+.project-drawing-datum > rect {
+  fill: #fff;
+}
+.project-drawing-geometry .project-drawing-datum > text {
+  font-size: 14px;
+  fill: #27394c;
+  font-weight: 600;
+}
+.project-drawing > figcaption {
+  border-top: 1px solid #e0e5ea;
+  padding: 14px 19px;
+  color: #64748b;
+  font-size: 12px;
+  line-height: 1.8;
+  background: #fafbfc;
+}
+.project-drawing > figcaption > span {
+  display: block;
+  margin-top: 7px;
+}
+.project-drawing-coordinates {
+  border-top: 1px solid #dfe6ef;
+  padding: 17px 19px;
+  overflow: auto;
+}
+.project-drawing-subheading {
+  font-size: 12px;
+  font-weight: 550;
+  color: #60748e;
+  margin-bottom: 12px;
+  line-height: 1.8;
+}
+.project-drawing-coordinates table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 12px;
+  line-height: 1.8;
+}
+.project-drawing-coordinates th {
+  font-weight: 500;
+  color: #547397;
+}
+.project-drawing-coordinates td,
+.project-drawing-coordinates th {
+  padding: 7px 12px 7px 0;
+  border-bottom: 1px solid #e9edf3;
+  white-space: nowrap;
+}
+.project-drawing-coordinates td {
+  color: #677d98;
+}
+.project-drawing-features {
+  padding: 16px 19px;
+  border-top: 1px solid #dfe6ef;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px 24px;
+  font-size: 12px;
+  line-height: 1.8;
+  color: #59718f;
+}
+.project-drawing-features > span {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+.project-drawing-features b {
+  color: #2457a1;
+  font-size: 11px;
+  min-width: 24px;
+  font-weight: 600;
+}
+.project-drawing-compact {
+  border: 0;
+  border-radius: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.project-drawing-compact > .project-drawing-viewport {
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.project-drawing-compact .project-drawing-viewport > svg {
+  height: 100%;
+  width: auto;
+  max-width: 100%;
+  max-height: 300px;
+}
+.project-drawing-compact .project-drawing-geometry text {
+  font-size: 17px;
+}
+.project-drawing-compact > figcaption {
+  background: #fff;
+  border-top: 0;
+  padding: 3px 13px 11px;
+  font-size: 10px;
+  line-height: 1.5;
+  color: #687583;
+}
+@media (max-width: 800px) {
+  .project-drawing:not(.project-drawing-compact)
+    .project-drawing-viewport
+    > svg {
+    min-width: 800px;
+  }
+  .project-drawing-heading {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .project-drawing-heading > span {
+    font-size: 11px;
+  }
+  .project-drawing-features {
+    grid-template-columns: 1fr;
+  }
+  .project-drawing-heading,
+  .project-drawing-coordinates,
+  .project-drawing-features {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+  .project-drawing > figcaption {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+.project-drawing-scroll-hint {
+  display: none;
+  margin: 0;
+  padding: 9px 16px;
+  font-size: 11px;
+  line-height: 1.8;
+  color: #748ba9;
+  background: #f8faff;
+  border-bottom: 1px solid #e4ebf5;
+}
+@media (max-width: 1000px) {
+  .project-drawing:not(.project-drawing-compact)
+    .project-drawing-viewport
+    > svg {
+    min-width: 900px;
+  }
+  .project-drawing-scroll-hint {
+    display: block;
+  }
+}
+@media print {
+  .project-drawing {
+    break-inside: avoid-page;
+  }
+  .project-drawing-viewport {
+    overflow: visible;
+  }
+  .project-drawing:not(.project-drawing-compact)
+    .project-drawing-viewport
+    > svg {
+    min-width: 0 !important;
+  }
+  .project-drawing-scroll-hint {
+    display: none;
+  }
+  .project-drawing-heading,
+  .project-drawing > figcaption {
+    background: white;
+  }
+}

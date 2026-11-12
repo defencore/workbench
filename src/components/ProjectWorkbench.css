@@ -1,0 +1,2049 @@
+.manufacturing-card .project-image {
+  height: 215px;
+  background: #fff;
+}
+.manufacturing-card .project-drawing-compact {
+  padding: 9px 12px 0;
+}
+.manufacturing-card .project-card-body > .eyebrow {
+  font-size: 10px;
+  line-height: 1.8;
+  text-transform: none;
+  letter-spacing: 0.2px;
+}
+.manufacturing-card .project-card-body h3 {
+  font-size: 19px;
+  line-height: 1.65;
+}
+.manufacturing-card .project-card-body > p {
+  font-size: 13px;
+  line-height: 1.95;
+  color: #687b96;
+  min-height: 50px;
+}
+.manufacturing-card-stock {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 0 0 17px;
+  font-size: 11px;
+  color: #8495ae;
+}
+.manufacturing-card-stock strong {
+  font-size: 12px;
+  font-weight: 500;
+  color: #546e94;
+}
+.manufacturing-card .project-meta {
+  gap: 9px;
+  font-size: 10px;
+  align-items: flex-start;
+}
+.manufacturing-card .project-meta > span {
+  line-height: 1.9;
+  align-items: flex-start;
+}
+.manufacturing-card .project-meta > span > svg {
+  margin-top: 3px;
+}
+.manufacturing-catalog-note {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  border: 1px solid #dae4f2;
+  background: #f7f9fd;
+  border-radius: 5px;
+  padding: 16px 18px;
+  margin: 0 0 23px;
+  color: #718ab0;
+}
+.manufacturing-catalog-note > svg {
+  margin-top: 2px;
+}
+.manufacturing-catalog-note p {
+  font-size: 13px;
+  line-height: 1.9;
+  color: #6b809f;
+  max-width: 1000px;
+}
+.manufacturing-filters {
+  padding-bottom: 11px;
+}
+.manufacturing-filters .inline-search {
+  min-width: 220px;
+}
+.manufacturing-catalog-summary {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  margin: 10px 0 25px;
+  font-size: 12px;
+  color: #7f93b0;
+  flex-wrap: wrap;
+}
+.manufacturing-catalog-summary > label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  font-size: 12px;
+  color: #6a83a8;
+  margin-left: auto;
+  line-height: 1.8;
+}
+.manufacturing-catalog-summary input {
+  accent-color: #2457d6;
+  width: 14px;
+  height: 14px;
+  margin: 0;
+}
+.manufacturing-catalog-summary > button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #6a85ad;
+}
+.manufacturing-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding-bottom: 24px;
+  border-bottom: 1px solid #dfe7f2;
+  margin: 0 0 23px;
+  flex-wrap: wrap;
+}
+.manufacturing-toolbar .button {
+  font-size: 11px;
+  min-height: 38px;
+  padding: 9px 12px;
+}
+.manufacturing-progress {
+  margin-right: auto;
+  min-width: 190px;
+  max-width: 250px;
+  width: 23%;
+  padding-right: 25px;
+}
+.manufacturing-progress > span {
+  display: block;
+  font-size: 11px;
+  color: #8a9fbd;
+  line-height: 1.8;
+  margin-bottom: 8px;
+}
+.manufacturing-scope {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  padding: 17px 19px;
+  border: 1px solid #dde7f5;
+  border-left: 3px solid #5b7eae;
+  border-radius: 4px;
+  background: #f7faff;
+  color: #5e7fae;
+  margin: 0 0 34px;
+}
+.manufacturing-scope > svg {
+  margin-top: 4px;
+}
+.manufacturing-scope p {
+  font-size: 14px;
+  line-height: 1.9;
+  color: #536f97;
+}
+.manufacturing-scope small {
+  display: block;
+  font-size: 11px;
+  line-height: 1.9;
+  color: #8ba0bf;
+  margin-top: 8px;
+}
+.manufacturing-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 200px;
+  gap: 34px;
+  align-items: start;
+}
+.manufacturing-body {
+  min-width: 0;
+  max-width: 1030px;
+}
+.manufacturing-section {
+  margin-bottom: 44px;
+  scroll-margin-top: 100px;
+}
+.manufacturing-section > h2,
+.manufacturing-route-heading > h2 {
+  font-size: 24px;
+  line-height: 1.6;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  margin: 0 0 24px;
+  color: #2b3c56;
+}
+.manufacturing-section > h3 {
+  font-size: 18px;
+  line-height: 1.7;
+  font-weight: 600;
+  margin: 25px 0 12px;
+  color: #4d6b96;
+}
+.manufacturing-section-intro {
+  font-size: 14px;
+  line-height: 1.95;
+  color: #6e86a8;
+  margin: -8px 0 25px;
+}
+.manufacturing-datums {
+  display: flex;
+  gap: 13px;
+  flex-wrap: wrap;
+  margin: 20px 0 25px;
+}
+.manufacturing-datums > div {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 12px;
+  line-height: 1.9;
+  color: #7089ac;
+  min-width: 150px;
+  flex: 1;
+}
+.manufacturing-datums b {
+  min-width: 24px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #cadaf0;
+  border-radius: 3px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #5b7aab;
+  background: #f3f7fd;
+}
+.manufacturing-table-hint {
+  font-size: 11px;
+  line-height: 1.9;
+  color: #879dbc;
+  padding: 0 0 13px;
+}
+.manufacturing-table-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+  border: 1px solid #d9e4f2;
+  border-radius: 5px;
+  overscroll-behavior-x: contain;
+}
+.manufacturing-requirements {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 910px;
+  font-size: 12px;
+  line-height: 1.8;
+}
+.manufacturing-requirements th {
+  font-size: 10px;
+  color: #7891b5;
+  background: #f5f8fd;
+  font-weight: 550;
+  text-align: left;
+  padding: 13px 12px;
+  border-bottom: 1px solid #d9e5f6;
+  vertical-align: top;
+  white-space: nowrap;
+}
+.manufacturing-requirements td {
+  padding: 14px 12px;
+  border-bottom: 1px solid #e4ebf5;
+  vertical-align: top;
+  color: #6d86aa;
+}
+.manufacturing-requirements tr:last-child td {
+  border-bottom: 0;
+}
+.manufacturing-requirements tr:target {
+  background: #f1f6ff;
+}
+.manufacturing-requirements td:first-child {
+  min-width: 145px;
+  width: 16%;
+}
+.manufacturing-requirements td:nth-child(2) {
+  min-width: 135px;
+  width: 15%;
+}
+.manufacturing-requirements td:nth-child(3) {
+  min-width: 145px;
+  width: 15%;
+  font-variant-numeric: tabular-nums;
+}
+.manufacturing-requirements td:nth-child(4) {
+  min-width: 260px;
+  width: 33%;
+}
+.manufacturing-requirements td:last-child {
+  width: 170px;
+  min-width: 170px;
+}
+.manufacturing-requirements td > strong {
+  display: block;
+  font-size: 12px;
+  font-weight: 550;
+  color: #4d6e9b;
+  line-height: 1.9;
+  margin-top: 5px;
+}
+.manufacturing-requirements td > code {
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: #3c618f;
+  white-space: pre-line;
+}
+.manufacturing-requirements td > small {
+  display: block;
+  font-size: 10px;
+  color: #94a7c2;
+  line-height: 1.85;
+  margin-top: 7px;
+}
+.manufacturing-requirements td > p {
+  font-size: 11px;
+  line-height: 1.9;
+  margin: 7px 0 0;
+}
+.manufacturing-datum-label {
+  font-size: 10px;
+  line-height: 1.7;
+  background: #f0f5fd;
+  border: 1px solid #e0e9f8;
+  border-radius: 3px;
+  padding: 2px 5px;
+  display: inline-block;
+  color: #7693bd;
+}
+.manufacturing-result {
+  display: block;
+}
+.manufacturing-result input {
+  display: block;
+  width: 100%;
+  border: 1px solid #cedcf0;
+  border-radius: 4px;
+  background: #fff;
+  min-height: 39px;
+  padding: 8px 9px;
+  font-size: 13px;
+  color: #4b6c99;
+  font-variant-numeric: tabular-nums;
+}
+.manufacturing-result input::placeholder {
+  color: #b0c0d7;
+}
+.manufacturing-result small {
+  display: block;
+  font-size: 10px;
+  line-height: 1.8;
+  margin-top: 7px;
+}
+.manufacturing-result input.result-within {
+  border-color: #a1c5ad;
+  background: #f7fbf8;
+}
+.manufacturing-result small.result-within {
+  color: #56816a;
+}
+.manufacturing-result input.result-below,
+.manufacturing-result input.result-above {
+  border-color: #dcae93;
+  background: #fff9f4;
+}
+.manufacturing-result small.result-below,
+.manufacturing-result small.result-above {
+  color: #ae7c58;
+}
+.manufacturing-result input.result-invalid {
+  border-color: #c6a18b;
+}
+.manufacturing-result small.result-invalid {
+  color: #a78870;
+}
+.manufacturing-result small.result-manual {
+  color: #7f9bc2;
+}
+.manufacturing-record-note {
+  font-size: 11px;
+  line-height: 1.95;
+  color: #91a5c2;
+  margin: 16px 0 25px;
+}
+.manufacturing-facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 19px 24px;
+  margin: 20px 0 25px;
+  padding: 21px;
+  border: 1px solid #dfe7f3;
+  border-radius: 5px;
+  background: #fafcff;
+}
+.manufacturing-facts > div {
+  min-width: 0;
+}
+.manufacturing-facts dt {
+  font-size: 10px;
+  color: #8ba2c4;
+  line-height: 1.8;
+  margin: 0 0 7px;
+  font-weight: 500;
+}
+.manufacturing-facts dd {
+  font-size: 13px;
+  color: #617ea6;
+  line-height: 1.95;
+  margin: 0;
+  white-space: pre-line;
+}
+.manufacturing-facts dd > strong {
+  font-weight: 550;
+  color: #416493;
+}
+.manufacturing-prose-list {
+  font-size: 14px;
+  line-height: 2;
+  color: #5c789f;
+  margin: 10px 0 20px;
+  padding-left: 22px;
+  white-space: normal;
+}
+.manufacturing-prose-list li {
+  padding: 4px 0 4px 3px;
+  white-space: pre-line;
+}
+.manufacturing-prose-list li::marker {
+  color: #9aafce;
+}
+.manufacturing-body .hazards .manufacturing-prose-list {
+  margin-bottom: 0;
+}
+.manufacturing-body .hazards .manufacturing-prose-list li {
+  color: #8d7551;
+  font-size: 13px;
+  line-height: 1.95;
+}
+.manufacturing-fixture {
+  border: 1px solid #dce6f3;
+  border-radius: 6px;
+  margin-bottom: 25px;
+  padding: 23px;
+  scroll-margin-top: 100px;
+}
+.manufacturing-fixture > header {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-wrap: wrap;
+  margin: 0 0 15px;
+}
+.manufacturing-fixture > header > h3 {
+  flex-basis: 100%;
+  font-size: 20px;
+  line-height: 1.7;
+  letter-spacing: -0.3px;
+  font-weight: 600;
+  margin: 7px 0 0;
+  color: #436390;
+}
+.manufacturing-type-tag {
+  font-size: 10px;
+  line-height: 1.6;
+  padding: 4px 7px;
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  border-radius: 4px;
+  border: 1px solid #e0e9f6;
+  background: #f7faff;
+  color: #819fc7;
+}
+.manufacturing-type-tag.made {
+  color: #4f7dae;
+  border-color: #cbdff5;
+  background: #eef6ff;
+}
+.manufacturing-code {
+  display: inline-block;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 11px;
+  line-height: 1.7;
+  color: #7b98bf;
+  font-variant-numeric: tabular-nums;
+}
+.manufacturing-fixture-purpose {
+  font-size: 14px;
+  line-height: 1.95;
+  color: #6d88ad;
+  white-space: pre-line;
+}
+.manufacturing-fixture .manufacturing-facts {
+  padding: 17px;
+  background: #fcfdff;
+  gap: 17px;
+}
+.manufacturing-fixture-columns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 25px;
+  margin-top: 22px;
+}
+.manufacturing-fixture h4 {
+  font-size: 14px;
+  line-height: 1.9;
+  font-weight: 600;
+  color: #6889b6;
+  margin: 0 0 12px;
+}
+.manufacturing-fixture .manufacturing-prose-list {
+  font-size: 13px;
+  line-height: 2;
+  margin-top: 8px;
+}
+.manufacturing-acceptance {
+  background: #f4f8ff;
+  border: 1px solid #e0eafa;
+  border-radius: 4px;
+  padding: 17px 20px;
+  margin-top: 9px;
+}
+.manufacturing-acceptance h4 {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.manufacturing-acceptance .manufacturing-prose-list {
+  margin-bottom: 0;
+}
+.manufacturing-route-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 22px;
+}
+.manufacturing-route-heading > h2 {
+  margin-bottom: 0;
+}
+.manufacturing-route-heading > .text-link {
+  font-size: 11px;
+}
+.manufacturing-route-overview {
+  border: 1px solid #dbe6f6;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 27px;
+}
+.manufacturing-route-overview > button {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 14px 17px;
+  border-bottom: 1px solid #e1eafa;
+  width: 100%;
+  text-align: left;
+  color: #7f9bc3;
+  min-height: 49px;
+}
+.manufacturing-route-overview > button:last-child {
+  border-bottom: 0;
+}
+.manufacturing-route-overview > button:hover {
+  background: #f6f9ff;
+}
+.manufacturing-route-overview > button > span {
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  color: #a0b5d3;
+}
+.manufacturing-route-overview > button > strong {
+  font-size: 13px;
+  line-height: 1.9;
+  font-weight: 500;
+  color: #5d7fac;
+  flex: 1;
+}
+.manufacturing-route-overview > button > small {
+  font-size: 10px;
+  color: #9bb1cf;
+  white-space: nowrap;
+}
+.manufacturing-setup {
+  border: 1px solid #d8e5f7;
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 21px;
+  scroll-margin-top: 100px;
+}
+.manufacturing-setup-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 19px 21px;
+  width: 100%;
+  text-align: left;
+  background: #f7faff;
+  border-bottom: 1px solid transparent;
+}
+.manufacturing-setup.expanded .manufacturing-setup-heading {
+  border-bottom-color: #dde8f8;
+}
+.manufacturing-setup-heading:hover {
+  background: #eff5ff;
+}
+.manufacturing-setup-number {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 42px;
+  height: 34px;
+  padding: 3px 7px;
+  border: 1px solid #ccddf4;
+  border-radius: 4px;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 11px;
+  line-height: 1.6;
+  color: #6d91c1;
+  background: #fff;
+  margin-top: 2px;
+}
+.manufacturing-setup-heading > span:nth-child(2) {
+  flex: 1;
+}
+.manufacturing-setup-heading strong {
+  font-size: 18px;
+  line-height: 1.7;
+  font-weight: 600;
+  color: #3f6495;
+  display: block;
+  letter-spacing: -0.2px;
+}
+.manufacturing-setup-heading small {
+  display: block;
+  font-size: 10px;
+  line-height: 1.9;
+  color: #92aacd;
+  margin-top: 6px;
+}
+.manufacturing-setup-heading > svg {
+  color: #8eabd1;
+  margin-top: 8px;
+  transition: transform 0.15s;
+}
+.manufacturing-setup.expanded .manufacturing-setup-heading > svg {
+  transform: rotate(180deg);
+}
+.manufacturing-setup-body {
+  padding: 23px 21px;
+}
+.manufacturing-setup-purpose {
+  font-size: 15px;
+  line-height: 1.95;
+  color: #6986ad;
+  white-space: pre-line;
+  margin-bottom: 20px;
+}
+.manufacturing-setup .manufacturing-facts {
+  padding: 18px;
+  gap: 18px;
+  margin-top: 23px;
+}
+.manufacturing-fixture-links {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.manufacturing-fixture-links > button {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  text-align: left;
+  font-size: 12px;
+  line-height: 1.9;
+  color: #5d85bb;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding: 0;
+}
+.manufacturing-fixture-links > button > svg {
+  margin-top: 4px;
+}
+.manufacturing-setup-prep {
+  margin: 26px 0;
+}
+.manufacturing-setup-prep > h3 {
+  font-size: 17px;
+  line-height: 1.7;
+  font-weight: 600;
+  color: #587bac;
+  margin: 0 0 13px;
+}
+.manufacturing-setup-prep .manufacturing-prose-list {
+  font-size: 14px;
+}
+.manufacturing-operations {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+.manufacturing-operation {
+  border-top: 1px solid #dce7f7;
+  padding-top: 25px;
+}
+.manufacturing-operation > header {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.manufacturing-operation > header > .manufacturing-code {
+  margin-top: 5px;
+  padding: 2px 5px;
+  border-radius: 3px;
+  background: #f1f6ff;
+  flex-shrink: 0;
+}
+.manufacturing-operation > header > h3 {
+  font-size: 19px;
+  line-height: 1.75;
+  font-weight: 600;
+  letter-spacing: -0.25px;
+  color: #395b89;
+}
+.manufacturing-instruction {
+  font-size: 15px;
+  line-height: 2;
+  color: #54739e;
+  white-space: pre-line;
+}
+.manufacturing-operation > dl {
+  margin: 20px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.manufacturing-operation > dl > div {
+  display: grid;
+  grid-template-columns: 133px minmax(0, 1fr);
+  gap: 15px;
+  font-size: 12px;
+  line-height: 1.95;
+  padding: 0 0 12px;
+  border-bottom: 1px solid #edf2fa;
+}
+.manufacturing-operation dt {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  color: #8fa7cb;
+  font-size: 10px;
+  font-weight: 500;
+}
+.manufacturing-operation dt > svg {
+  margin-top: 3px;
+}
+.manufacturing-operation dd {
+  font-size: 13px;
+  line-height: 1.95;
+  color: #6e8eb9;
+  margin: 0;
+  white-space: pre-line;
+}
+.manufacturing-operation .manufacturing-operation-stop {
+  padding: 13px;
+  background: #fff9f0;
+  border: 1px solid #efe0c9;
+  border-radius: 4px;
+}
+.manufacturing-operation-stop dt {
+  color: #b69769;
+}
+.manufacturing-operation-stop dd {
+  color: #aa8e65;
+  font-size: 12px;
+}
+.manufacturing-operation-features {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font-size: 10px;
+  color: #99afd0;
+  margin-top: 16px;
+  flex-wrap: wrap;
+}
+.manufacturing-operation-features > button {
+  padding: 3px 6px;
+  border: 1px solid #dce7f7;
+  border-radius: 3px;
+  background: #f7faff;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  font-size: 10px;
+  color: #6e93c4;
+}
+.manufacturing-operation-features > button:hover {
+  border-color: #88addc;
+  background: #eaf3ff;
+}
+.manufacturing-operation .check-row {
+  font-size: 12px;
+  padding: 13px 15px;
+  margin-top: 17px;
+}
+.manufacturing-setup-exit {
+  padding: 20px;
+  background: #f4f8ff;
+  border: 1px solid #dae8fb;
+  border-radius: 5px;
+  margin-top: 30px;
+}
+.manufacturing-setup-exit > h3 {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  font-size: 17px;
+  line-height: 1.8;
+  font-weight: 600;
+  color: #5b82b5;
+  margin-bottom: 12px;
+}
+.manufacturing-setup-exit > h3 > svg {
+  margin-top: 4px;
+}
+.manufacturing-setup-exit > h4 {
+  font-size: 13px;
+  font-weight: 600;
+  line-height: 1.8;
+  color: #7395c0;
+  margin: 20px 0 8px;
+}
+.manufacturing-setup-exit > p {
+  font-size: 13px;
+  line-height: 1.95;
+  color: #8ba8cd;
+  white-space: pre-line;
+}
+.manufacturing-setup-exit .manufacturing-prose-list {
+  font-size: 13px;
+  color: #7393bc;
+  margin-bottom: 0;
+}
+.manufacturing-pitfalls {
+  margin: 28px 0;
+  padding: 21px;
+  border: 1px solid #eadfce;
+  border-radius: 5px;
+  background: #fffaf4;
+}
+.manufacturing-pitfalls > h3 {
+  font-size: 17px;
+  line-height: 1.8;
+  font-weight: 600;
+  color: #9c815c;
+  margin-bottom: 13px;
+}
+.manufacturing-pitfalls .manufacturing-prose-list {
+  font-size: 13px;
+  color: #ad9674;
+  margin-bottom: 0;
+}
+.manufacturing-calculation {
+  border: 1px solid #dce7f6;
+  border-radius: 5px;
+  padding: 22px;
+  margin: 21px 0;
+}
+.manufacturing-calculation > h3 {
+  font-size: 18px;
+  line-height: 1.7;
+  font-weight: 600;
+  color: #5b7eb0;
+  margin-bottom: 13px;
+}
+.manufacturing-calculation > p {
+  font-size: 13px;
+  line-height: 1.95;
+  color: #829fc6;
+  white-space: pre-line;
+}
+.manufacturing-formulas {
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  margin: 20px 0;
+  padding: 18px;
+  background: #f6f9ff;
+  border: 1px solid #e1eafa;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+.manufacturing-formulas > code {
+  font:
+    12px/1.9 ui-monospace,
+    SFMono-Regular,
+    Consolas,
+    monospace;
+  color: #6f95c4;
+  white-space: nowrap;
+}
+.manufacturing-calculation > .manufacturing-confirmation {
+  font-size: 12px;
+  color: #a38a68;
+  border-top: 1px solid #ede3d5;
+  padding-top: 17px;
+}
+.manufacturing-toc {
+  position: sticky;
+  top: 101px;
+  border-left: 1px solid #e0e9f6;
+  padding-left: 20px;
+  max-height: calc(100vh - 125px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #dae5f5 transparent;
+  padding-right: 3px;
+}
+.manufacturing-toc > .eyebrow {
+  font-size: 9px;
+  line-height: 1.8;
+  color: #8fa7c8;
+  letter-spacing: 0.5px;
+  margin-bottom: 18px;
+}
+.manufacturing-toc > nav {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.manufacturing-toc > nav > button {
+  text-align: left;
+  font-size: 11px;
+  color: #6e8fbc;
+  line-height: 1.9;
+  padding: 0;
+}
+.manufacturing-toc button:hover {
+  color: #2457d6;
+}
+.manufacturing-toc-setups {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+  padding-top: 20px;
+  border-top: 1px solid #e3ecf8;
+}
+.manufacturing-toc-setups > strong {
+  font-size: 10px;
+  line-height: 1.8;
+  color: #8ba4c8;
+  font-weight: 500;
+}
+.manufacturing-toc-setups > button {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  text-align: left;
+  font-size: 10px;
+  line-height: 1.9;
+  color: #91acd0;
+  padding: 0;
+}
+.manufacturing-toc-setups > button > span {
+  font-size: 9px;
+  font-family: ui-monospace, SFMono-Regular, Consolas, monospace;
+  color: #b3c5df;
+  margin-top: 1px;
+  white-space: nowrap;
+}
+.manufacturing-toc-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 10px;
+  color: #a4b9d6;
+  line-height: 1.9;
+  margin-top: 23px;
+  border-top: 1px solid #e3ecf8;
+  padding-top: 18px;
+}
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+@media (max-width: 1200px) {
+  .manufacturing-layout {
+    grid-template-columns: minmax(0, 1fr) 170px;
+    gap: 25px;
+  }
+  .manufacturing-toc {
+    padding-left: 15px;
+  }
+  .manufacturing-toc-setups > button {
+    font-size: 9px;
+  }
+  .manufacturing-section > h2,
+  .manufacturing-route-heading > h2 {
+    font-size: 22px;
+  }
+  .manufacturing-toolbar {
+    gap: 8px;
+  }
+  .manufacturing-toolbar .button {
+    font-size: 10px;
+    padding: 9px 10px;
+  }
+  .manufacturing-progress {
+    min-width: 160px;
+    padding-right: 12px;
+  }
+  .manufacturing-fixture {
+    padding: 20px;
+  }
+  .manufacturing-fixture-columns {
+    grid-template-columns: 1fr;
+    gap: 5px;
+  }
+  .manufacturing-facts {
+    gap: 17px;
+    padding: 19px;
+  }
+  .manufacturing-setup-body {
+    padding: 21px 18px;
+  }
+  .manufacturing-setup-heading {
+    padding: 18px;
+  }
+  .manufacturing-operation > dl > div {
+    grid-template-columns: 110px minmax(0, 1fr);
+    gap: 12px;
+  }
+  .manufacturing-operation dt {
+    font-size: 9px;
+  }
+  .manufacturing-operation dd {
+    font-size: 12px;
+  }
+  .manufacturing-card .project-meta {
+    flex-direction: column;
+    gap: 6px;
+  }
+  .manufacturing-setup-heading strong {
+    font-size: 17px;
+  }
+  .manufacturing-calculation {
+    padding: 20px;
+  }
+}
+@media (max-width: 1020px) {
+  .manufacturing-layout {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .manufacturing-toc {
+    display: none;
+  }
+  .manufacturing-toolbar .button {
+    font-size: 11px;
+  }
+  .manufacturing-progress {
+    min-width: 150px;
+  }
+  .manufacturing-facts {
+    grid-template-columns: 1fr 1fr;
+  }
+  .manufacturing-fixture-columns {
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+  .manufacturing-operation > dl > div {
+    grid-template-columns: 133px minmax(0, 1fr);
+  }
+  .manufacturing-operation dt {
+    font-size: 10px;
+  }
+  .manufacturing-operation dd {
+    font-size: 13px;
+  }
+  .manufacturing-catalog-summary > label {
+    margin-left: 0;
+  }
+  .manufacturing-card .project-meta {
+    flex-direction: row;
+    gap: 10px;
+  }
+  .manufacturing-setup-heading strong {
+    font-size: 19px;
+  }
+}
+@media (max-width: 760px) {
+  .manufacturing-card .project-image {
+    height: 200px;
+  }
+  .manufacturing-card .project-card-body h3 {
+    font-size: 18px;
+  }
+  .manufacturing-card .project-meta {
+    flex-direction: column;
+    gap: 5px;
+  }
+  .manufacturing-card .project-card-body > p {
+    font-size: 13px;
+    min-height: 0;
+  }
+  .manufacturing-toolbar {
+    gap: 8px;
+  }
+  .manufacturing-toolbar .button {
+    font-size: 11px;
+  }
+  .manufacturing-progress {
+    width: 100%;
+    max-width: none;
+    flex-basis: 100%;
+    padding: 0;
+    margin: 0 0 12px;
+  }
+  .manufacturing-scope {
+    padding: 16px 17px;
+    gap: 11px;
+  }
+  .manufacturing-scope p {
+    font-size: 14px;
+  }
+  .manufacturing-scope small {
+    font-size: 11px;
+  }
+  .manufacturing-section > h2,
+  .manufacturing-route-heading > h2 {
+    font-size: 24px;
+  }
+  .manufacturing-setup-body {
+    padding: 22px 20px;
+  }
+  .manufacturing-instruction {
+    font-size: 16px;
+    line-height: 1.95;
+  }
+  .manufacturing-fixture-purpose {
+    font-size: 15px;
+  }
+  .manufacturing-prose-list {
+    font-size: 15px;
+  }
+  .manufacturing-setup-prep .manufacturing-prose-list {
+    font-size: 15px;
+  }
+  .manufacturing-fixture .manufacturing-prose-list {
+    font-size: 14px;
+  }
+  .manufacturing-facts dd {
+    font-size: 14px;
+  }
+  .manufacturing-operation dd {
+    font-size: 14px;
+  }
+  .manufacturing-setup-exit > p {
+    font-size: 14px;
+  }
+  .manufacturing-setup-exit .manufacturing-prose-list {
+    font-size: 14px;
+  }
+  .manufacturing-calculation > p {
+    font-size: 14px;
+  }
+  .manufacturing-pitfalls .manufacturing-prose-list {
+    font-size: 14px;
+  }
+  .manufacturing-catalog-note p {
+    font-size: 13px;
+  }
+}
+@media (max-width: 520px) {
+  .manufacturing-card .project-image {
+    height: 205px;
+  }
+  .manufacturing-card .project-card-body h3 {
+    font-size: 20px;
+  }
+  .manufacturing-card .project-card-body > p {
+    font-size: 14px;
+  }
+  .manufacturing-card .project-meta {
+    flex-direction: row;
+    gap: 9px;
+    font-size: 10px;
+  }
+  .manufacturing-card-stock {
+    font-size: 11px;
+  }
+  .manufacturing-card-stock strong {
+    font-size: 12px;
+  }
+  .manufacturing-catalog-summary {
+    gap: 13px;
+    margin-bottom: 22px;
+    font-size: 11px;
+  }
+  .manufacturing-catalog-summary > label {
+    font-size: 11px;
+    flex-basis: 100%;
+  }
+  .manufacturing-catalog-summary > button {
+    font-size: 11px;
+  }
+  .manufacturing-catalog-note {
+    padding: 15px 13px;
+    gap: 9px;
+  }
+  .manufacturing-catalog-note > svg {
+    width: 18px;
+  }
+  .manufacturing-catalog-note p {
+    font-size: 12px;
+    line-height: 1.95;
+  }
+  .manufacturing-toolbar {
+    gap: 7px;
+  }
+  .manufacturing-toolbar .button {
+    font-size: 10px;
+    min-height: 40px;
+    padding: 10px 11px;
+  }
+  .manufacturing-toolbar .button > svg {
+    width: 14px;
+  }
+  .manufacturing-progress > span {
+    font-size: 11px;
+  }
+  .manufacturing-scope {
+    padding: 15px 13px;
+    gap: 10px;
+    margin-bottom: 29px;
+  }
+  .manufacturing-scope > svg {
+    width: 18px;
+  }
+  .manufacturing-scope p {
+    font-size: 13px;
+    line-height: 1.95;
+  }
+  .manufacturing-scope small {
+    font-size: 10px;
+  }
+  .manufacturing-section {
+    margin-bottom: 35px;
+    scroll-margin-top: 89px;
+  }
+  .manufacturing-section > h2,
+  .manufacturing-route-heading > h2 {
+    font-size: 22px;
+    line-height: 1.7;
+    letter-spacing: -0.4px;
+    margin-bottom: 20px;
+  }
+  .manufacturing-section > h3 {
+    font-size: 18px;
+  }
+  .manufacturing-datums {
+    flex-direction: column;
+    gap: 13px;
+    margin: 21px 0;
+  }
+  .manufacturing-datums > div {
+    font-size: 12px;
+    gap: 10px;
+  }
+  .manufacturing-table-hint {
+    font-size: 11px;
+  }
+  .manufacturing-requirements {
+    font-size: 12px;
+    min-width: 890px;
+  }
+  .manufacturing-record-note {
+    font-size: 11px;
+    line-height: 2;
+  }
+  .manufacturing-facts {
+    grid-template-columns: 1fr;
+    gap: 17px;
+    padding: 17px;
+    margin: 20px 0;
+  }
+  .manufacturing-facts dt {
+    font-size: 10px;
+  }
+  .manufacturing-facts dd {
+    font-size: 14px;
+  }
+  .manufacturing-prose-list {
+    font-size: 14px;
+    line-height: 2;
+    padding-left: 19px;
+  }
+  .manufacturing-prose-list li {
+    padding-left: 2px;
+  }
+  .manufacturing-fixture {
+    padding: 18px 15px;
+    margin-bottom: 22px;
+    scroll-margin-top: 89px;
+  }
+  .manufacturing-fixture > header > h3 {
+    font-size: 19px;
+    line-height: 1.8;
+  }
+  .manufacturing-fixture-purpose {
+    font-size: 14px;
+    line-height: 1.95;
+  }
+  .manufacturing-fixture-columns {
+    grid-template-columns: 1fr;
+    gap: 3px;
+  }
+  .manufacturing-fixture h4 {
+    font-size: 14px;
+  }
+  .manufacturing-fixture .manufacturing-prose-list {
+    font-size: 14px;
+  }
+  .manufacturing-type-tag {
+    font-size: 10px;
+  }
+  .manufacturing-acceptance {
+    padding: 17px 14px;
+  }
+  .manufacturing-acceptance h4 {
+    font-size: 14px;
+    gap: 7px;
+  }
+  .manufacturing-route-heading {
+    align-items: flex-start;
+    gap: 15px;
+    margin-bottom: 19px;
+  }
+  .manufacturing-route-heading > h2 {
+    margin: 0;
+    font-size: 21px;
+    line-height: 1.7;
+  }
+  .manufacturing-route-heading > .text-link {
+    font-size: 0;
+    gap: 0;
+    padding-top: 9px;
+  }
+  .manufacturing-route-heading > .text-link > svg {
+    width: 19px;
+  }
+  .manufacturing-route-overview {
+    margin-bottom: 23px;
+  }
+  .manufacturing-route-overview > button {
+    padding: 13px 12px;
+    gap: 10px;
+  }
+  .manufacturing-route-overview > button > strong {
+    font-size: 12px;
+    line-height: 1.9;
+  }
+  .manufacturing-route-overview > button > small {
+    display: none;
+  }
+  .manufacturing-route-overview > button > svg {
+    width: 14px;
+  }
+  .manufacturing-setup {
+    margin-bottom: 18px;
+    scroll-margin-top: 89px;
+  }
+  .manufacturing-setup-heading {
+    padding: 16px 13px;
+    gap: 10px;
+  }
+  .manufacturing-setup-number {
+    font-size: 10px;
+    min-width: 33px;
+    height: 30px;
+    padding: 3px 5px;
+  }
+  .manufacturing-setup-heading strong {
+    font-size: 16px;
+    line-height: 1.8;
+  }
+  .manufacturing-setup-heading small {
+    font-size: 9px;
+    line-height: 1.9;
+    margin-top: 5px;
+  }
+  .manufacturing-setup-heading > svg {
+    width: 16px;
+    margin-top: 7px;
+  }
+  .manufacturing-setup-body {
+    padding: 20px 13px;
+  }
+  .manufacturing-setup-purpose {
+    font-size: 14px;
+    line-height: 1.95;
+    margin-bottom: 19px;
+  }
+  .manufacturing-setup .manufacturing-facts {
+    padding: 15px;
+    gap: 15px;
+  }
+  .manufacturing-fixture-links > button {
+    font-size: 12px;
+  }
+  .manufacturing-setup-prep > h3 {
+    font-size: 18px;
+    line-height: 1.8;
+  }
+  .manufacturing-setup-prep .manufacturing-prose-list {
+    font-size: 14px;
+    line-height: 2;
+  }
+  .manufacturing-operations {
+    gap: 23px;
+  }
+  .manufacturing-operation {
+    padding-top: 23px;
+  }
+  .manufacturing-operation > header {
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+  .manufacturing-operation > header > h3 {
+    font-size: 18px;
+    line-height: 1.8;
+  }
+  .manufacturing-operation > header > .manufacturing-code {
+    font-size: 10px;
+    margin-top: 5px;
+    padding: 2px 4px;
+  }
+  .manufacturing-instruction {
+    font-size: 16px;
+    line-height: 1.95;
+  }
+  .manufacturing-operation > dl {
+    gap: 13px;
+  }
+  .manufacturing-operation > dl > div {
+    grid-template-columns: 1fr;
+    gap: 7px;
+    padding-bottom: 13px;
+  }
+  .manufacturing-operation dt {
+    font-size: 11px;
+    gap: 6px;
+  }
+  .manufacturing-operation dd {
+    font-size: 14px;
+    line-height: 2;
+  }
+  .manufacturing-operation .manufacturing-operation-stop {
+    padding: 13px;
+    gap: 7px;
+  }
+  .manufacturing-operation-stop dd {
+    font-size: 13px;
+  }
+  .manufacturing-operation .check-row {
+    font-size: 12px;
+    padding: 13px 12px;
+    gap: 9px;
+  }
+  .manufacturing-operation-features {
+    font-size: 10px;
+  }
+  .manufacturing-operation-features > button {
+    font-size: 10px;
+    min-height: 29px;
+    padding: 4px 7px;
+  }
+  .manufacturing-setup-exit {
+    padding: 17px 14px;
+    margin-top: 25px;
+  }
+  .manufacturing-setup-exit > h3 {
+    font-size: 17px;
+    line-height: 1.9;
+    gap: 8px;
+  }
+  .manufacturing-setup-exit > h3 > svg {
+    width: 18px;
+    margin-top: 5px;
+  }
+  .manufacturing-setup-exit > h4 {
+    font-size: 14px;
+    margin-top: 18px;
+  }
+  .manufacturing-setup-exit > p {
+    font-size: 14px;
+    line-height: 2;
+  }
+  .manufacturing-setup-exit .manufacturing-prose-list {
+    font-size: 14px;
+    line-height: 2;
+  }
+  .manufacturing-section-intro {
+    font-size: 13px;
+    line-height: 1.95;
+    margin-top: -5px;
+  }
+  .manufacturing-pitfalls {
+    padding: 19px 15px;
+  }
+  .manufacturing-pitfalls > h3 {
+    font-size: 17px;
+    line-height: 1.9;
+  }
+  .manufacturing-pitfalls .manufacturing-prose-list {
+    font-size: 14px;
+    line-height: 2;
+  }
+  .manufacturing-calculation {
+    padding: 19px 15px;
+  }
+  .manufacturing-calculation > h3 {
+    font-size: 18px;
+    line-height: 1.8;
+  }
+  .manufacturing-calculation > p {
+    font-size: 13px;
+    line-height: 2;
+  }
+  .manufacturing-formulas {
+    padding: 16px 13px;
+    margin: 17px 0;
+  }
+  .manufacturing-formulas > code {
+    font-size: 11px;
+  }
+  .manufacturing-calculation > .manufacturing-confirmation {
+    font-size: 12px;
+    line-height: 2;
+  }
+}
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm;
+  }
+  .sidebar,
+  .topbar,
+  .footer,
+  .manufacturing-toolbar,
+  .manufacturing-toc,
+  .back-link,
+  .save-button,
+  .project-detail-heading > .button,
+  .manufacturing-scope > svg,
+  .manufacturing-operation .check-row,
+  .manufacturing-operation-features,
+  .manufacturing-route-heading > .text-link,
+  .manufacturing-route-overview,
+  .model-disclosure,
+  .manufacturing-table-hint,
+  .manufacturing-record-note,
+  .manufacturing-section > .button,
+  .toast {
+    display: none !important;
+  }
+  .main-shell {
+    margin: 0 !important;
+  }
+  .page {
+    padding: 0 !important;
+    max-width: none !important;
+  }
+  .manufacturing-layout {
+    display: block;
+  }
+  .manufacturing-body {
+    max-width: none;
+  }
+  .manufacturing-section {
+    margin: 0 0 8mm;
+    scroll-margin: 0;
+  }
+  .manufacturing-section > h2 {
+    font-size: 16pt;
+    margin: 0 0 5mm;
+    break-after: avoid;
+  }
+  .manufacturing-facts {
+    padding: 4mm;
+    margin: 4mm 0;
+    gap: 4mm;
+  }
+  .manufacturing-facts dd {
+    font-size: 9pt;
+    line-height: 1.6;
+    color: #263548;
+  }
+  .manufacturing-facts dt {
+    font-size: 8pt;
+    color: #475569;
+  }
+  .manufacturing-instruction,
+  .manufacturing-prose-list,
+  .manufacturing-setup-purpose,
+  .manufacturing-fixture-purpose {
+    font-size: 10pt !important;
+    line-height: 1.65 !important;
+    color: #263548 !important;
+  }
+  .manufacturing-prose-list li {
+    padding-top: 1mm;
+    padding-bottom: 1mm;
+  }
+  .manufacturing-setup {
+    border-color: #aebfd6;
+    border-radius: 0;
+    overflow: visible;
+    margin: 0 0 6mm;
+  }
+  .manufacturing-setup-heading {
+    padding: 4mm;
+    background: #f5f7fa;
+    break-after: avoid;
+  }
+  .manufacturing-setup-heading strong {
+    font-size: 13pt;
+    color: #263548;
+  }
+  .manufacturing-setup-heading small {
+    font-size: 8pt;
+    color: #475569;
+  }
+  .manufacturing-setup-heading > svg {
+    display: none;
+  }
+  .manufacturing-setup-body {
+    padding: 4mm;
+  }
+  .manufacturing-setup-number {
+    font-size: 9pt;
+    color: #334155;
+  }
+  .manufacturing-operation {
+    padding-top: 4mm;
+    break-inside: avoid;
+  }
+  .manufacturing-operation > header > h3 {
+    font-size: 12pt;
+    color: #263548;
+  }
+  .manufacturing-operation > dl > div {
+    font-size: 9pt;
+    grid-template-columns: 30mm 1fr;
+    gap: 4mm;
+  }
+  .manufacturing-operation dd {
+    font-size: 9pt;
+    line-height: 1.7;
+    color: #334155;
+  }
+  .manufacturing-operation dt {
+    font-size: 8pt;
+    color: #475569;
+  }
+  .manufacturing-fixture {
+    padding: 5mm;
+    break-inside: auto;
+    border-color: #cbd5e1;
+  }
+  .manufacturing-fixture > header {
+    break-after: avoid;
+  }
+  .manufacturing-fixture > header > h3 {
+    font-size: 13pt;
+    color: #334155;
+  }
+  .manufacturing-fixture-columns {
+    grid-template-columns: 1fr 1fr;
+    gap: 5mm;
+  }
+  .manufacturing-fixture h4 {
+    font-size: 10pt;
+    color: #334155;
+    break-after: avoid;
+  }
+  .manufacturing-requirements {
+    min-width: 0;
+    font-size: 7pt;
+    line-height: 1.5;
+  }
+  .manufacturing-requirements th {
+    font-size: 7pt;
+    padding: 2mm;
+    white-space: normal;
+  }
+  .manufacturing-requirements td {
+    padding: 2mm;
+    min-width: 0 !important;
+    color: #334155;
+  }
+  .manufacturing-requirements td > strong,
+  .manufacturing-requirements td > code {
+    font-size: 7.5pt;
+    color: #263548;
+  }
+  .manufacturing-requirements td > p,
+  .manufacturing-requirements td > small {
+    font-size: 7pt;
+    color: #475569;
+    line-height: 1.6;
+  }
+  .manufacturing-requirements tr {
+    break-inside: avoid;
+  }
+  .manufacturing-table-scroll {
+    overflow: visible;
+    border-radius: 0;
+  }
+  .manufacturing-result input {
+    font-size: 8pt;
+    min-height: 7mm;
+    padding: 1mm;
+    width: 100%;
+    border-color: #cbd5e1;
+  }
+  .manufacturing-result small {
+    font-size: 6.5pt;
+  }
+  .manufacturing-scope {
+    padding: 3mm;
+    border-color: #cbd5e1;
+    background: white;
+    break-inside: avoid;
+    margin-bottom: 6mm;
+  }
+  .manufacturing-scope p {
+    font-size: 9pt;
+    color: #334155;
+  }
+  .manufacturing-scope small {
+    font-size: 8pt;
+    color: #475569;
+  }
+  .manufacturing-setup-exit {
+    break-inside: avoid;
+    padding: 4mm;
+  }
+  .manufacturing-setup-exit h3 {
+    font-size: 11pt;
+    color: #334155;
+  }
+  .manufacturing-setup-exit p {
+    font-size: 9pt;
+    color: #334155;
+  }
+  .manufacturing-setup-exit h4 {
+    font-size: 9pt;
+    color: #334155;
+  }
+  .manufacturing-datums > div {
+    font-size: 8pt;
+    color: #475569;
+  }
+  .manufacturing-datums b {
+    font-size: 8pt;
+  }
+  .manufacturing-formulas > code {
+    font-size: 8pt;
+    color: #334155;
+    white-space: normal;
+  }
+  .manufacturing-calculation > p,
+  .manufacturing-calculation > .manufacturing-confirmation {
+    font-size: 9pt;
+    color: #475569;
+  }
+  .manufacturing-calculation {
+    break-inside: avoid;
+  }
+  .sources > a {
+    font-size: 8pt;
+    color: #334155;
+  }
+  .sources small {
+    font-size: 7pt;
+    color: #475569;
+  }
+  .manufacturing-pitfalls {
+    padding: 4mm;
+  }
+  .manufacturing-pitfalls > h3 {
+    font-size: 11pt;
+  }
+  .manufacturing-type-tag {
+    font-size: 7pt;
+    color: #475569;
+  }
+  .project-detail-heading h1 {
+    font-size: 20pt;
+    color: #182536;
+  }
+  .project-detail-heading .page-heading > p {
+    font-size: 10pt;
+    color: #334155;
+  }
+  .project-detail-heading .eyebrow {
+    font-size: 8pt;
+  }
+  .manufacturing-acceptance {
+    padding: 4mm;
+  }
+  .manufacturing-acceptance h4 {
+    font-size: 10pt;
+  }
+  .manufacturing-section .sources {
+    margin-top: 0;
+  }
+  .dashboard-section {
+    break-before: page;
+  }
+}
+.manufacturing-drawing-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 15px;
+  margin: 0 0 11px;
+}
+.manufacturing-drawing-actions > button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 10px;
+  line-height: 1.8;
+  color: #7c97bf;
+  padding: 5px 0;
+}
+.manufacturing-drawing-actions > button:hover {
+  color: #2457d6;
+}
+.manufacturing-drawing-dialog {
+  width: min(96vw, 1450px);
+  max-width: none;
+  max-height: 94vh;
+  border: 1px solid #cbd8ec;
+  border-radius: 7px;
+  padding: 0;
+  background: #fff;
+  color: #263b5a;
+  box-shadow: 0 20px 80px #162a4b35;
+}
+.manufacturing-drawing-dialog::backdrop {
+  background: #14284480;
+  backdrop-filter: blur(3px);
+}
+.manufacturing-drawing-dialog > header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 15px 20px;
+  border-bottom: 1px solid #dce6f3;
+  position: sticky;
+  top: 0;
+  background: #fff;
+  z-index: 1;
+}
+.manufacturing-drawing-dialog > header > strong {
+  font-size: 15px;
+  line-height: 1.8;
+  font-weight: 600;
+}
+.manufacturing-drawing-dialog > .project-drawing {
+  border: 0;
+  border-radius: 0;
+}
+.manufacturing-drawing-dialog .project-drawing-viewport > svg {
+  min-width: min(900px, 90vw);
+}
+.manufacturing-drawing-panel {
+  margin-bottom: 22px;
+  min-width: 0;
+}
+.storage-stats {
+  grid-template-columns: repeat(4, 1fr);
+}
+@media (max-width: 520px) {
+  .storage-stats {
+    grid-template-columns: 1fr 1fr;
+  }
+  .manufacturing-drawing-actions {
+    gap: 13px;
+    justify-content: space-between;
+  }
+  .manufacturing-drawing-actions > button {
+    font-size: 10px;
+    min-height: 37px;
+  }
+  .manufacturing-drawing-dialog > header {
+    padding: 13px 15px;
+  }
+  .manufacturing-drawing-dialog > header > strong {
+    font-size: 13px;
+  }
+}
+@media print {
+  .manufacturing-drawing-actions,
+  .manufacturing-drawing-dialog {
+    display: none !important;
+  }
+  .manufacturing-drawing-panel {
+    margin: 0 0 5mm;
+  }
+}
+.manufacturing-requirements {
+  min-width: 960px;
+}
+.manufacturing-requirements td:last-child {
+  min-width: 210px;
+}
+.manufacturing-result-range {
+  display: flex;
+  gap: 7px;
+}
+.manufacturing-result-range > label {
+  flex: 1;
+  min-width: 0;
+}
+.manufacturing-result-range > label > span {
+  display: block;
+  font-size: 9px;
+  color: #90a7c7;
+  margin-bottom: 4px;
+}
+.manufacturing-result textarea,
+.manufacturing-actual-settings textarea {
+  font-family: inherit;
+  font-size: 12px;
+  line-height: 1.8;
+  width: 100%;
+  resize: vertical;
+  min-height: 55px;
+  padding: 8px 9px;
+  border: 1px solid #d8e4f3;
+  border-radius: 4px;
+  color: #607fa9;
+  background: #fff;
+  margin-top: 10px;
+}
+.manufacturing-result textarea::placeholder,
+.manufacturing-actual-settings textarea::placeholder {
+  color: #a0b4d0;
+}
+.manufacturing-result small.result-partial,
+.manufacturing-result small.result-reversed {
+  color: #a68c66;
+}
+.manufacturing-result input.result-reversed {
+  border-color: #d6b392;
+}
+.manufacturing-actual-settings {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 18px;
+  border: 1px solid #dae6f7;
+  border-radius: 5px;
+  background: #fafcff;
+  margin: 23px 0;
+}
+.manufacturing-actual-settings > strong {
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.8;
+  color: #5f80ad;
+}
+.manufacturing-actual-settings > span {
+  font-size: 11px;
+  line-height: 1.9;
+  color: #8aa2c5;
+}
+.manufacturing-actual-settings textarea {
+  margin-top: 3px;
+  min-height: 85px;
+  font-size: 13px;
+}
+@media print {
+  .manufacturing-requirements {
+    min-width: 0;
+  }
+  .manufacturing-requirements td:last-child {
+    min-width: 0;
+  }
+  .manufacturing-result textarea,
+  .manufacturing-actual-settings textarea {
+    font-size: 7pt;
+    line-height: 1.5;
+    min-height: 8mm;
+    border-color: #cbd5e1;
+  }
+  .manufacturing-result-range > label > span {
+    font-size: 6pt;
+  }
+  .manufacturing-actual-settings {
+    break-inside: avoid;
+    padding: 3mm;
+    margin: 4mm 0;
+  }
+  .manufacturing-actual-settings > strong {
+    font-size: 9pt;
+  }
+  .manufacturing-actual-settings > span {
+    font-size: 7pt;
+  }
+  .manufacturing-actual-settings textarea {
+    min-height: 12mm;
+    font-size: 8pt;
+  }
+}
+.manufacturing-drawing-actions a {
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  padding: 7px 10px;
+  background: #fff;
+  color: #315b7e;
+  font-size: 12px;
+  text-decoration: none;
+}
+.manufacturing-cad-note {
+  font-size: 12px !important;
+  line-height: 1.65;
+  color: #5d6b79;
+  margin: 0;
+  padding: 10px 16px 16px;
+  border-top: 1px solid var(--line);
+}
+@media print {
+  .manufacturing-drawing-actions a {
+    display: none;
+  }
+}

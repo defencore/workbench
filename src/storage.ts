@@ -5,12 +5,14 @@ export interface Preferences {
   saved: string[];
   completed: string[];
   checks: string[];
+  measurements: Record<string, string>;
 }
 export const defaults: Preferences = {
   language: "uk",
   saved: [],
   completed: [],
   checks: [],
+  measurements: {},
 };
 const strings = (value: unknown): string[] =>
   Array.isArray(value)
@@ -22,6 +24,17 @@ const strings = (value: unknown): string[] =>
         ),
       ].slice(0, 5000)
     : [];
+function records(value: unknown): Record<string, string> {
+  if (!value || typeof value !== "object" || Array.isArray(value)) return {};
+  const entries: [string, string][] = [];
+  for (const [key, item] of Object.entries(value)) {
+    if (key.length < 160 && typeof item === "string" && item.length <= 1000) {
+      entries.push([key, item]);
+      if (entries.length >= 3000) break;
+    }
+  }
+  return Object.fromEntries(entries);
+}
 export function readPreferences(): Preferences {
   try {
     const raw = JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
@@ -31,6 +44,7 @@ export function readPreferences(): Preferences {
       saved: strings(raw.saved),
       completed: strings(raw.completed),
       checks: strings(raw.checks),
+      measurements: records(raw.measurements),
     };
   } catch {
     return { ...defaults };

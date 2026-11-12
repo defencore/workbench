@@ -1,0 +1,2341 @@
+{
+  "schemaVersion": 1,
+  "units": "mm",
+  "generatedAt": "2026-11-12T01:36:08.427336+00:00",
+  "generator": {
+    "name": "export-project-cad.py",
+    "version": "1.0.0",
+    "freecad": "1.1.4"
+  },
+  "limitations": {
+    "uk": "Номінальна твердотільна BRep-модель у мм. Різьбу, допуски, малі фаски та форму вершини свердла не відтворено, якщо їх немає в числовій геометрії. Це не готова керуюча програма й не підтвердження фізичного виготовлення. Приймання — за таблицею вимог проєкту.",
+    "en": "Nominal solid BRep model in millimetres. Threads, tolerances, small chamfers and drill-point forms are not represented unless present in numeric geometry. This is not a machine program or evidence of physical manufacture. The project requirements table controls acceptance."
+  },
+  "coordinateFrames": {
+    "turned": {
+      "axisAtoB": "X",
+      "faceCoordinateX": "Y",
+      "faceCoordinateY": "Z",
+      "datumA": [
+        0,
+        0,
+        0
+      ]
+    },
+    "block": {
+      "width": "X",
+      "depth": "Y",
+      "height": "Z",
+      "datumCorner": [
+        0,
+        0,
+        0
+      ]
+    }
+  },
+  "projectCount": 24,
+  "modelCount": 39,
+  "models": [
+    {
+      "projectId": "spacer",
+      "fixtureId": null,
+      "role": "part",
+      "revision": "B-01",
+      "file": "spacer-B-01-19028197a4cd.step",
+      "quantity": 1,
+      "url": "/models/spacer-B-01-19028197a4cd.step",
+      "geometrySha256": "19028197a4cd2ee649e24ab82c68c5191d7ee895f920ae7e0b19f0ffb77d8030",
+      "sha256": "f5a19482400a4b50fb4bf2f24c0499d945764ae3343f29f94c7a063d41c9389d",
+      "bytes": 4972,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 3861.213720802705,
+        "boundsMM": {
+          "min": [
+            0.0,
+            -10.0,
+            -10.0
+          ],
+          "max": [
+            15.0,
+            10.0,
+            10.0
+          ],
+          "size": [
+            15.0,
+            20.0,
+            20.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 3861.213720802705,
+        "boundsMM": {
+          "min": [
+            0.0,
+            -10.0,
+            -10.0
+          ],
+          "max": [
+            15.0,
+            10.0,
+            10.0
+          ],
+          "size": [
+            15.0,
+            20.0,
+            20.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "fixture-plate",
+      "fixtureId": null,
+      "role": "part",
+      "revision": "B1",
+      "file": "fixture-plate-B1-30ea1d71de3f.step",
+      "quantity": 1,
+      "url": "/models/fixture-plate-B1-30ea1d71de3f.step",
+      "geometrySha256": "30ea1d71de3f15b3d4812414b5fb7cb8948c70ccf5fe0da74fe250ea965c43d2",
+      "sha256": "e6dfd596e96396ee801d2929a95383d11308047e8d8518b2406898107351eeb8",
+      "bytes": 12706,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 38631.522240096274,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            80.0,
+            50.0,
+            10.0
+          ],
+          "size": [
+            80.0,
+            50.0,
+            10.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 38631.522240096274,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            80.0,
+            50.0,
+            10.0
+          ],
+          "size": [
+            80.0,
+            50.0,
+            10.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "fixture-plate",
+      "fixtureId": "backing",
+      "role": "fixture",
+      "revision": "B1",
+      "file": "fixture-plate-backing-B1-a83627114318.step",
+      "quantity": 1,
+      "url": "/models/fixture-plate-backing-B1-a83627114318.step",
+      "geometrySha256": "a8362711431838cd17960e28166d18e911bd831e4fe8ed2e040f1cf267eaaae6",
+      "sha256": "4a40d38c6ce4fbbb3161f9ea216f49cd4dbcd1371de7df5c45857ea16f0a77b3",
+      "bytes": 13576,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 160838.23903670252,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            120.0,
+            90.0,
+            15.0
+          ],
+          "size": [
+            120.0,
+            90.0,
+            15.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 160838.23903670252,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            120.0,
+            90.0,
+            15.0
+          ],
+          "size": [
+            120.0,
+            90.0,
+            15.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "vise-stop",
+      "fixtureId": null,
+      "role": "part",
+      "revision": "B1",
+      "file": "vise-stop-B1-35835fd5e996.step",
+      "quantity": 1,
+      "url": "/models/vise-stop-B1-35835fd5e996.step",
+      "geometrySha256": "35835fd5e9965ff93b55f250acfb2d16271b6524fe1bfd1f19357b0dc3f808dc",
+      "sha256": "d59098839579ce21f17c35a63deb3f6cec95e18db42475ee07cfb21d226f55a7",
+      "bytes": 9800,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 15049.668222289085,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            40.0,
+            20.0,
+            20.0
+          ],
+          "size": [
+            40.0,
+            20.0,
+            20.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 15049.668222289085,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            40.0,
+            20.0,
+            20.0
+          ],
+          "size": [
+            40.0,
+            20.0,
+            20.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "vise-stop",
+      "fixtureId": "backing",
+      "role": "fixture",
+      "revision": "B1",
+      "file": "vise-stop-backing-B1-a1fe5997e8c6.step",
+      "quantity": 1,
+      "url": "/models/vise-stop-backing-B1-a1fe5997e8c6.step",
+      "geometrySha256": "a1fe5997e8c68244cb5a67be2e0e9a7bb2334b596f45b47649538ca1114e410d",
+      "sha256": "27f67366115619a123142447610fbaabac4673334bb1c329ad73e42c7041925a",
+      "bytes": 10228,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 71558.21353308893,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            80.0,
+            60.0,
+            15.0
+          ],
+          "size": [
+            80.0,
+            60.0,
+            15.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 71558.21353308893,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            80.0,
+            60.0,
+            15.0
+          ],
+          "size": [
+            80.0,
+            60.0,
+            15.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "stepped-shaft",
+      "fixtureId": null,
+      "role": "part",
+      "revision": "B-01",
+      "file": "stepped-shaft-B-01-80f6fd7cacb7.step",
+      "quantity": 1,
+      "url": "/models/stepped-shaft-B-01-80f6fd7cacb7.step",
+      "geometrySha256": "80f6fd7cacb738722e454c3e4fe5c9139613c30fff4cd4d1196a27be126171ff",
+      "sha256": "7aa939a3f784cc72dd9afd1e60e6c3ce3d5ac0d6d928bf0014dfb4b7dcd3f832",
+      "bytes": 5172,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 14042.919161546375,
+        "boundsMM": {
+          "min": [
+            0.0,
+            -10.0,
+            -10.0
+          ],
+          "max": [
+            60.0,
+            10.0,
+            10.0
+          ],
+          "size": [
+            60.0,
+            20.0,
+            20.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 14042.919161546375,
+        "boundsMM": {
+          "min": [
+            0.0,
+            -10.0,
+            -10.0
+          ],
+          "max": [
+            60.0,
+            10.0,
+            10.0
+          ],
+          "size": [
+            60.0,
+            20.0,
+            20.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "replacement-knob",
+      "fixtureId": null,
+      "role": "part",
+      "revision": "B-01",
+      "file": "replacement-knob-B-01-55a59041134d.step",
+      "quantity": 1,
+      "url": "/models/replacement-knob-B-01-55a59041134d.step",
+      "geometrySha256": "55a59041134db540541eb89d4d14ad3f73a7a6324d918a17ff02d5002813b623",
+      "sha256": "9292efe57a2c292250e4f24eb0821c0003e72423e96914d93bae513842f89de8",
+      "bytes": 6668,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 12553.607894203964,
+        "boundsMM": {
+          "min": [
+            0.0,
+            -15.0,
+            -15.0
+          ],
+          "max": [
+            25.0,
+            15.0,
+            15.0
+          ],
+          "size": [
+            25.0,
+            30.0,
+            30.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 12553.607894203964,
+        "boundsMM": {
+          "min": [
+            0.0,
+            -15.0,
+            -15.0
+          ],
+          "max": [
+            25.0,
+            15.0,
+            15.0
+          ],
+          "size": [
+            25.0,
+            30.0,
+            30.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "threaded-standoff",
+      "fixtureId": null,
+      "role": "part",
+      "revision": "B-01",
+      "file": "threaded-standoff-B-01-ff9e5dc8b731.step",
+      "quantity": 1,
+      "url": "/models/threaded-standoff-B-01-ff9e5dc8b731.step",
+      "geometrySha256": "ff9e5dc8b731605ca15d7df6b7e8c1b608bc1ea39a070dbac32a292c5abddb1e",
+      "sha256": "30a1720a409e4daebc18e5788888d4dce6b156645cc85a166b458ccd92c4c099",
+      "bytes": 4960,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 2481.072798172539,
+        "boundsMM": {
+          "min": [
+            0.0,
+            -6.0,
+            -6.0
+          ],
+          "max": [
+            25.0,
+            6.0,
+            6.0
+          ],
+          "size": [
+            25.0,
+            12.0,
+            12.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 2481.072798172539,
+        "boundsMM": {
+          "min": [
+            0.0,
+            -6.0,
+            -6.0
+          ],
+          "max": [
+            25.0,
+            6.0,
+            6.0
+          ],
+          "size": [
+            25.0,
+            12.0,
+            12.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "shoulder-bushing",
+      "fixtureId": null,
+      "role": "part",
+      "revision": "B-01",
+      "file": "shoulder-bushing-B-01-aaf0cd799c0d.step",
+      "quantity": 1,
+      "url": "/models/shoulder-bushing-B-01-aaf0cd799c0d.step",
+      "geometrySha256": "aaf0cd799c0db0db46d4b63cb54b12253bc0b0c30f0bed1a4ea9e31e015f95d7",
+      "sha256": "b9b984410bd257d728db54aa845aa126b9d7c595f2e190257a7f12260ec4caef",
+      "bytes": 6664,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 4247.27618802072,
+        "boundsMM": {
+          "min": [
+            0.0,
+            -12.0,
+            -12.0
+          ],
+          "max": [
+            20.0,
+            12.0,
+            12.0
+          ],
+          "size": [
+            20.0,
+            24.0,
+            24.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 4247.27618802072,
+        "boundsMM": {
+          "min": [
+            0.0,
+            -12.0,
+            -12.0
+          ],
+          "max": [
+            20.0,
+            12.0,
+            12.0
+          ],
+          "size": [
+            20.0,
+            24.0,
+            24.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "grooved-roller",
+      "fixtureId": null,
+      "role": "part",
+      "revision": "B-01",
+      "file": "grooved-roller-B-01-ce1409355115.step",
+      "quantity": 1,
+      "url": "/models/grooved-roller-B-01-ce1409355115.step",
+      "geometrySha256": "ce14093551159276912e2d954ab69f2672a9bf3085a04da5e79e3b589fcfb1a9",
+      "sha256": "1b309297c5364f02428be9b06fbb50f5a3bd671833e20db1690f5bb57eb4a71c",
+      "bytes": 8370,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 27946.822848171403,
+        "boundsMM": {
+          "min": [
+            0.0,
+            -20.0,
+            -20.0
+          ],
+          "max": [
+            25.0,
+            20.0,
+            20.0
+          ],
+          "size": [
+            25.0,
+            40.0,
+            40.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 27946.822848171403,
+        "boundsMM": {
+          "min": [
+            0.0,
+            -20.0,
+            -20.0
+          ],
+          "max": [
+            25.0,
+            20.0,
+            20.0
+          ],
+          "size": [
+            25.0,
+            40.0,
+            40.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "mandrel-blank",
+      "fixtureId": null,
+      "role": "part",
+      "revision": "B-01",
+      "file": "mandrel-blank-B-01-47e03b0ff8d4.step",
+      "quantity": 1,
+      "url": "/models/mandrel-blank-B-01-47e03b0ff8d4.step",
+      "geometrySha256": "47e03b0ff8d4c1ed038dc1818a19af343eb44ea297ef1dff17f1bdc82534709f",
+      "sha256": "a8ee3eee3fe8a5def9f8d195fa13b8d09071012fba92aa0071aae4a083a24ac7",
+      "bytes": 5180,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 19792.033717615697,
+        "boundsMM": {
+          "min": [
+            0.0,
+            -15.0,
+            -15.0
+          ],
+          "max": [
+            53.0,
+            15.0,
+            15.0
+          ],
+          "size": [
+            53.0,
+            30.0,
+            30.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 19792.033717615697,
+        "boundsMM": {
+          "min": [
+            0.0,
+            -15.0,
+            -15.0
+          ],
+          "max": [
+            53.0,
+            15.0,
+            15.0
+          ],
+          "size": [
+            53.0,
+            30.0,
+            30.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "angle-bracket",
+      "fixtureId": null,
+      "role": "part",
+      "revision": "B1",
+      "file": "angle-bracket-B1-cbdcc4e34f9d.step",
+      "quantity": 1,
+      "url": "/models/angle-bracket-B1-cbdcc4e34f9d.step",
+      "geometrySha256": "cbdcc4e34f9d3cb3c27f653efc886683be2e27fc76d8cb2cc85abd3a6dbd8a96",
+      "sha256": "1c15c7e8dbdb9027a9ae5f378f195932c168a58c5353523834ed104e74bde5b4",
+      "bytes": 9267,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 39000.0,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            60.0,
+            40.0,
+            35.0
+          ],
+          "size": [
+            60.0,
+            40.0,
+            35.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 39000.0,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            60.0,
+            40.0,
+            35.0
+          ],
+          "size": [
+            60.0,
+            40.0,
+            35.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "angle-bracket",
+      "fixtureId": "base-carrier",
+      "role": "fixture",
+      "revision": "B1",
+      "file": "angle-bracket-base-carrier-B1-f200a959863c.step",
+      "quantity": 1,
+      "url": "/models/angle-bracket-base-carrier-B1-f200a959863c.step",
+      "geometrySha256": "f200a959863cbf571af8a026954cde622f6439e378e7a48cbe38c86cb12cb611",
+      "sha256": "f202c5b43dcb778e5b1ff203ec6e3a1ef73a6b9b6116d24a6742892eea722809",
+      "bytes": 6879,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 120000.0,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            100.0,
+            80.0,
+            15.0
+          ],
+          "size": [
+            100.0,
+            80.0,
+            15.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 120000.0,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            100.0,
+            80.0,
+            15.0
+          ],
+          "size": [
+            100.0,
+            80.0,
+            15.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "soft-jaw-inserts",
+      "fixtureId": null,
+      "role": "part",
+      "revision": "B1",
+      "file": "soft-jaw-inserts-B1-056a80bc9015.step",
+      "quantity": 2,
+      "url": "/models/soft-jaw-inserts-B1-056a80bc9015.step",
+      "geometrySha256": "056a80bc9015add6a1f96b13d473dc7a7acebb51516860e11cfd8f17a5af6a99",
+      "sha256": "9fe8606d0d57098d60d98d5a61bb8f57559ddc15dd33f92fa395b3e292f57e12",
+      "bytes": 15566,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 44780.72489881357,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            100.0,
+            25.0,
+            20.0
+          ],
+          "size": [
+            100.0,
+            25.0,
+            20.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 44780.72489881357,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            100.0,
+            25.0,
+            20.0
+          ],
+          "size": [
+            100.0,
+            25.0,
+            20.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "soft-jaw-inserts",
+      "fixtureId": "pair-base",
+      "role": "fixture",
+      "revision": "B1",
+      "file": "soft-jaw-inserts-pair-base-B1-6900b96da710.step",
+      "quantity": 1,
+      "url": "/models/soft-jaw-inserts-pair-base-B1-6900b96da710.step",
+      "geometrySha256": "6900b96da710bcebebdf20d0e4b1996afb1501320c6343ff2890910c78cb0257",
+      "sha256": "52171e02986a79605c1a8b46b1db66b9a32cccb100c33012016e55f88258efb7",
+      "bytes": 12786,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 248595.29896167212,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            140.0,
+            120.0,
+            15.0
+          ],
+          "size": [
+            140.0,
+            120.0,
+            15.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 248595.29896167212,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            140.0,
+            120.0,
+            15.0
+          ],
+          "size": [
+            140.0,
+            120.0,
+            15.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "slotted-clamp-bar",
+      "fixtureId": null,
+      "role": "part",
+      "revision": "B1",
+      "file": "slotted-clamp-bar-B1-57d4daec7058.step",
+      "quantity": 1,
+      "url": "/models/slotted-clamp-bar-B1-57d4daec7058.step",
+      "geometrySha256": "57d4daec7058bf67051a444c377028c250ac556236233e74b617930398f2fa3b",
+      "sha256": "d23ec6affe4381efa0df4a9abe91c90208d43f168b34f7625ecee23e4298be61",
+      "bytes": 12120,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 24808.592985177682,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            100.0,
+            25.0,
+            12.0
+          ],
+          "size": [
+            100.0,
+            25.0,
+            12.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 24808.592985177682,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            100.0,
+            25.0,
+            12.0
+          ],
+          "size": [
+            100.0,
+            25.0,
+            12.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "slotted-clamp-bar",
+      "fixtureId": "slot-carrier",
+      "role": "fixture",
+      "revision": "B1",
+      "file": "slotted-clamp-bar-slot-carrier-B1-0d00a37b0951.step",
+      "quantity": 1,
+      "url": "/models/slotted-clamp-bar-slot-carrier-B1-0d00a37b0951.step",
+      "geometrySha256": "0d00a37b0951a47180e9ccde4abeddceb86870aa8126ffe9cef189c493fc8cef",
+      "sha256": "2f87233371e66c022b09c18099236008d6647b1b402cdb2a8bb0ed7db05e54b6",
+      "bytes": 6879,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 136500.0,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            140.0,
+            65.0,
+            15.0
+          ],
+          "size": [
+            140.0,
+            65.0,
+            15.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 136500.0,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            140.0,
+            65.0,
+            15.0
+          ],
+          "size": [
+            140.0,
+            65.0,
+            15.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "alignment-key",
+      "fixtureId": null,
+      "role": "part",
+      "revision": "B1",
+      "file": "alignment-key-B1-ae6de6519d0c.step",
+      "quantity": 1,
+      "url": "/models/alignment-key-B1-ae6de6519d0c.step",
+      "geometrySha256": "ae6de6519d0c7dec74c509eb77b67c64b13b2f4e1e11fd86abd5442870a1932a",
+      "sha256": "b81decf3a85027368c14c4f5b483a1fe352d3f571e9f46fac6bb382adcc7fa4f",
+      "bytes": 9765,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 6254.732755698009,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            80.0,
+            10.0,
+            8.0
+          ],
+          "size": [
+            80.0,
+            10.0,
+            8.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 6254.732755698009,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            80.0,
+            10.0,
+            8.0
+          ],
+          "size": [
+            80.0,
+            10.0,
+            8.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "alignment-key",
+      "fixtureId": "key-carrier",
+      "role": "fixture",
+      "revision": "B1",
+      "file": "alignment-key-key-carrier-B1-ee2855349caa.step",
+      "quantity": 1,
+      "url": "/models/alignment-key-key-carrier-B1-ee2855349caa.step",
+      "geometrySha256": "ee2855349caa04369369a600060029ddc2e477a5f4fa76553f229ef5187ef54a",
+      "sha256": "9a4cabca58e9b1d5d631048c5fc23a8ae1f7ecf87ad1ab72e7655d7d6452318c",
+      "bytes": 10227,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 89770.97789555333,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            120.0,
+            50.0,
+            15.0
+          ],
+          "size": [
+            120.0,
+            50.0,
+            15.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 89770.97789555333,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            120.0,
+            50.0,
+            15.0
+          ],
+          "size": [
+            120.0,
+            50.0,
+            15.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "pocket-tray",
+      "fixtureId": null,
+      "role": "part",
+      "revision": "B1",
+      "file": "pocket-tray-B1-6b8d04fd4974.step",
+      "quantity": 1,
+      "url": "/models/pocket-tray-B1-6b8d04fd4974.step",
+      "geometrySha256": "6b8d04fd4974f3908a7f3d04b46cb70ee46b2baa47a9565c30ff265346c3d08e",
+      "sha256": "d14f81797058d43a77d81db9a834402cdec3e3164fc66298a229230ed4f0b965",
+      "bytes": 17316,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 92257.52220392304,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            100.0,
+            70.0,
+            20.0
+          ],
+          "size": [
+            100.0,
+            70.0,
+            20.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 92257.52220392304,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            100.0,
+            70.0,
+            20.0
+          ],
+          "size": [
+            100.0,
+            70.0,
+            20.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "pocket-tray",
+      "fixtureId": "tray-carrier",
+      "role": "fixture",
+      "revision": "B1",
+      "file": "pocket-tray-tray-carrier-B1-0a62533784b1.step",
+      "quantity": 1,
+      "url": "/models/pocket-tray-tray-carrier-B1-0a62533784b1.step",
+      "geometrySha256": "0a62533784b166b11f3447547c75f18a02ac3221dfc4d646b4c5f48a72153707",
+      "sha256": "488c1721f5c60573bf3b6a77cb75f91fec6180e02f79dad2967da90783719844",
+      "bytes": 6888,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 231000.0,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            140.0,
+            110.0,
+            15.0
+          ],
+          "size": [
+            140.0,
+            110.0,
+            15.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 231000.0,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            140.0,
+            110.0,
+            15.0
+          ],
+          "size": [
+            140.0,
+            110.0,
+            15.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "flange",
+      "fixtureId": null,
+      "role": "part",
+      "revision": "B-01",
+      "file": "flange-B-01-a416824fe2aa.step",
+      "quantity": 1,
+      "url": "/models/flange-B-01-a416824fe2aa.step",
+      "geometrySha256": "a416824fe2aafb474afc33f72af144f51f9656b7583aed1a9f3d3e52f11a6dcf",
+      "sha256": "245a2e7e3877477ddcf5191c24486e53c54cfdd1292cc796a99dc2449d46b89b",
+      "bytes": 10883,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 40769.32751157774,
+        "boundsMM": {
+          "min": [
+            0.0,
+            -35.0,
+            -35.0
+          ],
+          "max": [
+            12.0,
+            35.0,
+            35.0
+          ],
+          "size": [
+            12.0,
+            70.0,
+            70.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 40769.32751157774,
+        "boundsMM": {
+          "min": [
+            0.0,
+            -35.0,
+            -35.0
+          ],
+          "max": [
+            12.0,
+            35.0,
+            35.0
+          ],
+          "size": [
+            12.0,
+            70.0,
+            70.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "flange",
+      "fixtureId": "P1",
+      "role": "fixture",
+      "revision": "B-01",
+      "file": "flange-P1-B-01-e44890babdcc.step",
+      "quantity": 1,
+      "url": "/models/flange-P1-B-01-e44890babdcc.step",
+      "geometrySha256": "e44890babdcca8e48ed4c57872466d9996c09b344d26b35326afba0d7b7fca53",
+      "sha256": "e7bd5846b013a4e882c858a41a30a5a56ff82d7051ff2802d99348a39c659502",
+      "bytes": 13563,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 149057.52220392303,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            100.0,
+            100.0,
+            15.0
+          ],
+          "size": [
+            100.0,
+            100.0,
+            15.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 149057.52220392303,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            100.0,
+            100.0,
+            15.0
+          ],
+          "size": [
+            100.0,
+            100.0,
+            15.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "guide-sleeve",
+      "fixtureId": null,
+      "role": "part",
+      "revision": "B-01",
+      "file": "guide-sleeve-B-01-cc1637a547df.step",
+      "quantity": 1,
+      "url": "/models/guide-sleeve-B-01-cc1637a547df.step",
+      "geometrySha256": "cc1637a547df15af8364d7bc58e5557d378b5e1b96c94f1f9e8f84dbf6d27cf9",
+      "sha256": "c3ea86326171846ac06d4facf559465f46c7a549ce64dbc31c7b33546295c459",
+      "bytes": 4956,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 5277.875658030851,
+        "boundsMM": {
+          "min": [
+            0.0,
+            -9.0,
+            -9.0
+          ],
+          "max": [
+            30.0,
+            9.0,
+            9.0
+          ],
+          "size": [
+            30.0,
+            18.0,
+            18.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 5277.875658030851,
+        "boundsMM": {
+          "min": [
+            0.0,
+            -9.0,
+            -9.0
+          ],
+          "max": [
+            30.0,
+            9.0,
+            9.0
+          ],
+          "size": [
+            30.0,
+            18.0,
+            18.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "blind-thread-knob",
+      "fixtureId": null,
+      "role": "part",
+      "revision": "B-01",
+      "file": "blind-thread-knob-B-01-4173c04e358b.step",
+      "quantity": 1,
+      "url": "/models/blind-thread-knob-B-01-4173c04e358b.step",
+      "geometrySha256": "4173c04e358b60164fe28b922c61424de5cec86bd2fdd1ace82509aba632918e",
+      "sha256": "752e4e5e080aa201be62133477775d3279790bb8f9d51e65cd1426159c2cf058",
+      "bytes": 5186,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 17278.759594743864,
+        "boundsMM": {
+          "min": [
+            0.0,
+            -15.0,
+            -15.0
+          ],
+          "max": [
+            25.0,
+            15.0,
+            15.0
+          ],
+          "size": [
+            25.0,
+            30.0,
+            30.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 17278.759594743864,
+        "boundsMM": {
+          "min": [
+            0.0,
+            -15.0,
+            -15.0
+          ],
+          "max": [
+            25.0,
+            15.0,
+            15.0
+          ],
+          "size": [
+            25.0,
+            30.0,
+            30.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "eccentric-cam",
+      "fixtureId": null,
+      "role": "part",
+      "revision": "B-01",
+      "file": "eccentric-cam-B-01-b4666a1988fc.step",
+      "quantity": 1,
+      "url": "/models/eccentric-cam-B-01-b4666a1988fc.step",
+      "geometrySha256": "b4666a1988fc4ef13f4d5f8068f65d737f56faee6a373fe0cb44cab8100c8b8e",
+      "sha256": "d7403115046ab003195f58fcc16e45ed61005b5f4a53c3b724106545c3f6d45b",
+      "bytes": 4920,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 22928.222831841314,
+        "boundsMM": {
+          "min": [
+            0.0,
+            -25.0,
+            -25.0
+          ],
+          "max": [
+            12.0,
+            25.0,
+            25.0
+          ],
+          "size": [
+            12.0,
+            50.0,
+            50.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 22928.222831841314,
+        "boundsMM": {
+          "min": [
+            0.0,
+            -25.0,
+            -25.0
+          ],
+          "max": [
+            12.0,
+            25.0,
+            25.0
+          ],
+          "size": [
+            12.0,
+            50.0,
+            50.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "eccentric-cam",
+      "fixtureId": "P1",
+      "role": "fixture",
+      "revision": "B-01",
+      "file": "eccentric-cam-P1-B-01-86408657be6e.step",
+      "quantity": 1,
+      "url": "/models/eccentric-cam-P1-B-01-86408657be6e.step",
+      "geometrySha256": "86408657be6e89ddaff01077d57dfe04bba4cde821b7bcc0fa251fe10738924a",
+      "sha256": "0e0da1ffbe29a7f5d8dc6ca89737cc0c17e6c0d3dd4b3b9f2ee51a98c20d812b",
+      "bytes": 8539,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 121160.7079934123,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            90.0,
+            90.0,
+            15.0
+          ],
+          "size": [
+            90.0,
+            90.0,
+            15.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 121160.7079934123,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            90.0,
+            90.0,
+            15.0
+          ],
+          "size": [
+            90.0,
+            90.0,
+            15.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "reference-puck",
+      "fixtureId": null,
+      "role": "part",
+      "revision": "B-01",
+      "file": "reference-puck-B-01-4ea91f98fead.step",
+      "quantity": 1,
+      "url": "/models/reference-puck-B-01-4ea91f98fead.step",
+      "geometrySha256": "4ea91f98fead72c3c22520517fe8a1233914df226c7333b579f88ea6de2df475",
+      "sha256": "a7af6e9865dbccaed0c8b1f5fcff5769c791c169d1dd9544d19091dfe661e1ba",
+      "bytes": 3532,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 18849.55592153876,
+        "boundsMM": {
+          "min": [
+            0.0,
+            -20.0,
+            -20.0
+          ],
+          "max": [
+            15.0,
+            20.0,
+            20.0
+          ],
+          "size": [
+            15.0,
+            40.0,
+            40.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 18849.55592153876,
+        "boundsMM": {
+          "min": [
+            0.0,
+            -20.0,
+            -20.0
+          ],
+          "max": [
+            15.0,
+            20.0,
+            20.0
+          ],
+          "size": [
+            15.0,
+            40.0,
+            40.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "drill-jig-plate",
+      "fixtureId": null,
+      "role": "part",
+      "revision": "B1",
+      "file": "drill-jig-plate-B1-b0a1d24bab1e.step",
+      "quantity": 1,
+      "url": "/models/drill-jig-plate-B1-b0a1d24bab1e.step",
+      "geometrySha256": "b0a1d24bab1e555954ae1d7dda576aad0300dc256007526c57370d66f14fc613",
+      "sha256": "ad2b8d6b02c6ac5f592fe25e0900fed0759dc590d7f4fac880c5d724e7bbaab6",
+      "bytes": 11243,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 61095.6604236093,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            80.0,
+            50.0,
+            16.0
+          ],
+          "size": [
+            80.0,
+            50.0,
+            16.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 61095.6604236093,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            80.0,
+            50.0,
+            16.0
+          ],
+          "size": [
+            80.0,
+            50.0,
+            16.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "drill-jig-plate",
+      "fixtureId": "boring-backing",
+      "role": "fixture",
+      "revision": "B1",
+      "file": "drill-jig-plate-boring-backing-B1-eece66097569.step",
+      "quantity": 1,
+      "url": "/models/drill-jig-plate-boring-backing-B1-eece66097569.step",
+      "geometrySha256": "eece66097569f74d9d58946a62595f848fe6d8553312382575fbd074260a2194",
+      "sha256": "fdcc42c084b91d4d9680f96f054416314a2968f23d1c892f1b500b69b364a98f",
+      "bytes": 11899,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 160649.4293182218,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            120.0,
+            90.0,
+            15.0
+          ],
+          "size": [
+            120.0,
+            90.0,
+            15.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 160649.4293182218,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            120.0,
+            90.0,
+            15.0
+          ],
+          "size": [
+            120.0,
+            90.0,
+            15.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "drill-jig-plate",
+      "fixtureId": "jig-base",
+      "role": "fixture",
+      "revision": "B1",
+      "file": "drill-jig-plate-jig-base-B1-2c177540268d.step",
+      "quantity": 1,
+      "url": "/models/drill-jig-plate-jig-base-B1-2c177540268d.step",
+      "geometrySha256": "2c177540268da95684f0aabd23081c49a750ed49479ea71622f59fae1bc6354e",
+      "sha256": "184f7918b5490ea4d36dfc8cd86d919c83aeea8fee59f7362f0214b6fbc61e68",
+      "bytes": 11472,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 160799.37753557754,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            120.0,
+            90.0,
+            15.0
+          ],
+          "size": [
+            120.0,
+            90.0,
+            15.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 160799.37753557754,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            120.0,
+            90.0,
+            15.0
+          ],
+          "size": [
+            120.0,
+            90.0,
+            15.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "bearing-seat-block",
+      "fixtureId": null,
+      "role": "part",
+      "revision": "B1",
+      "file": "bearing-seat-block-B1-755804576512.step",
+      "quantity": 1,
+      "url": "/models/bearing-seat-block-B1-755804576512.step",
+      "geometrySha256": "755804576512effc73f154086b07535010d8dec0190f09352bfb275841ec50bf",
+      "sha256": "bd16002a06d72eb9c32d8e2cee549ae84ce5561e49db8770d52f13d4e1b0c6eb",
+      "bytes": 10002,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 44257.73483104385,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            60.0,
+            40.0,
+            20.0
+          ],
+          "size": [
+            60.0,
+            40.0,
+            20.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 44257.73483104385,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            60.0,
+            40.0,
+            20.0
+          ],
+          "size": [
+            60.0,
+            40.0,
+            20.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "bearing-seat-block",
+      "fixtureId": "bore-carrier",
+      "role": "fixture",
+      "revision": "B1",
+      "file": "bearing-seat-block-bore-carrier-B1-765817536391.step",
+      "quantity": 1,
+      "url": "/models/bearing-seat-block-bore-carrier-B1-765817536391.step",
+      "geometrySha256": "76581753639151c209cd53ccbfedb31b46f6e705340d4ec139c5000773bc7fee",
+      "sha256": "916555691801ca2c63776020a369994d1be950f7cca91b4748b18955f1c2c4ec",
+      "bytes": 8548,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 119434.51332235384,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            100.0,
+            80.0,
+            15.0
+          ],
+          "size": [
+            100.0,
+            80.0,
+            15.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 119434.51332235384,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            100.0,
+            80.0,
+            15.0
+          ],
+          "size": [
+            100.0,
+            80.0,
+            15.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "cnc-contour-plate",
+      "fixtureId": null,
+      "role": "part",
+      "revision": "B1",
+      "file": "cnc-contour-plate-B1-f1996eb61a2b.step",
+      "quantity": 1,
+      "url": "/models/cnc-contour-plate-B1-f1996eb61a2b.step",
+      "geometrySha256": "f1996eb61a2bbda2ddd4ea867aa85d745557e28c5bf6772a514e13e4775b09e3",
+      "sha256": "a9de2ab87bbc9db7a6d0d3f3b56faa1bdea0da1baab80edfe07be4b63006849f",
+      "bytes": 17999,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 52740.64157758141,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            90.0,
+            60.0,
+            10.0
+          ],
+          "size": [
+            90.0,
+            60.0,
+            10.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 52740.64157758141,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            90.0,
+            60.0,
+            10.0
+          ],
+          "size": [
+            90.0,
+            60.0,
+            10.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "cnc-contour-plate",
+      "fixtureId": "contour-carrier",
+      "role": "fixture",
+      "revision": "B1",
+      "file": "cnc-contour-plate-contour-carrier-B1-583e8d4445f2.step",
+      "quantity": 1,
+      "url": "/models/cnc-contour-plate-contour-carrier-B1-583e8d4445f2.step",
+      "geometrySha256": "583e8d4445f29c31f288cbcb21d5fa451cace5f9adcb1d72adf49977e1c739b2",
+      "sha256": "7ee9c23316cdb74880fcef3e1f1a7b6e2acaca080c1ce1663da614df4bc98579",
+      "bytes": 12762,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 193009.0156557875,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            130.0,
+            100.0,
+            15.0
+          ],
+          "size": [
+            130.0,
+            100.0,
+            15.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 193009.0156557875,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            130.0,
+            100.0,
+            15.0
+          ],
+          "size": [
+            130.0,
+            100.0,
+            15.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "locating-nest",
+      "fixtureId": null,
+      "role": "part",
+      "revision": "B1",
+      "file": "locating-nest-B1-fd11294decca.step",
+      "quantity": 1,
+      "url": "/models/locating-nest-B1-fd11294decca.step",
+      "geometrySha256": "fd11294decca090f5f11e72369e4e23a22b4557e26ccc8fe24ba9c2960c33e23",
+      "sha256": "cc624adbe28e0995494bdd02a810afbfde9909adf16deda44b303f0968f01634",
+      "bytes": 17541,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 101224.74439670611,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            100.0,
+            70.0,
+            16.0
+          ],
+          "size": [
+            100.0,
+            70.0,
+            16.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 101224.74439670611,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            100.0,
+            70.0,
+            16.0
+          ],
+          "size": [
+            100.0,
+            70.0,
+            16.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "locating-nest",
+      "fixtureId": "nest-carrier",
+      "role": "fixture",
+      "revision": "B1",
+      "file": "locating-nest-nest-carrier-B1-0a62533784b1.step",
+      "quantity": 1,
+      "url": "/models/locating-nest-nest-carrier-B1-0a62533784b1.step",
+      "geometrySha256": "0a62533784b166b11f3447547c75f18a02ac3221dfc4d646b4c5f48a72153707",
+      "sha256": "de3e50adba1a9f90af4f8ee5b26dd36f215a86b61cc1c3e14c7c08b0da1ebf0d",
+      "bytes": 6888,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 231000.0,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            140.0,
+            110.0,
+            15.0
+          ],
+          "size": [
+            140.0,
+            110.0,
+            15.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 231000.0,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            140.0,
+            110.0,
+            15.0
+          ],
+          "size": [
+            140.0,
+            110.0,
+            15.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "reverse-cover",
+      "fixtureId": null,
+      "role": "part",
+      "revision": "B1",
+      "file": "reverse-cover-B1-9d2b500c35d5.step",
+      "quantity": 1,
+      "url": "/models/reverse-cover-B1-9d2b500c35d5.step",
+      "geometrySha256": "9d2b500c35d59fe8c2f1bcdd1c50532e20249b697df79ab37b6054060bbe49f6",
+      "sha256": "4e0fb91c3aaf7c10ea18032827cc3de6993b58951fcb3257d99ae9d7257b09db",
+      "bytes": 17965,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 41535.88938733347,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            100.0,
+            70.0,
+            6.0
+          ],
+          "size": [
+            100.0,
+            70.0,
+            6.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 41535.88938733347,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            100.0,
+            70.0,
+            6.0
+          ],
+          "size": [
+            100.0,
+            70.0,
+            6.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    },
+    {
+      "projectId": "reverse-cover",
+      "fixtureId": "cover-carrier",
+      "role": "fixture",
+      "revision": "B1",
+      "file": "reverse-cover-cover-carrier-B1-da533a3b09d9.step",
+      "quantity": 1,
+      "url": "/models/reverse-cover-cover-carrier-B1-da533a3b09d9.step",
+      "geometrySha256": "da533a3b09d9b3f88787362ba3d89b6662b19dd0bc71a4fe1f47d6c5c4b6aa26",
+      "sha256": "c105554a592901550158d890d9e9fbc256bc69ebea126a5092b1075d9e1a4c53",
+      "bytes": 12762,
+      "shape": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 229574.5023334336,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            140.0,
+            110.0,
+            15.0
+          ],
+          "size": [
+            140.0,
+            110.0,
+            15.0
+          ]
+        }
+      },
+      "maxBoundsErrorMM": 0.0,
+      "roundTrip": {
+        "valid": true,
+        "solidCount": 1,
+        "volumeMM3": 229574.5023334336,
+        "boundsMM": {
+          "min": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "max": [
+            140.0,
+            110.0,
+            15.0
+          ],
+          "size": [
+            140.0,
+            110.0,
+            15.0
+          ]
+        }
+      },
+      "roundTripMaxBoundsErrorMM": 0.0,
+      "roundTripRelativeVolumeError": 0.0
+    }
+  ]
+}

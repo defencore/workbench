@@ -1,0 +1,332 @@
+.surface-examples {
+  --se-ink: #243747;
+  --se-muted: #5d6e7c;
+  --se-border: #d6e0e7;
+  --se-blue: #245d80;
+  margin: 2.5rem 0;
+  color: var(--se-ink);
+  font-size: 15px;
+  line-height: 1.65;
+}
+.surface-examples *,
+.surface-examples *::before,
+.surface-examples *::after {
+  box-sizing: border-box;
+}
+.surface-examples .se-heading {
+  max-width: 85ch;
+  margin-bottom: 1.25rem;
+}
+.surface-examples .se-eyebrow {
+  display: block;
+  color: var(--se-blue);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+.surface-examples .se-heading h2 {
+  margin: 0.35rem 0 0.7rem;
+  font-size: clamp(1.35rem, 2.3vw, 1.7rem);
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+}
+.surface-examples .se-heading p,
+.surface-examples .se-chip-heading p {
+  margin: 0;
+  color: var(--se-muted);
+}
+.surface-examples .se-panels {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.15rem;
+}
+.surface-examples .se-panel {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid var(--se-border);
+  border-radius: 10px;
+  background: #fff;
+}
+.surface-examples .se-image-wrap {
+  position: relative;
+  border-bottom: 1px solid var(--se-border);
+  background: #edf1f3;
+}
+.surface-examples .se-surface {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.surface-examples .se-enlarge {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  position: absolute;
+  right: 0.75rem;
+  top: 0.75rem;
+  min-height: 34px;
+  padding: 0.35rem 0.6rem;
+  border: 1px solid #c9d5dd;
+  border-radius: 5px;
+  background: #ffffffed;
+  color: #294b61;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 650;
+  cursor: pointer;
+  box-shadow: 0 1px 3px #293d4c0c;
+}
+.surface-examples button:hover {
+  background: #eaf3f8;
+  border-color: #7f9fb4;
+}
+.surface-examples button:focus-visible,
+.surface-examples .se-dialog-viewport:focus-visible {
+  outline: 3px solid #2b78a6;
+  outline-offset: 3px;
+}
+.surface-examples .se-panel-copy {
+  padding: 1.1rem 1.2rem 1.25rem;
+}
+.surface-examples .se-status {
+  display: block;
+  margin-bottom: 0.45rem;
+  color: #627482;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.055em;
+  text-transform: uppercase;
+}
+.surface-examples .se-panel-reference .se-status {
+  color: #38675c;
+}
+.surface-examples .se-panel-inspect .se-status {
+  color: #8c6333;
+}
+.surface-examples .se-panel h3 {
+  margin: 0 0 0.6rem;
+  color: var(--se-ink);
+  font-size: 18px;
+  line-height: 1.4;
+}
+.surface-examples .se-panel p {
+  margin: 0;
+}
+.surface-examples .se-next {
+  margin-top: 1rem;
+  padding: 0.85rem 0.95rem;
+  border-left: 3px solid #aec3d1;
+  border-radius: 0 5px 5px 0;
+  background: #f4f7f9;
+  font-size: 14px;
+}
+.surface-examples .se-next strong {
+  display: block;
+  margin-bottom: 0.35rem;
+  color: #3d596c;
+  font-size: 12px;
+}
+.surface-examples .se-next p {
+  color: #415969;
+}
+.surface-examples .se-chips {
+  margin-top: 1.5rem;
+  padding: 1.35rem;
+  border: 1px solid var(--se-border);
+  border-radius: 10px;
+  background: #f8fafb;
+}
+.surface-examples .se-chip-heading {
+  max-width: 85ch;
+}
+.surface-examples .se-chip-heading h3 {
+  margin: 0 0 0.5rem;
+  font-size: 19px;
+  line-height: 1.4;
+}
+.surface-examples .se-chip-heading p {
+  font-size: 14px;
+}
+.surface-examples .se-chip-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+.surface-examples .se-chip {
+  margin: 0;
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #d7e0e5;
+  border-radius: 7px;
+  background: #fff;
+}
+.surface-examples .se-chip svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.surface-examples .se-chip figcaption {
+  min-height: 68px;
+  padding: 0.65rem 0.7rem;
+  border-top: 1px solid #e0e7eb;
+  line-height: 1.45;
+}
+.surface-examples .se-chip figcaption strong {
+  display: block;
+  font-size: 13px;
+}
+.surface-examples .se-chip figcaption span {
+  display: block;
+  margin-top: 0.2rem;
+  color: #356487;
+  font-size: 11px;
+}
+.surface-examples .se-chip-selected {
+  border-color: #5f8ca9;
+  box-shadow: 0 0 0 1px #5f8ca9;
+}
+.surface-examples .se-chip-selected figcaption {
+  background: #eef5fa;
+}
+.surface-examples .se-chip-note {
+  margin: 1rem 0 0;
+  color: #647482;
+  font-size: 12px;
+}
+.surface-examples .se-dialog {
+  width: min(1140px, calc(100vw - 40px));
+  max-width: none;
+  max-height: calc(100dvh - 40px);
+  padding: 0;
+  border: 1px solid #a8bbc7;
+  border-radius: 12px;
+  background: #fff;
+  color: var(--se-ink);
+  box-shadow: 0 22px 80px #10273740;
+}
+.surface-examples .se-dialog::backdrop {
+  background: #172f40a6;
+}
+.surface-examples .se-dialog-inner {
+  min-width: 0;
+}
+.surface-examples .se-dialog-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-bottom: 1px solid var(--se-border);
+}
+.surface-examples .se-dialog-toolbar h2 {
+  margin: 0.2rem 0 0;
+  font-size: 20px;
+  line-height: 1.4;
+}
+.surface-examples .se-dialog-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex-shrink: 0;
+}
+.surface-examples .se-dialog-actions button {
+  min-height: 40px;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #b8cad6;
+  border-radius: 6px;
+  background: #fff;
+  color: #2a506b;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 650;
+  cursor: pointer;
+}
+.surface-examples .se-dialog-actions button span {
+  margin-left: 0.4rem;
+  font-size: 18px;
+}
+.surface-examples .se-dialog-viewport {
+  overflow: auto;
+  max-height: min(60dvh, 640px);
+  background: #edf1f3;
+}
+.surface-examples .se-dialog-viewport .se-surface-large {
+  width: 100%;
+  max-width: none;
+}
+.surface-examples .se-dialog-zoom .se-surface-large {
+  width: 200%;
+}
+.surface-examples .se-dialog-caption {
+  padding: 1rem 1.25rem 1.25rem;
+  border-top: 1px solid var(--se-border);
+  font-size: 14px;
+}
+.surface-examples .se-dialog-caption p {
+  margin: 0 0 0.65rem;
+}
+.surface-examples .se-dialog-caption small {
+  display: block;
+  color: #647482;
+  font-size: 12px;
+}
+@media (max-width: 760px) {
+  .surface-examples .se-panels {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .surface-examples .se-chip-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .surface-examples .se-dialog {
+    width: calc(100vw - 20px);
+    max-height: calc(100dvh - 20px);
+  }
+  .surface-examples .se-dialog-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .surface-examples .se-dialog-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+  .surface-examples .se-dialog-viewport {
+    max-height: 50dvh;
+  }
+}
+@media (max-width: 420px) {
+  .surface-examples .se-panel-copy {
+    padding: 1rem;
+  }
+  .surface-examples .se-chips {
+    padding: 1rem;
+  }
+  .surface-examples .se-chip-grid {
+    gap: 0.6rem;
+  }
+  .surface-examples .se-chip figcaption {
+    padding: 0.6rem;
+  }
+}
+@media print {
+  .surface-examples .se-enlarge,
+  .surface-examples .se-dialog {
+    display: none;
+  }
+  .surface-examples .se-panel,
+  .surface-examples .se-chips {
+    break-inside: avoid;
+    box-shadow: none;
+  }
+  .surface-examples .se-panels {
+    display: block;
+  }
+  .surface-examples .se-panel {
+    margin-bottom: 1rem;
+  }
+  .surface-examples .se-surface {
+    max-height: 72mm;
+  }
+}

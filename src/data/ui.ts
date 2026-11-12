@@ -100,6 +100,7 @@ export const levels: Record<Level, Text> = {
   advanced: T("Поглиблений", "Advanced"),
 };
 export const ui: Record<string, Text> = {
+  materials: T("Матеріали й обробка", "Materials & machining"),
   tooling: T("Підбір інструмента", "Tool selection"),
   path5: T("Підготувати верстат до роботи", "Prepare a machine for use"),
   path5sub: T(
@@ -243,11 +244,12 @@ export const ui: Record<string, Text> = {
   browse: T("Переглянути базу знань", "Browse the knowledge library"),
   settingsIntro: T("Ваш браузер. Ваші дані.", "Your browser. Your data."),
   settingsSub: T(
-    "Без облікового запису та сервера. Закладки, мова, прогрес і контрольні пункти зберігаються лише в цьому браузері.",
-    "No account or server. Bookmarks, language, progress and checklists are stored only in this browser.",
+    "Без облікового запису та сервера. Закладки, мова, прогрес, вимірювання й контрольні пункти зберігаються лише в цьому браузері.",
+    "No account or server. Bookmarks, language, progress, measurements and checklists are stored only in this browser.",
   ),
   storage: T("Локальне сховище", "Local storage"),
   bookmarks: T("Закладки", "Bookmarks"),
+  measurements: T("Записи вимірювань", "Measurement records"),
   checked: T("Контрольні пункти", "Checklist items"),
   offline: T("Офлайн-доступ", "Offline access"),
   offlineBody: T(
@@ -256,13 +258,13 @@ export const ui: Record<string, Text> = {
   ),
   clear: T("Очистити дані та кеш сервісу", "Clear service data & cache"),
   clearSub: T(
-    "Видалить закладки, прогрес, вибрану мову та офлайн-файли Workbench у цьому браузері.",
-    "Removes Workbench bookmarks, progress, language preference and offline files from this browser.",
+    "Видалить закладки, прогрес, результати вимірювань, вибрану мову та офлайн-файли Workbench у цьому браузері.",
+    "Removes Workbench bookmarks, progress, measurement records, language preference and offline files from this browser.",
   ),
   confirmTitle: T("Очистити локальні дані?", "Clear local data?"),
   confirmBody: T(
-    "Закладки й прогрес буде втрачено. Це стосується лише Workbench у цьому браузері.",
-    "Your bookmarks and progress will be lost. This only affects Workbench in this browser.",
+    "Закладки, прогрес і записи вимірювань буде втрачено. Це стосується лише Workbench у цьому браузері.",
+    "Your bookmarks, progress and measurement records will be lost. This only affects Workbench in this browser.",
   ),
   cancel: T("Залишити дані", "Keep my data"),
   confirmClear: T("Так, очистити", "Yes, clear data"),

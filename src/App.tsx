@@ -31,18 +31,23 @@ import {
   X,
 } from "lucide-react";
 import ToolSelector from "./components/ToolSelector";
-import ProjectDrawing from "./components/ProjectDrawing";
+import SaveButton from "./components/SaveButton";
+import {
+  ProjectCard,
+  ProjectsCatalog,
+  ProjectDetail,
+} from "./components/ProjectWorkbench";
+import {
+  MaterialCard,
+  MaterialsCatalog,
+  MaterialDetail,
+  materialBookmark,
+} from "./components/MaterialWorkbench";
+import { materialGuides } from "./data/material-guides";
 import LessonDiagram from "./components/LessonDiagram";
 import { lessons, projects, sources } from "./data/content";
 import { categories, countLabel, levels, tr } from "./data/ui";
-import type {
-  CategoryId,
-  Lang,
-  Lesson,
-  ModelKind,
-  Project,
-  Text,
-} from "./data/types";
+import type { CategoryId, Lang, Lesson, ModelKind, Text } from "./data/types";
 import {
   clearServiceData,
   defaults,
@@ -143,35 +148,6 @@ function ModelDisclosure({ kind, lang }: { kind: ModelKind; lang: Lang }) {
     </details>
   );
 }
-function SaveButton({
-  id,
-  prefs,
-  toggle,
-  lang,
-  large = false,
-}: {
-  id: string;
-  prefs: Preferences;
-  toggle: (field: "saved" | "completed" | "checks", id: string) => void;
-  lang: Lang;
-  large?: boolean;
-}) {
-  const saved = prefs.saved.includes(id);
-  return (
-    <button
-      className={`${large ? "button button-secondary" : "icon-button save-button"} ${saved ? "is-saved" : ""}`}
-      aria-label={tr(saved ? "unsave" : "savedAction", lang)}
-      aria-pressed={saved}
-      onClick={(e) => {
-        e.stopPropagation();
-        toggle("saved", id);
-      }}
-    >
-      <Bookmark size={large ? 17 : 18} fill={saved ? "currentColor" : "none"} />
-      {large && tr(saved ? "savedLabel" : "savedAction", lang)}
-    </button>
-  );
-}
 function LessonRow({
   lesson,
   lang,
@@ -212,46 +188,6 @@ function LessonRow({
     </article>
   );
 }
-function ProjectCard({
-  project,
-  lang,
-  prefs,
-  toggle,
-}: {
-  project: Project;
-  lang: Lang;
-  prefs: Preferences;
-  toggle: Toggle;
-}) {
-  return (
-    <article className="project-card">
-      <div className={`project-image ${project.model}`}>
-        <a href={`#/project/${project.id}`} aria-label={project.title[lang]}>
-          <ProjectDrawing id={project.id} lang={lang} compact />
-        </a>
-        <span className="project-level">{levels[project.level][lang]}</span>
-        <SaveButton id={project.id} prefs={prefs} toggle={toggle} lang={lang} />
-      </div>
-      <a href={`#/project/${project.id}`} className="project-card-body">
-        <span className="eyebrow">{project.material[lang]}</span>
-        <h3>
-          {project.title[lang]}
-          <ArrowUpRight size={20} />
-        </h3>
-        <p>{project.summary[lang]}</p>
-        <div className="project-meta">
-          <span>
-            <Clock3 size={14} />
-            {project.duration[lang]}
-          </span>
-          <span>
-            {project.steps.length} {tr("steps", lang)}
-          </span>
-        </div>
-      </a>
-    </article>
-  );
-}
 type Toggle = (field: "saved" | "completed" | "checks", id: string) => void;
 type Common = { lang: Lang; prefs: Preferences; toggle: Toggle };
 const navItems = [
@@ -259,6 +195,7 @@ const navItems = [
   ["paths", Compass],
   ["projects", Layers3],
   ["tooling", Wrench],
+  ["materials", Box],
   ["workshop", Box],
   ["saved", Bookmark],
 ] as const;
@@ -279,7 +216,9 @@ function App() {
         ? "projects"
         : route.page === "path"
           ? "paths"
-          : route.page;
+          : route.page === "material"
+            ? "materials"
+            : route.page;
   const routeCategory =
     route.page === "lesson"
       ? lessons.find((l) => l.id === route.id)?.category
@@ -339,7 +278,10 @@ function App() {
     const project = projects.find(
       (p) => route.page === "project" && p.id === route.id,
     );
-    document.title = `${lesson?.title[lang] || project?.title[lang] || tr(active, lang)} · Workbench`;
+    const material = materialGuides.find(
+      (m) => route.page === "material" && m.id === route.id,
+    );
+    document.title = `${lesson?.title[lang] || project?.title[lang] || material?.name[lang] || tr(active, lang)} · Workbench`;
   }, [lang, route, active]);
   useEffect(() => {
     const sync = (event: StorageEvent) => {
@@ -361,6 +303,16 @@ function App() {
           ? prev[field].filter((x) => x !== id)
           : [...prev[field], id],
       };
+      setStorageError(!writePreferences(next));
+      return next;
+    });
+  };
+  const onMeasurement = (key: string, value: string) => {
+    setPrefs((previous) => {
+      const measurements = { ...previous.measurements };
+      if (value) measurements[key] = value.slice(0, 1000);
+      else delete measurements[key];
+      const next = { ...previous, measurements };
       setStorageError(!writePreferences(next));
       return next;
     });
@@ -578,7 +530,15 @@ function App() {
           ) : route.page === "projects" ? (
             <Projects {...common} />
           ) : route.page === "project" ? (
-            <ProjectPage {...common} id={route.id} />
+            <ProjectPage
+              {...common}
+              id={route.id}
+              onMeasurement={onMeasurement}
+            />
+          ) : route.page === "materials" ? (
+            <MaterialsCatalog {...common} />
+          ) : route.page === "material" ? (
+            <MaterialDetail {...common} id={route.id} />
           ) : route.page === "paths" ? (
             <Paths {...common} />
           ) : route.page === "path" ? (
@@ -768,6 +728,31 @@ function Library(common: Common & { initialCategory: string }) {
           </div>
           <a href="#/path/first-day">
             {txt("Перші кроки", "First steps", lang)}
+            <ArrowRight size={17} />
+          </a>
+        </div>
+      )}
+      {(cat === "materials" || (!cat && !query)) && (
+        <div className="start-note">
+          <Box size={23} />
+          <div>
+            <strong>
+              {txt(
+                "Як обробляти різні матеріали",
+                "Machining different materials",
+                lang,
+              )}
+            </strong>
+            <p>
+              {txt(
+                "9 довідників: інструмент, стружка, поверхня, помилки й практичні вправи з 3D-показом обробки.",
+                "9 guides: tools, chips, surfaces, defects and practical exercises with a 3D cutting walkthrough.",
+                lang,
+              )}
+            </p>
+          </div>
+          <a href="#/materials">
+            {txt("Вибрати матеріал", "Choose material", lang)}
             <ArrowRight size={17} />
           </a>
         </div>
@@ -1521,132 +1506,29 @@ function PathPage(common: Common & { id?: string }) {
   );
 }
 function Projects(common: Common) {
-  const { lang } = common;
-  return (
-    <>
-      <PageHeading
-        eyebrow={txt("Вчіться, створюючи", "LEARN BY MAKING", lang)}
-        title={tr("projectIntro", lang)}
-        description={tr("projectIntroSub", lang)}
-      />
-      <div className="project-grid all-projects">
-        {projects.map((p) => (
-          <ProjectCard key={p.id} project={p} {...common} />
-        ))}
-      </div>
-    </>
-  );
+  return <ProjectsCatalog {...common} />;
 }
-function ProjectPage(common: Common & { id?: string }) {
-  const { lang, prefs, toggle } = common;
-  const p = projects.find((p) => p.id === common.id);
-  if (!p)
+function ProjectPage(
+  common: Common & {
+    id?: string;
+    onMeasurement: (key: string, value: string) => void;
+  },
+) {
+  const project = projects.find((p) => p.id === common.id);
+  if (!project)
     return (
       <Empty
-        lang={lang}
-        title={txt("Проєкт не знайдено", "Project not found", lang)}
+        lang={common.lang}
+        title={txt("Проєкт не знайдено", "Project not found", common.lang)}
         text=""
       />
     );
   return (
-    <>
-      <a className="back-link" href="#/projects">
-        <ArrowLeft size={16} />
-        {tr("projects", lang)}
-      </a>
-      <div className="project-detail-heading">
-        <PageHeading
-          eyebrow={levels[p.level][lang]}
-          title={p.title[lang]}
-          description={p.summary[lang]}
-        />
-        <SaveButton id={p.id} {...common} large />
-      </div>
-      <div className="project-technical-drawing">
-        <ProjectDrawing id={p.id} lang={lang} />
-      </div>
-      <div className="project-detail-grid">
-        <div className="project-detail-model">
-          <Model kind={p.model} lang={lang} />
-        </div>
-        <div className="project-specs">
-          {[
-            ["material", p.material],
-            ["duration", p.duration],
-            ["dimensions", p.dimensions],
-          ].map(([key, value]) => (
-            <div key={key as string}>
-              <span className="eyebrow">{tr(key as string, lang)}</span>
-              <p>{(value as Text)[lang]}</p>
-            </div>
-          ))}
-          <div>
-            <span className="eyebrow">{tr("tools", lang)}</span>
-            <ul>
-              {p.tools.map((t, i) => (
-                <li key={i}>{t[lang]}</li>
-              ))}
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div className="project-process">
-        <Hazards hazards={p.hazards} lang={lang} />
-        <h2 className="process-title">{tr("process", lang)}</h2>
-        {p.steps.map((s, i) => (
-          <section className="instruction-step" key={i}>
-            <div className="step-number">{String(i + 1).padStart(2, "0")}</div>
-            <div>
-              <h2>{s.title[lang]}</h2>
-              <p>{s.body[lang]}</p>
-              {
-                <label
-                  className={`check-row ${prefs.checks.includes(`${p.id}:${i}`) ? "checked" : ""}`}
-                >
-                  <input
-                    type="checkbox"
-                    checked={prefs.checks.includes(`${p.id}:${i}`)}
-                    onChange={() => toggle("checks", `${p.id}:${i}`)}
-                  />
-                  <span>
-                    {s.check?.[lang] ||
-                      txt(
-                        "Я опрацював цей крок",
-                        "I have worked through this step",
-                        lang,
-                      )}
-                  </span>
-                </label>
-              }
-            </div>
-          </section>
-        ))}
-        <div className="takeaways">
-          <h2>
-            <Ruler size={20} />
-            {tr("inspect", lang)}
-          </h2>
-          <ul>
-            {p.inspect.map((t, i) => (
-              <li key={i}>
-                <Check size={16} />
-                <span>{t[lang]}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-        <div className="instructor-note">
-          <ShieldCheck size={20} />
-          <div>
-            <strong>{tr("supervision", lang)}</strong>
-            <p>{tr("supervisionBody", lang)}</p>
-          </div>
-        </div>
-      </div>
+    <ProjectDetail project={project} {...common}>
       <section className="dashboard-section">
-        <SectionHeading title={tr("related", lang)} />
+        <SectionHeading title={tr("related", common.lang)} />
         <div className="lesson-list">
-          {p.lessons
+          {project.lessons
             .map((id) => lessons.find((l) => l.id === id))
             .filter((l): l is Lesson => !!l)
             .map((l) => (
@@ -1654,7 +1536,7 @@ function ProjectPage(common: Common & { id?: string }) {
             ))}
         </div>
       </section>
-    </>
+    </ProjectDetail>
   );
 }
 function Tooling(common: Common) {
@@ -1710,6 +1592,29 @@ function Workshop({ lang }: { lang: Lang }) {
         title={tr("workshopIntro", lang)}
         description={tr("workshopIntroSub", lang)}
       />
+      <div className="start-note">
+        <Layers3 size={23} />
+        <div>
+          <strong>
+            {txt(
+              "Обробка заготовки крок за кроком",
+              "Watch stock become a part",
+              lang,
+            )}
+          </strong>
+          <p>
+            {txt(
+              "Точіння, фрезерування й свердління: інструмент у різі, зняття матеріалу та різниця поверхонь.",
+              "Turning, milling and drilling: tool engagement, material removal and surface comparisons.",
+              lang,
+            )}
+          </p>
+        </div>
+        <a href="#/materials">
+          {txt("Відкрити 3D-процес", "Open the 3D process", lang)}
+          <ArrowRight size={17} />
+        </a>
+      </div>
       <div
         className="model-tabs"
         role="group"
@@ -1781,7 +1686,10 @@ function Workshop({ lang }: { lang: Lang }) {
 function Saved(common: Common) {
   const { lang, prefs } = common;
   const savedLessons = lessons.filter((l) => prefs.saved.includes(l.id)),
-    savedProjects = projects.filter((p) => prefs.saved.includes(p.id));
+    savedProjects = projects.filter((p) => prefs.saved.includes(p.id)),
+    savedMaterials = materialGuides.filter((m) =>
+      prefs.saved.includes(materialBookmark(m)),
+    );
   return (
     <>
       <PageHeading
@@ -1789,7 +1697,9 @@ function Saved(common: Common) {
         title={tr("savedIntro", lang)}
         description={tr("savedIntroSub", lang)}
       />
-      {savedLessons.length === 0 && savedProjects.length === 0 ? (
+      {savedLessons.length === 0 &&
+      savedProjects.length === 0 &&
+      savedMaterials.length === 0 ? (
         <Empty
           lang={lang}
           title={tr("savedEmpty", lang)}
@@ -1805,6 +1715,22 @@ function Saved(common: Common) {
               <div className="lesson-list">
                 {savedLessons.map((l) => (
                   <LessonRow key={l.id} lesson={l} {...common} />
+                ))}
+              </div>
+            </section>
+          )}
+          {savedMaterials.length > 0 && (
+            <section className="dashboard-section">
+              <SectionHeading
+                title={`${tr("materials", lang)} · ${savedMaterials.length}`}
+              />
+              <div className="material-grid">
+                {savedMaterials.map((material) => (
+                  <MaterialCard
+                    key={material.id}
+                    material={material}
+                    {...common}
+                  />
                 ))}
               </div>
             </section>
@@ -1865,6 +1791,7 @@ function Settings({
             ["bookmarks", prefs.saved.length],
             ["completed", prefs.completed.length],
             ["checked", prefs.checks.length],
+            ["measurements", Object.keys(prefs.measurements).length],
           ].map(([key, n]) => (
             <div key={key}>
               <strong>{n}</strong>
@@ -2008,6 +1935,15 @@ function SearchDialog({
         )
         .slice(0, 3)
     : [];
+  const matchingMaterials = q
+    ? materialGuides
+        .filter((m) =>
+          normalize(
+            `${m.name.uk} ${m.name.en} ${m.grades.uk} ${m.grades.en} ${m.summary.uk} ${m.summary.en}`,
+          ).includes(normalize(q)),
+        )
+        .slice(0, 4)
+    : [];
   return (
     <Modal
       label={tr("searchShort", lang)}
@@ -2064,9 +2000,25 @@ function SearchDialog({
             <ArrowUpRight size={18} />
           </a>
         ))}
-        {!matches.length && !matchingProjects.length && (
-          <p className="search-no-results">{tr("noResults", lang)}</p>
-        )}
+        {matchingMaterials.map((m) => (
+          <a href={`#/material/${m.id}`} key={m.id} onClick={onClose}>
+            <span className="search-result-icon blue">
+              <Box size={18} />
+            </span>
+            <span>
+              <strong>{m.name[lang]}</strong>
+              <small>
+                {m.grades[lang]} · {tr("materials", lang)}
+              </small>
+            </span>
+            <ArrowUpRight size={18} />
+          </a>
+        ))}
+        {!matches.length &&
+          !matchingProjects.length &&
+          !matchingMaterials.length && (
+            <p className="search-no-results">{tr("noResults", lang)}</p>
+          )}
       </div>
       <div className="search-dialog-footer">
         <span>{tr("typeSearch", lang)}</span>

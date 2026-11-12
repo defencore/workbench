@@ -1,0 +1,463 @@
+.material-workbench {
+  max-width: 1160px;
+  margin: 0 auto;
+  color: var(--ink);
+}
+.material-workbench section {
+  scroll-margin-top: 95px;
+  margin-bottom: 36px;
+}
+.material-workbench h2 {
+  font-size: 23px;
+  line-height: 1.3;
+  margin: 0 0 18px;
+}
+.material-workbench h3 {
+  font-size: 18px;
+  margin: 22px 0 10px;
+}
+.material-workbench h4 {
+  font-size: 16px;
+  margin: 18px 0 8px;
+}
+.material-workbench p,
+.material-workbench li,
+.material-workbench dd {
+  font-size: 16px;
+  line-height: 1.75;
+}
+.material-workbench ul {
+  padding-left: 22px;
+}
+.material-workbench li + li {
+  margin-top: 9px;
+}
+.material-section-heading {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+.material-section-heading p {
+  margin: 0;
+  color: var(--muted);
+}
+.material-section-heading h2 {
+  margin-bottom: 8px;
+}
+.material-section-heading h2 small {
+  font-size: 14px;
+  color: var(--muted);
+  font-weight: 500;
+}
+.material-section-heading > label:not(.inline-search) {
+  display: grid;
+  gap: 7px;
+  font-size: 13px;
+  min-width: 210px;
+}
+.material-section-heading select {
+  padding: 11px 30px 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: white;
+  color: var(--ink);
+  font: inherit;
+}
+.material-lab-section {
+  padding: 24px;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+}
+.material-lab-section > .text-link {
+  margin-top: 18px;
+}
+.material-lab-loading {
+  height: 420px;
+  background: #f0f4f7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+}
+.material-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+.material-card {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 20px;
+  background: #fff;
+  min-width: 0;
+}
+.material-card:hover {
+  border-color: #8ba8c4;
+}
+.material-card-top {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #536273;
+  font-size: 12px;
+  margin-bottom: 20px;
+}
+.material-card-top > .save-button {
+  margin-left: auto;
+}
+.material-swatch {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  box-shadow:
+    inset -7px -6px 10px #0003,
+    inset 7px 5px 10px #ffffff88;
+  border: 1px solid #0002;
+}
+.material-card > a {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+}
+.material-card h2 {
+  font-size: 21px;
+  margin-bottom: 8px;
+}
+.material-card > a > strong {
+  font-size: 12px;
+  font-weight: 600;
+  color: #536273;
+  display: block;
+}
+.material-card p {
+  font-size: 14px;
+  line-height: 1.65;
+  margin: 12px 0 20px;
+}
+.material-card .text-link {
+  font-size: 13px;
+}
+.material-title {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+  margin-top: 22px;
+}
+.material-title > .save-button {
+  flex-shrink: 0;
+}
+.material-toc {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 30px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--line);
+}
+.material-toc a {
+  padding: 8px 12px;
+  border: 1px solid var(--line);
+  border-radius: 5px;
+  font-size: 13px;
+  background: white;
+  color: #264f73;
+  text-decoration: none;
+}
+.material-detail > section {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 30px;
+}
+.material-two-column {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 32px;
+}
+.material-two-column h3 {
+  margin-top: 0;
+}
+.material-hazards {
+  padding: 6px 22px 12px;
+  background: #fff8eb;
+  border: 1px solid #e5d7bb;
+  border-radius: 7px;
+  margin-top: 22px;
+}
+.material-hazards h3 {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.material-hazards li {
+  font-size: 14px;
+}
+.material-tabs {
+  display: flex;
+  gap: 3px;
+  overflow: auto;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 0;
+}
+.material-tabs button {
+  background: transparent;
+  border: 0;
+  border-bottom: 3px solid transparent;
+  padding: 14px 18px;
+  font: inherit;
+  font-size: 15px;
+  white-space: nowrap;
+  cursor: pointer;
+  color: #536273;
+}
+.material-tabs button[aria-selected="true"] {
+  border-color: #245d8d;
+  color: #174971;
+  font-weight: 700;
+  background: #edf4fa;
+}
+.material-method {
+  margin: 0;
+  background: white;
+  border: 1px solid var(--line);
+  border-top: 0;
+  border-radius: 0 0 7px 7px;
+}
+.material-method > div {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  border-bottom: 1px solid var(--line);
+  gap: 24px;
+  padding: 19px 22px;
+}
+.material-method > div:last-child {
+  border: 0;
+}
+.material-method dt {
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.6;
+}
+.material-method dd {
+  margin: 0;
+}
+.material-method > div:nth-child(5) {
+  background: #eef7f1;
+}
+.material-method > div:last-child {
+  background: #fff9ee;
+}
+.material-exercises details {
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: white;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+.material-exercises summary {
+  padding: 19px 22px;
+  font-weight: 700;
+  font-size: 18px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.material-exercises summary:after {
+  content: "+";
+  margin-left: auto;
+  color: #45627b;
+}
+.material-exercises details[open] > summary {
+  border-bottom: 1px solid var(--line);
+  background: #f2f6fa;
+}
+.material-exercises details[open] > summary:after {
+  content: "−";
+}
+.material-exercises summary > span {
+  font-family: monospace;
+  color: #5a7188;
+  font-size: 15px;
+}
+.material-exercises details > div {
+  padding: 6px 26px 24px;
+}
+.material-exercise-steps {
+  padding-left: 26px;
+}
+.material-exercise-steps > li {
+  padding-left: 8px;
+  margin-bottom: 25px;
+}
+.material-exercise-steps h4 {
+  margin-bottom: 4px;
+}
+.material-exercise-steps p {
+  margin-top: 0;
+}
+.material-check {
+  padding: 10px 14px;
+  border-left: 3px solid #67967a;
+  background: #f1f7f3;
+  font-size: 14px !important;
+}
+.material-expected {
+  border: 1px solid #c6dccb;
+  background: #f3f8f4;
+  border-radius: 6px;
+  padding: 0 20px 8px;
+}
+.material-related {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+.material-related > strong {
+  font-size: 13px;
+  color: var(--muted);
+}
+.material-related a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #245d8d;
+  font-size: 15px;
+}
+.material-defects {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 30px;
+}
+.material-defects details {
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  align-self: start;
+  background: white;
+}
+.material-defects summary {
+  padding: 16px 18px;
+  cursor: pointer;
+  font-weight: 600;
+  line-height: 1.5;
+}
+.material-defects dl {
+  padding: 0 18px 4px;
+  margin: 0;
+}
+.material-defects dt {
+  font-size: 12px;
+  color: #8a5b2a;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+.material-defects dd {
+  margin: 0 0 18px;
+  font-size: 14px;
+}
+.material-sources > a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  text-decoration: none;
+  color: #536273;
+  font-size: 12px;
+}
+.material-sources strong {
+  display: block;
+  color: #245d8d;
+  font-size: 14px;
+  margin-top: 4px;
+}
+@media (max-width: 1150px) {
+  .material-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 650px) {
+  .material-grid,
+  .material-two-column,
+  .material-defects {
+    grid-template-columns: 1fr;
+  }
+  .material-section-heading {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 14px;
+  }
+  .material-lab-section {
+    padding: 15px;
+  }
+  .material-title .page-heading h1 {
+    font-size: 30px;
+  }
+  .material-method > div {
+    grid-template-columns: 1fr;
+    gap: 7px;
+    padding: 16px;
+  }
+  .material-workbench p,
+  .material-workbench li,
+  .material-workbench dd {
+    font-size: 15px;
+  }
+  .material-exercises summary {
+    font-size: 16px;
+    padding: 16px;
+  }
+  .material-exercises details > div {
+    padding: 4px 16px 18px;
+  }
+  .material-two-column {
+    gap: 14px;
+  }
+  .material-toc {
+    gap: 6px;
+  }
+  .material-toc a {
+    font-size: 12px;
+    padding: 7px 9px;
+  }
+}
+@media print {
+  .material-toc,
+  .material-tabs,
+  .material-title > .save-button {
+    display: none;
+  }
+  .material-two-column {
+    grid-template-columns: 1fr 1fr;
+  }
+  .material-workbench details {
+    break-inside: avoid;
+  }
+  .material-workbench p,
+  .material-workbench li,
+  .material-workbench dd {
+    font-size: 10pt;
+  }
+  .material-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.material-grade {
+  padding: 16px 20px;
+  border: 1px solid #d7e3ee;
+  background: #f3f7fb;
+  border-radius: 6px;
+  margin: 0 0 24px;
+}
+.material-workbench .machining-lab p,
+.material-workbench .machining-lab dd {
+  font-size: 14px;
+  line-height: 1.65;
+}
+.material-workbench .machining-lab .machining-lab__caption {
+  font-size: 12px;
+  line-height: 1.65;
+}

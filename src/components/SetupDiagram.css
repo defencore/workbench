@@ -1,0 +1,189 @@
+.setup-diagram {
+  margin: 24px 0;
+  border: 1px solid #d5dfec;
+  background: #fff;
+  border-radius: 5px;
+  overflow: hidden;
+  min-width: 0;
+}
+.setup-diagram-heading {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 15px;
+  padding: 15px 19px;
+  background: #f7f9fc;
+  border-bottom: 1px solid #e1e7f0;
+  font-size: 12px;
+  line-height: 1.8;
+  color: #7489a5;
+}
+.setup-diagram-heading strong {
+  font-size: 13px;
+  font-weight: 600;
+  color: #3d5e8a;
+}
+.setup-diagram-viewport {
+  overflow: auto;
+  overscroll-behavior-x: contain;
+}
+.setup-diagram-viewport:focus-visible {
+  outline: 2px solid #2457d6;
+  outline-offset: -3px;
+}
+.setup-diagram-viewport > svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  min-width: 620px;
+  max-height: 430px;
+}
+.setup-diagram svg text {
+  font-family: inherit;
+  fill: #526d90;
+  font-size: 15px;
+  letter-spacing: 0;
+}
+.setup-diagram svg .setup-small-label {
+  font-size: 17px;
+  font-weight: 550;
+  fill: #415e82;
+}
+.setup-diagram svg .setup-orientation-label {
+  font-size: 15px;
+  fill: #6883a6;
+}
+.setup-diagram svg .setup-note {
+  font-size: 13px;
+  fill: #7791b2;
+}
+.setup-center {
+  fill: none;
+  stroke: #8fa0b7;
+  stroke-width: 1;
+  stroke-dasharray: 13 5 3 5;
+}
+.setup-hidden {
+  fill: none;
+  stroke: #7c94b5;
+  stroke-width: 1.3;
+  stroke-dasharray: 6 4;
+}
+.setup-contact-line {
+  stroke: #6489ba;
+  stroke-width: 1.2;
+  stroke-dasharray: 5 4;
+}
+.setup-arrow path {
+  fill: none;
+  stroke: #2457d6;
+  stroke-width: 1.7;
+}
+.setup-diagram svg .setup-arrow text {
+  font-size: 13px;
+  fill: #2457d6;
+}
+.setup-datum circle {
+  fill: #fff;
+  stroke: #41689f;
+  stroke-width: 1.4;
+}
+.setup-diagram svg .setup-datum text {
+  font-size: 14px;
+  fill: #315c98;
+  font-weight: 600;
+}
+.setup-diagram > figcaption {
+  border-top: 1px solid #e0e8f2;
+  padding: 19px;
+  background: #fafcfe;
+}
+.setup-diagram > figcaption > strong {
+  font-size: 14px;
+  font-weight: 550;
+  color: #4b6e9e;
+  line-height: 1.9;
+  display: block;
+}
+.setup-diagram > figcaption > p {
+  font-size: 13px !important;
+  line-height: 1.95 !important;
+  color: #6a83a5 !important;
+  margin: 9px 0 0 !important;
+  max-width: none !important;
+}
+.setup-fixture-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px 17px;
+  margin-top: 14px;
+}
+.setup-fixture-links > a {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  font-size: 12px;
+  line-height: 1.8;
+  color: #5c7cad;
+}
+.setup-fixture-links > a:hover {
+  color: #2457d6;
+}
+.setup-fixture-links > a > span {
+  font-size: 10px;
+  font-weight: 600;
+  background: #eaf1fd;
+  border: 1px solid #d8e4f6;
+  padding: 1px 5px;
+  border-radius: 3px;
+  color: #4d72a7;
+  white-space: nowrap;
+}
+.setup-diagram > figcaption > small {
+  display: block;
+  font-size: 11px;
+  line-height: 1.9;
+  color: #8497b2;
+  margin-top: 15px;
+}
+@media (max-width: 600px) {
+  .setup-diagram-heading {
+    padding: 14px 16px;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .setup-diagram > figcaption {
+    padding: 17px 16px;
+  }
+  .setup-diagram > figcaption > strong {
+    font-size: 14px;
+  }
+  .setup-diagram-viewport > svg {
+    min-width: 620px;
+  }
+  .setup-diagram > figcaption > p {
+    font-size: 13px !important;
+  }
+}
+@media print {
+  .setup-diagram {
+    break-inside: avoid-page;
+  }
+  .setup-diagram-viewport {
+    overflow: visible;
+  }
+  .setup-diagram-viewport > svg {
+    min-width: 0;
+    max-height: none;
+  }
+  .setup-diagram-heading,
+  .setup-diagram > figcaption {
+    background: #fff;
+  }
+}
+.setup-nominal-envelope polygon {
+  stroke: #3d6087;
+  stroke-width: 1.6;
+  stroke-dasharray: 8 3;
+}
